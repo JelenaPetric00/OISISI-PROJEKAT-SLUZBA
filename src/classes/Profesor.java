@@ -8,7 +8,7 @@ public class Profesor {
 	private String prezime;
 	private String ime;
 	private LocalDate datumRodjenja;
-	private String adresaStanovanja;
+	private Adresa adresaStanovanja;
 	private String kontaktTelefon;
 	private String email;
     private String adresaKancelarije;
@@ -21,7 +21,7 @@ public class Profesor {
     
     
 
-	public Profesor(String prezime, String ime, LocalDate datumRodjenja, String adresaStanovanja, String kontaktTelefon,
+	public Profesor(String prezime, String ime, LocalDate datumRodjenja, Adresa adresaStanovanja, String kontaktTelefon,
 			String email, String adresaKancelarije, String brojlicne, String zvanje, short godineStaza,
 			ArrayList<Predmet> spisakDrziPredmet) {
 		
@@ -64,11 +64,11 @@ public class Profesor {
 		this.datumRodjenja = datumRodjenja;
 	}
 
-	public String getAdresaStanovanja() {
+	public Adresa getAdresaStanovanja() {
 		return adresaStanovanja;
 	}
 
-	public void setAdresaStanovanja(String adresaStanovanja) {
+	public void setAdresaStanovanja(Adresa adresaStanovanja) {
 		this.adresaStanovanja = adresaStanovanja;
 	}
 

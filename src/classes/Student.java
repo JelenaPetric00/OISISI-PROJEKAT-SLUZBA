@@ -8,7 +8,7 @@ public class Student {
 	private String ime;
 	private String prezime;
 	private LocalDate datumRodjenja;
-	private String adresa;
+	private Adresa adresa;
 	private String telefon;
 	private String email;
 	private String brojIndeksa;
@@ -24,7 +24,7 @@ public class Student {
 	
 	public Student() {}
 	
-	public Student(String ime, String prezime, LocalDate datumRodjenja, String adresa, String telefon, String email,
+	public Student(String ime, String prezime, LocalDate datumRodjenja, Adresa adresa, String telefon, String email,
 			String brojIndeksa, short godinaUpisa, byte trenutnaGodinaStudija, Status status, float prosecnaOcena,
 			ArrayList<Ocena> spisakPolozenih, ArrayList<Predmet> spisakNepolozenih) {
 		
@@ -67,11 +67,11 @@ public class Student {
 		this.datumRodjenja = datumRodjenja;
 	}
 
-	public String getAdresa() {
+	public Adresa getAdresa() {
 		return adresa;
 	}
 
-	public void setAdresa(String adresa) {
+	public void setAdresa(Adresa adresa) {
 		this.adresa = adresa;
 	}
 
