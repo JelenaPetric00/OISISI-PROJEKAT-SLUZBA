@@ -1,25 +1,33 @@
 package main;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+public class MainWindow extends JFrame{
 
-public class MainWindow {
-
-	private JFrame window;
+	Toolbar toolbar;
 	
 	public MainWindow() {
-		window = new JFrame();
-		window.setTitle("Studentska sluzba");
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		setTitle("Studentska sluzba");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.LIGHT_GRAY);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		window.setSize((int)(0.75 * screenSize.width),(int)(0.75 * screenSize.height));
-		window.setLocationRelativeTo(null);	//center
+		setSize((int)(0.75 * screenSize.width),(int)(0.75 * screenSize.height));
+		
+		setLocationRelativeTo(null);	//center
+		
+		Image img = Toolkit.getDefaultToolkit().getImage("icons/icon.webp");
+		setIconImage(img);
+	
+		Toolbar tbar = new Toolbar();
+		add(tbar, BorderLayout.NORTH);
 	}
 	
-	public void show() {
-		window.setVisible(true);
-	}
 }
