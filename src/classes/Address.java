@@ -2,51 +2,51 @@ package classes;
 
 public class Address {
 	
-	private String ulica;
-	private int broj;
-	private String grad;
-	private String drzava;
+	private String street;
+	private int streetNumber;
+	private String town;
+	private String country;
 	
 	public Address() {}
 
-	public Address(String ulica, int broj, String grad, String drzava) {
+	public Address(String street, int streetNumber, String town, String country) {
 		
-		this.ulica = ulica;
-		this.broj = broj;
-		this.grad = grad;
-		this.drzava = drzava;
+		this.street = street;
+		this.streetNumber = streetNumber;
+		this.town = town;
+		this.country = country;
 	}
 
-	public String getUlica() {
-		return ulica;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setUlica(String ulica) {
-		this.ulica = ulica;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
-	public int getBroj() {
-		return broj;
+	public int getStreetNumber() {
+		return streetNumber;
 	}
 
-	public void setBroj(int broj) {
-		this.broj = broj;
+	public void setStreetNumber(int streetNumber) {
+		this.streetNumber = streetNumber;
 	}
 
-	public String getGrad() {
-		return grad;
+	public String getTown() {
+		return town;
 	}
 
-	public void setGrad(String grad) {
-		this.grad = grad;
+	public void setTown(String town) {
+		this.town = town;
 	}
 
-	public String getDrzava() {
-		return drzava;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setDrzava(String drzava) {
-		this.drzava = drzava;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 	

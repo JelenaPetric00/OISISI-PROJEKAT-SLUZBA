@@ -5,79 +5,79 @@ import java.util.ArrayList;
 
 public class Professor {
 	
-	private String prezime;
-	private String ime;
-	private LocalDate datumRodjenja;
-	private Address adresaStanovanja;
-	private String kontaktTelefon;
+	private String surname;
+	private String name;
+	private LocalDate dateOfBirth;
+	private Address residentialAddress;
+	private String contactPhone;
 	private String email;
-    private String adresaKancelarije;
-    private String brojlicne;
-    private String zvanje;
-    private short godineStaza;
-    private ArrayList<Subject> spisakDrziPredmet;
+    private String officeAddress;
+    private String idNumber;
+    private String title;
+    private short yearsOfTrail;
+    private ArrayList<Subject> teachSubjects;
     
     public Professor() {}
     
     
 
-	public Professor(String prezime, String ime, LocalDate datumRodjenja, Address adresaStanovanja, String kontaktTelefon,
-			String email, String adresaKancelarije, String brojlicne, String zvanje, short godineStaza,
-			ArrayList<Subject> spisakDrziPredmet) {
+	public Professor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone,
+			String email, String officeAddress, String idNumber, String title, short yearsOfTrail,
+			ArrayList<Subject> teachSubjects) {
 		
-		this.prezime = prezime;
-		this.ime = ime;
-		this.datumRodjenja = datumRodjenja;
-		this.adresaStanovanja = adresaStanovanja;
-		this.kontaktTelefon = kontaktTelefon;
+		this.surname = surname;
+		this.name = name;
+		this.dateOfBirth = dateOfBirth;
+		this.residentialAddress = residentialAddress;
+		this.contactPhone = contactPhone;
 		this.email = email;
-		this.adresaKancelarije = adresaKancelarije;
-		this.brojlicne = brojlicne;
-		this.zvanje = zvanje;
-		this.godineStaza = godineStaza;
-		this.spisakDrziPredmet = spisakDrziPredmet;
+		this.officeAddress = officeAddress;
+		this.idNumber = idNumber;
+		this.title = title;
+		this.yearsOfTrail = yearsOfTrail;
+		this.teachSubjects = teachSubjects;
 	}
 
 
 
-	public String getPrezime() {
-		return prezime;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
-	public String getIme() {
-		return ime;
+	public String getName() {
+		return name;
 	}
 
-	public void setIme(String ime) {
-		this.ime = ime;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public LocalDate getDatumRodjenja() {
-		return datumRodjenja;
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDatumRodjenja(LocalDate datumRodjenja) {
-		this.datumRodjenja = datumRodjenja;
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Address getAdresaStanovanja() {
-		return adresaStanovanja;
+	public Address getResidentialAddress() {
+		return residentialAddress;
 	}
 
-	public void setAdresaStanovanja(Address adresaStanovanja) {
-		this.adresaStanovanja = adresaStanovanja;
+	public void setResidentialAddress(Address residentialAddress) {
+		this.residentialAddress = residentialAddress;
 	}
 
-	public String getKontaktTelefon() {
-		return kontaktTelefon;
+	public String getContactPhone() {
+		return contactPhone;
 	}
 
-	public void setKontaktTelefon(String kontaktTelefon) {
-		this.kontaktTelefon = kontaktTelefon;
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
 	}
 
 	public String getEmail() {
@@ -88,44 +88,44 @@ public class Professor {
 		this.email = email;
 	}
 
-	public String getAdresaKancelarije() {
-		return adresaKancelarije;
+	public String getOfficeAddress() {
+		return officeAddress;
 	}
 
-	public void setAdresaKancelarije(String adresaKancelarije) {
-		this.adresaKancelarije = adresaKancelarije;
+	public void setOfficeAddress(String officeAddress) {
+		this.officeAddress = officeAddress;
 	}
 
-	public String getBrojlicne() {
-		return brojlicne;
+	public String getIdNumber() {
+		return idNumber;
 	}
 
-	public void setBrojlicne(String brojlicne) {
-		this.brojlicne = brojlicne;
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
-	public String getZvanje() {
-		return zvanje;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setZvanje(String zvanje) {
-		this.zvanje = zvanje;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public short getGodineStaza() {
-		return godineStaza;
+	public short getYearsOfTrail() {
+		return yearsOfTrail;
 	}
 
-	public void setGodineStaza(short godineStaza) {
-		this.godineStaza = godineStaza;
+	public void setYearsOfTrail(short yearsOfTrail) {
+		this.yearsOfTrail = yearsOfTrail;
 	}
 
-	public ArrayList<Subject> getSpisakDrziPredmet() {
-		return spisakDrziPredmet;
+	public ArrayList<Subject> getTeachSubjects() {
+		return teachSubjects;
 	}
 
-	public void setSpisakDrziPredmet(ArrayList<Subject> spisakDrziPredmet) {
-		this.spisakDrziPredmet = spisakDrziPredmet;
+	public void setTeachSubjects(ArrayList<Subject> teachSubjects) {
+		this.teachSubjects = teachSubjects;
 	}
     
     
