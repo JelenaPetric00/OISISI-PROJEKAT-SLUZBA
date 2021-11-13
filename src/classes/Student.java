@@ -5,82 +5,82 @@ import java.util.ArrayList;
 
 public class Student {
 	
-	private String ime;
-	private String prezime;
-	private LocalDate datumRodjenja;
-	private Adresa adresa;
-	private String telefon;
+	private String name;
+	private String surname;
+	private LocalDate dateOfBirth;
+	private Address address;
+	private String phoneNumber;
 	private String email;
-	private String brojIndeksa;
-	private short godinaUpisa;
-	private byte trenutnaGodinaStudija;
-	private Status status;
-	private float prosecnaOcena;
-	private ArrayList<Ocena> spisakPolozenih;
-	private ArrayList<Predmet> spisakNepolozenih;
+	private String idNumber;
+	private short yearOfEnrollment;
+	private byte yearOfStudy;
+	private MethodOfFinancing methodOfFinancing;
+	private float avgGrade;
+	private ArrayList<Grade> gradesPassedSubjects;
+	private ArrayList<Subject> remainingSubjects;
 	
-	public enum Status  {B, S}
+	public enum MethodOfFinancing  {B, S}
 
 	
 	public Student() {}
 	
-	public Student(String ime, String prezime, LocalDate datumRodjenja, Adresa adresa, String telefon, String email,
-			String brojIndeksa, short godinaUpisa, byte trenutnaGodinaStudija, Status status, float prosecnaOcena,
-			ArrayList<Ocena> spisakPolozenih, ArrayList<Predmet> spisakNepolozenih) {
+	public Student(String name, String surname, LocalDate dateOfBirth, Address address, String phoneNumber, String email,
+			String idNumber, short yearOfEnrollment, byte yearOfStudy, MethodOfFinancing methodOfFinancing, float avgGrade,
+			ArrayList<Grade> gradesPassedSubjects, ArrayList<Subject> remainingSubjects) {
 		
-		this.ime = ime;
-		this.prezime = prezime;
-		this.datumRodjenja = datumRodjenja;
-		this.adresa = adresa;
-		this.telefon = telefon;
+		this.name = name;
+		this.surname = surname;
+		this.dateOfBirth = dateOfBirth;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.brojIndeksa = brojIndeksa;
-		this.godinaUpisa = godinaUpisa;
-		this.trenutnaGodinaStudija = trenutnaGodinaStudija;
-		this.status = status;
-		this.prosecnaOcena = prosecnaOcena;
-		this.spisakPolozenih = spisakPolozenih;
-		this.spisakNepolozenih = spisakNepolozenih;
+		this.idNumber = idNumber;
+		this.yearOfEnrollment = yearOfEnrollment;
+		this.yearOfStudy = yearOfStudy;
+		this.methodOfFinancing = methodOfFinancing;
+		this.avgGrade = avgGrade;
+		this.gradesPassedSubjects = gradesPassedSubjects;
+		this.remainingSubjects = remainingSubjects;
 	}
 
-	public String getIme() {
-		return ime;
+	public String getname() {
+		return name;
 	}
 
-	public void setIme(String ime) {
-		this.ime = ime;
+	public void setname(String name) {
+		this.name = name;
 	}
 
-	public String getPrezime() {
-		return prezime;
+	public String getsurname() {
+		return surname;
 	}
 
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+	public void setsurname(String surname) {
+		this.surname = surname;
 	}
 
-	public LocalDate getDatumRodjenja() {
-		return datumRodjenja;
+	public LocalDate getdateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDatumRodjenja(LocalDate datumRodjenja) {
-		this.datumRodjenja = datumRodjenja;
+	public void setdateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Adresa getAdresa() {
-		return adresa;
+	public Address getaddress() {
+		return address;
 	}
 
-	public void setAdresa(Adresa adresa) {
-		this.adresa = adresa;
+	public void setaddress(Address address) {
+		this.address = address;
 	}
 
-	public String getTelefon() {
-		return telefon;
+	public String getphoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setTelefon(String telefon) {
-		this.telefon = telefon;
+	public void setphoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getEmail() {
@@ -91,60 +91,60 @@ public class Student {
 		this.email = email;
 	}
 
-	public String getBrojIndeksa() {
-		return brojIndeksa;
+	public String getidNumber() {
+		return idNumber;
 	}
 
-	public void setBrojIndeksa(String brojIndeksa) {
-		this.brojIndeksa = brojIndeksa;
+	public void setidNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 
-	public short getGodinaUpisa() {
-		return godinaUpisa;
+	public short getyearOfEnrollment() {
+		return yearOfEnrollment;
 	}
 
-	public void setGodinaUpisa(short godinaUpisa) {
-		this.godinaUpisa = godinaUpisa;
+	public void setyearOfEnrollment(short yearOfEnrollment) {
+		this.yearOfEnrollment = yearOfEnrollment;
 	}
 
-	public byte getTrenutnaGodinaStudija() {
-		return trenutnaGodinaStudija;
+	public byte getyearOfStudy() {
+		return yearOfStudy;
 	}
 
-	public void setTrenutnaGodinaStudija(byte trenutnaGodinaStudija) {
-		this.trenutnaGodinaStudija = trenutnaGodinaStudija;
+	public void setyearOfStudy(byte yearOfStudy) {
+		this.yearOfStudy = yearOfStudy;
 	}
 
-	public Status getStatus() {
-		return status;
+	public MethodOfFinancing getmethodOfFinancing() {
+		return methodOfFinancing;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setmethodOfFinancing(MethodOfFinancing methodOfFinancing) {
+		this.methodOfFinancing = methodOfFinancing;
 	}
 
-	public float getProsecnaOcena() {
-		return prosecnaOcena;
+	public float getavgGrade() {
+		return avgGrade;
 	}
 
-	public void setProsecnaOcena(float prosecnaOcena) {
-		this.prosecnaOcena = prosecnaOcena;
+	public void setavgGrade(float avgGrade) {
+		this.avgGrade = avgGrade;
 	}
 
-	public ArrayList<Ocena> getSpisakPolozenih() {
-		return spisakPolozenih;
+	public ArrayList<Grade> getgradesPassedSubjects() {
+		return gradesPassedSubjects;
 	}
 
-	public void setSpisakPolozenih(ArrayList<Ocena> spisakPolozenih) {
-		this.spisakPolozenih = spisakPolozenih;
+	public void setgradesPassedSubjects(ArrayList<Grade> gradesPassedSubjects) {
+		this.gradesPassedSubjects = gradesPassedSubjects;
 	}
 
-	public ArrayList<Predmet> getSpisakNepolozenih() {
-		return spisakNepolozenih;
+	public ArrayList<Subject> getremainingSubjects() {
+		return remainingSubjects;
 	}
 
-	public void setSpisakNepolozenih(ArrayList<Predmet> spisakNepolozenih) {
-		this.spisakNepolozenih = spisakNepolozenih;
+	public void setremainingSubjects(ArrayList<Subject> remainingSubjects) {
+		this.remainingSubjects = remainingSubjects;
 	};
 	
 	

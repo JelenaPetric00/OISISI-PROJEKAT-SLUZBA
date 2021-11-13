@@ -6,12 +6,12 @@ public class Katedra {
 	
 	private String sifraKatedre;
 	private String nazivKatedre;
-	private Profesor sefKatedre;
-	private ArrayList<Profesor> predavaci;
+	private Professor sefKatedre;
+	private ArrayList<Professor> predavaci;
 	
 	public Katedra() {}
 
-	public Katedra(String sifraKatedre, String nazivKatedre, Profesor sefKatedre, ArrayList<Profesor> predavaci) {
+	public Katedra(String sifraKatedre, String nazivKatedre, Professor sefKatedre, ArrayList<Professor> predavaci) {
 		super();
 		this.sifraKatedre = sifraKatedre;
 		this.nazivKatedre = nazivKatedre;
@@ -35,19 +35,19 @@ public class Katedra {
 		this.nazivKatedre = nazivKatedre;
 	}
 
-	public Profesor getSefKatedre() {
+	public Professor getSefKatedre() {
 		return sefKatedre;
 	}
 
-	public void setSefKatedre(Profesor sefKatedre) {
+	public void setSefKatedre(Professor sefKatedre) {
 		this.sefKatedre = sefKatedre;
 	}
 
-	public ArrayList<Profesor> getPredavaci() {
+	public ArrayList<Professor> getPredavaci() {
 		return predavaci;
 	}
 
-	public void setPredavaci(ArrayList<Profesor> predavaci) {
+	public void setPredavaci(ArrayList<Professor> predavaci) {
 		this.predavaci = predavaci;
 	}
 

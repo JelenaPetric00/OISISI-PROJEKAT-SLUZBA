@@ -1,15 +1,15 @@
 package classes;
 
-public class Adresa {
+public class Address {
 	
 	private String ulica;
 	private int broj;
 	private String grad;
 	private String drzava;
 	
-	public Adresa() {}
+	public Address() {}
 
-	public Adresa(String ulica, int broj, String grad, String drzava) {
+	public Address(String ulica, int broj, String grad, String drzava) {
 		
 		this.ulica = ulica;
 		this.broj = broj;

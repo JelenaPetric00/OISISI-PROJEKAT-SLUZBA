@@ -3,27 +3,27 @@ package classes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Profesor {
+public class Professor {
 	
 	private String prezime;
 	private String ime;
 	private LocalDate datumRodjenja;
-	private Adresa adresaStanovanja;
+	private Address adresaStanovanja;
 	private String kontaktTelefon;
 	private String email;
     private String adresaKancelarije;
     private String brojlicne;
     private String zvanje;
     private short godineStaza;
-    private ArrayList<Predmet> spisakDrziPredmet;
+    private ArrayList<Subject> spisakDrziPredmet;
     
-    public Profesor() {}
+    public Professor() {}
     
     
 
-	public Profesor(String prezime, String ime, LocalDate datumRodjenja, Adresa adresaStanovanja, String kontaktTelefon,
+	public Professor(String prezime, String ime, LocalDate datumRodjenja, Address adresaStanovanja, String kontaktTelefon,
 			String email, String adresaKancelarije, String brojlicne, String zvanje, short godineStaza,
-			ArrayList<Predmet> spisakDrziPredmet) {
+			ArrayList<Subject> spisakDrziPredmet) {
 		
 		this.prezime = prezime;
 		this.ime = ime;
@@ -64,11 +64,11 @@ public class Profesor {
 		this.datumRodjenja = datumRodjenja;
 	}
 
-	public Adresa getAdresaStanovanja() {
+	public Address getAdresaStanovanja() {
 		return adresaStanovanja;
 	}
 
-	public void setAdresaStanovanja(Adresa adresaStanovanja) {
+	public void setAdresaStanovanja(Address adresaStanovanja) {
 		this.adresaStanovanja = adresaStanovanja;
 	}
 
@@ -120,11 +120,11 @@ public class Profesor {
 		this.godineStaza = godineStaza;
 	}
 
-	public ArrayList<Predmet> getSpisakDrziPredmet() {
+	public ArrayList<Subject> getSpisakDrziPredmet() {
 		return spisakDrziPredmet;
 	}
 
-	public void setSpisakDrziPredmet(ArrayList<Predmet> spisakDrziPredmet) {
+	public void setSpisakDrziPredmet(ArrayList<Subject> spisakDrziPredmet) {
 		this.spisakDrziPredmet = spisakDrziPredmet;
 	}
     
