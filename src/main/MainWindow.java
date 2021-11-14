@@ -25,6 +25,9 @@ public class MainWindow extends JFrame{
 		
 		Image img = Toolkit.getDefaultToolkit().getImage("icons/icon.webp");
 		setIconImage(img);
+		
+		MenuBar menu = new MenuBar();
+		setJMenuBar(menu);
 	
 		Toolbar tbar = new Toolbar();
 		add(tbar, BorderLayout.NORTH);
