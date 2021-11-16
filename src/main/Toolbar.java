@@ -28,7 +28,7 @@ public class Toolbar extends JToolBar{
 		public ToolbarButton(String hint, String location) {
 			super();
 			setToolTipText(hint);
-			setIcon(new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
+			setIcon(new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH)));
 			setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 			
 			//https://www.codegrepper.com/code-examples/java/resizing+ImageIcon+in+JButton+java
@@ -55,7 +55,7 @@ public class Toolbar extends JToolBar{
 		add(Box.createHorizontalGlue());		//maintaining preferred size of textfield
 		
 		JTextField textFld = new JTextField();
-    	textFld.setPreferredSize(new Dimension(170, 35));
+    	textFld.setPreferredSize(new Dimension(100, 25));
     	rightPanel.add(textFld);
 		
 		ToolbarButton btnSrc = new ToolbarButton("Search", "icons/search.png");
