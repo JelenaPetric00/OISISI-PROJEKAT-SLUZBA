@@ -1,4 +1,4 @@
-package classes;
+package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Professor {
 	private Address residentialAddress;
 	private String contactPhone;
 	private String email;
-    private String officeAddress;
+    private Address officeAddress; //
     private String idNumber;
     private String title;
     private short yearsOfTrail;
@@ -22,7 +22,7 @@ public class Professor {
     
 
 	public Professor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone,
-			String email, String officeAddress, String idNumber, String title, short yearsOfTrail,
+			String email, Address officeAddress, String idNumber, String title, short yearsOfTrail,
 			ArrayList<Subject> teachSubjects) {
 		
 		this.surname = surname;
@@ -88,11 +88,11 @@ public class Professor {
 		this.email = email;
 	}
 
-	public String getOfficeAddress() {
+	public Address getOfficeAddress() {
 		return officeAddress;
 	}
 
-	public void setOfficeAddress(String officeAddress) {
+	public void setOfficeAddress(Address officeAddress) {
 		this.officeAddress = officeAddress;
 	}
 

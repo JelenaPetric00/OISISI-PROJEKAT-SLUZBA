@@ -1,15 +1,15 @@
-package classes;
+package model;
 
 public class Address {
 	
 	private String street;
-	private int streetNumber;
+	private String streetNumber; //
 	private String town;
 	private String country;
 	
 	public Address() {}
 
-	public Address(String street, int streetNumber, String town, String country) {
+	public Address(String street, String streetNumber, String town, String country) {
 		
 		this.street = street;
 		this.streetNumber = streetNumber;
@@ -25,11 +25,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public int getStreetNumber() {
+	public String getStreetNumber() {
 		return streetNumber;
 	}
 
-	public void setStreetNumber(int streetNumber) {
+	public void setStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
 	}
 
