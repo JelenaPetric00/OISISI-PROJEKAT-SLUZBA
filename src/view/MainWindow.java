@@ -26,10 +26,10 @@ public class MainWindow extends JFrame{
 		Image img = Toolkit.getDefaultToolkit().getImage("icons/icon.webp");
 		setIconImage(img);
 		
-		MenuBar menu = new MenuBar();
+		MenuBar menu = new MenuBar(this);
 		setJMenuBar(menu);
 	
-		Toolbar tbar = new Toolbar();
+		Toolbar tbar = new Toolbar(this);
 		add(tbar, BorderLayout.NORTH);
 		
 		StatusBar status = new StatusBar();
