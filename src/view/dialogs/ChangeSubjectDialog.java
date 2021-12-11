@@ -16,7 +16,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 	public ChangeSubjectDialog(Frame parent) {
 		super(parent, "Change subject", true);
 		
-		setSize(450, 350);
+		setSize(460, 370);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());

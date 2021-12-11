@@ -53,16 +53,6 @@ public class MyFocusListener implements FocusListener{
 			txt.setForeground(Color.BLACK);
 		}
 		
-		if (txt.getName().equals("txtPrezime")) {
-
-			if (txt.getText().trim().equals("") || txt.getText().trim().equals("Unesite prezime...")) {
-				txt.setText("Unesite prezime...");
-				txt.requestFocus();
-				txt.setForeground(Color.RED);
-			} else {
-				txt.setForeground(Color.BLACK);
-			}
-		}
 	}
 
 }

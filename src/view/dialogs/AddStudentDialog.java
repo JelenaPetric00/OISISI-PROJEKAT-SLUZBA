@@ -97,7 +97,7 @@ public class AddStudentDialog extends JDialog{
 	public AddStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 
-		setSize(400, 470);
+		setSize(430, 500);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
