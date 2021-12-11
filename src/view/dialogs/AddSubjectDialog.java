@@ -21,7 +21,7 @@ public class AddSubjectDialog extends AddStudentDialog {
 	public AddSubjectDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
-		setSize(400, 320);
+		setSize(430, 350);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());

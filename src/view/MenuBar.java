@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -10,9 +11,18 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import view.dialogs.AddProfessorDialog;
+import view.dialogs.ChangeProfessorDialog;
+import view.dialogs.DeleteProfessorDialog;
+import view.dialogs.DeleteSubjectDialog;
+
 public class MenuBar extends JMenuBar {
 	
+	private JFrame parent = null;
+	
 	public MenuBar(final JFrame parent){
+		
+		this.parent = parent;
 		
 		JMenu fileMenu = new JMenu("File");
 		
@@ -35,6 +45,17 @@ public class MenuBar extends JMenuBar {
 		 JMenuItem miProfessors = new JMenuItem("Profesori");
 		 ImageIcon professorIcon = new ImageIcon(new ImageIcon("icons/professor.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miProfessors.setIcon(professorIcon);
+		 
+		 miProfessors.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AddProfessorDialog prof = new AddProfessorDialog(parent, "Profesor", true);
+					prof.setVisible(true);
+				}
+	    	
+	    	});
+		 
 		 JMenuItem miDesks = new JMenuItem("Katedre");
 		 ImageIcon desksIcon = new ImageIcon(new ImageIcon("icons/desks.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miDesks.setIcon(desksIcon);
@@ -42,6 +63,15 @@ public class MenuBar extends JMenuBar {
 		JMenuItem closeItem = new JMenuItem("Close");
 		ImageIcon closeIcon = new ImageIcon(new ImageIcon("icons/close.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		closeItem.setIcon(closeIcon);
+		
+		 closeItem.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+	    	
+	    	});
 		
 		openItem.add(miStudents);
 		openItem.add(miSubjects);
@@ -61,9 +91,30 @@ public class MenuBar extends JMenuBar {
 		JMenuItem editItem = new JMenuItem("Edit");
 		ImageIcon editIcon = new ImageIcon(new ImageIcon("icons/mEdit.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		editItem.setIcon(editIcon);
+		
+		 editItem.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ChangeProfessorDialog prof = new ChangeProfessorDialog(parent, "Change professor", true);
+					prof.setVisible(true);
+				}
+	    	
+	    	});
+		
 		JMenuItem deleteItem = new JMenuItem("Delete");
 		ImageIcon deleteIcon = new ImageIcon(new ImageIcon("icons/mDelete.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		deleteItem.setIcon(deleteIcon);
+		
+		deleteItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DeleteProfessorDialog prof = new DeleteProfessorDialog(parent, "Delete subject", true);
+				prof.setVisible(true);
+			}
+    	
+    	});
 		
 		editMenu.add(editItem);
 		editMenu.add(deleteItem);
