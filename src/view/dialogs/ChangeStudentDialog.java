@@ -15,6 +15,11 @@ import javax.swing.SpinnerNumberModel;
 
 public class ChangeStudentDialog extends AddStudentDialog{
 	
+	/*
+	 * CONSTRUCTOR 
+	 *ChangeStudentDialog dialog = new ChangeStudentDialog(parent, "Change student", true);	//Modalni jer je modal true
+ 	*dialog.setVisible(true);
+	*/
 	public ChangeStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 

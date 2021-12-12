@@ -13,6 +13,11 @@ import javax.swing.SpinnerNumberModel;
 
 public class ChangeSubjectDialog extends AddSubjectDialog{
 
+	/*
+	 * CONSTRUCTOR 
+	 *ChangeSubjectDialog dialog = new ChangeSubjectDialog(parent);	//Modalni jer je modal true
+	 *dialog.setVisible(true);
+	*/
 	public ChangeSubjectDialog(Frame parent) {
 		super(parent, "Change subject", true);
 		

@@ -17,6 +17,10 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
+import view.actions.AddButtonAction;
+import view.actions.DeleteButtonAction;
+import view.actions.EditButtonAction;
+import view.actions.SearchButtonAction;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeStudentDialog;
@@ -69,38 +73,29 @@ public class Toolbar extends JToolBar{
     	textFld.setPreferredSize(new Dimension(100, 25));
     	rightPanel.add(textFld);
 		
-		ToolbarButton btnSrc = new ToolbarButton("Search", "icons/search.png");
+		//ToolbarButton btnSrc = new ToolbarButton("Search", "icons/search.png");
+    	SearchButtonAction sba = new SearchButtonAction(parent, "icons/search.png", 25, 25);
+		JButton btnSrc = new JButton(sba);
+		btnSrc.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		rightPanel.add(btnSrc);
-//		btnSrc.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				DeleteStudentDialog dialog = new DeleteStudentDialog(parent, "Delete student", true);	//Modalni jer je modal true
-//				dialog.setVisible(true);
-//			}
-//    	
-//    	});
-		btnSrc.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ChangeSubjectDialog dialog = new ChangeSubjectDialog(parent);	//Modalni jer je modal true
-				dialog.setVisible(true);
-			}
-    	
-    	});
 		
 		addSeparator();
 		
 		ToolbarButton btnMen = new ToolbarButton("Toolbar menu", "icons/menu.png");	
 		leftPanel.add(btnMen);
-		
-		
-		ToolbarButton btnAdd = new ToolbarButton("Create entity", "icons/add.png");
+
+		AddButtonAction aba = new AddButtonAction(parent, "icons/add.png", 25, 25);
+		JButton btnAdd = new JButton(aba);
+		btnAdd.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 	    
-		ToolbarButton btnEdit = new ToolbarButton("Edit entity", "icons/edit.png");	
-	    
-		ToolbarButton btnDel = new ToolbarButton("Delete entity", "icons/trash_can.png");
+		EditButtonAction eba = new EditButtonAction(parent, "icons/edit.png", 25, 25);
+		JButton btnEdit = new JButton(eba);
+		btnEdit.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		
+		DeleteButtonAction dba = new DeleteButtonAction(parent, "icons/trash_can.png", 25, 25);
+		JButton btnDel = new JButton(dba);
+		btnDel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		
 		
 		btnMen.addActionListener(new ActionListener() {
 		    @Override
@@ -109,38 +104,12 @@ public class Toolbar extends JToolBar{
 		    	if(!start) {
 		    		addSeparator();
 			    	leftPanel.add(btnAdd);
-			    	btnAdd.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							AddStudentDialog dialog = new AddStudentDialog(parent, "Student addition", true);	//Modalni jer je modal true
-							dialog.setVisible(true);
-						}
-			    	
-			    	});
 			    	
 			    	addSeparator();
 					leftPanel.add(btnEdit);
-					btnEdit.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							AddSubjectDialog dialog = new AddSubjectDialog(parent, "Subject addition", true);	//Modalni jer je modal true
-							dialog.setVisible(true);
-						}
-			    	
-			    	});
+					
 					addSeparator();
 					leftPanel.add(btnDel);
-					btnDel.addActionListener(new ActionListener() {
-
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							ChangeStudentDialog dialog = new ChangeStudentDialog(parent, "Change student", true);	//Modalni jer je modal true
-							dialog.setVisible(true);
-						}
-			    	
-			    	});
 					
 					revalidate();
 					repaint();

@@ -94,6 +94,11 @@ public class AddStudentDialog extends JDialog{
 		}
 	}
 	
+	/*
+	 * CONSTRUCTOR 
+	 *AddStudentDialog dialog = new AddStudentDialog(parent, "Student addition", true);	//Modalni jer je modal true
+	 *dialog.setVisible(true);
+	*/
 	public AddStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 

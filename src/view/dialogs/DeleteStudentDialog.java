@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 
 public class DeleteStudentDialog extends AddStudentDialog{
 
+	/*
+	 * CONSTRUCTOR 
+	 *DeleteStudentDialog dialog = new DeleteStudentDialog(parent, "Delete student", true);	//Modalni jer je modal true
+	 *dialog.setVisible(true);
+	*/
 	public DeleteStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
