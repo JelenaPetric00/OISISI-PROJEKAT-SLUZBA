@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -15,6 +16,7 @@ import javax.swing.Timer;
 public class StatusBar extends JPanel{
 	
 	private JLabel clockLabel;
+	private JLabel currentTab;
 	
 	
 	public StatusBar(){
@@ -23,15 +25,28 @@ public class StatusBar extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
 		
-		JLabel nameLabel = new JLabel(" Studentska sluzba ");
+		JLabel nameLabel = new JLabel(" Studentska sluzba - ");
 		clockLabel = new JLabel();
+		currentTab = new JLabel("Students");
+		Box box = Box.createHorizontalBox();
+		box.add(Box.createHorizontalStrut(10));
+		box.add(nameLabel);
+		box.add(currentTab);
 		
-		this.add(nameLabel, BorderLayout.WEST );
+		this.add(box, BorderLayout.WEST );
 		this.add(clockLabel, BorderLayout.EAST);
 		
 		setTime();
 	}
 	
+	public JLabel getCurrentTab() {
+		return currentTab;
+	}
+
+	/*public void setCurrentTab(JLabel currentTab) {
+		this.currentTab = currentTab;
+	}*/
+
 	public void setTime(){
 		Timer time = new Timer(1000, new ActionListener(){
 			 @Override

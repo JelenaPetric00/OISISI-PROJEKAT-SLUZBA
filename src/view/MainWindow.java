@@ -34,6 +34,11 @@ public class MainWindow extends JFrame{
 		
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
+		
+		TabbedPane tabs = new TabbedPane();
+		tabs.subscriber(status);
+		tabs.refreshSub();
+		add(tabs, BorderLayout.CENTER);
 	}
 	
 }
