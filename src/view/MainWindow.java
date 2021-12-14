@@ -38,6 +38,7 @@ public class MainWindow extends JFrame{
 		TabbedPane tabs = new TabbedPane();
 		tabs.subscriber(status);
 		tabs.refreshSub();
+		menu.openTab(tabs);
 		add(tabs, BorderLayout.CENTER);
 	}
 	

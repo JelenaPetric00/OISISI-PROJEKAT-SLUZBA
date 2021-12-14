@@ -54,5 +54,9 @@ public class TabbedPane extends JTabbedPane {
 			
 		});		
 	}
+	
+	public void updateTab(int number){
+		setSelectedIndex(number);
+	}
 
 }
