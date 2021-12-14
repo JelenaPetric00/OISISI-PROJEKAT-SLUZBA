@@ -3,9 +3,14 @@ package view.dialogs;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JPanel;
+
+import controller.StudentsCtrl;
+import view.tables.StudentsTable;
 
 
 public class DeleteStudentDialog extends AddStudentDialog{
@@ -30,10 +35,28 @@ public class DeleteStudentDialog extends AddStudentDialog{
 		add(Box.createRigidArea(dim));
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton("Yes", panBtn);
+		DiaButton btnYes = new DiaButton("Yes", panBtn);
 		panBtn.add(Box.createHorizontalStrut(vspace));
-		DiaButton btnCancel = new DiaButton("No", panBtn);
+		btnYes.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentsCtrl.getInstance().delStudent(StudentsTable.getInstance().getSelectedRow());
+				dispose();
+			}
+    	
+    	});
+		
+		DiaButton btnNo = new DiaButton("No", panBtn);
 		panBtn.add(Box.createVerticalStrut(vspace));
+		btnNo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+    	
+    	});
 		
 		add(panBtn, BorderLayout.SOUTH);
 	}

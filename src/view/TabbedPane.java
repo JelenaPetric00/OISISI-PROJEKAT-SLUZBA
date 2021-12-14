@@ -5,6 +5,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.tabs.StudentsTab;
+
 public class TabbedPane extends JTabbedPane {
 	
 	private StatusBar observer;
@@ -13,11 +15,11 @@ public class TabbedPane extends JTabbedPane {
 		observer = sub;
 	}
 	
-	
 	public TabbedPane(){
 		
 		JPanel studentsPanel = new JPanel();
 		studentsPanel.setName("Students");
+		studentsPanel.add(StudentsTab.getInstance());
 		JPanel professorPanel = new JPanel();
 		professorPanel.setName("Professors");
 		JPanel subjectsPanel = new JPanel();
@@ -46,12 +48,11 @@ public class TabbedPane extends JTabbedPane {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
 				notifyObs(getSelectedIndex());
 				
 			}
 			
-		});
+		});		
 	}
 
 }

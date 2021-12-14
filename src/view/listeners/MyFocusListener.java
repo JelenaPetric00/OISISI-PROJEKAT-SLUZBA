@@ -8,15 +8,28 @@ import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 
+import model.Student;
+
 public class MyFocusListener implements FocusListener{
 	
 	String regex;
 	String name;
+	Student student = new Student();
+	private String word;
 	
-	public MyFocusListener(String regex, String name) {
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
+	}
+
+	public MyFocusListener(String regex, String name, Student student) {
 		super();
 		this.regex = regex;
 		this.name = name;
+		this.student = student;
 	}
 
 	@Override
@@ -33,7 +46,10 @@ public class MyFocusListener implements FocusListener{
 
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(txt.getText());
-		
+//		if(name == "name") {
+//			student.setname(txt.getText());
+//		}
+		setWord(txt.getText());
 		if(matcher.find()) {
 			txt.setText("Invalid "+name+"...");
 			txt.requestFocus();
