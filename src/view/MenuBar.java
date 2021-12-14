@@ -11,14 +11,31 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+//import view.actions.DeleteButtonAction;
 import view.dialogs.AddProfessorDialog;
+import view.dialogs.AddStudentDialog;
+import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeProfessorDialog;
 import view.dialogs.DeleteProfessorDialog;
 import view.dialogs.DeleteSubjectDialog;
 
-public class MenuBar extends JMenuBar {
+public class MenuBar extends JMenuBar implements ActionListener{
 	
 	private JFrame parent = null;
+	private TabbedPane tab;
+	
+	private JMenuItem newItem;
+	private JMenuItem saveItem;
+	private JMenuItem miStudents;
+	private JMenuItem miSubjects;
+	private JMenuItem miProfessors;
+	private JMenuItem miDesks;
+	private JMenuItem closeItem;
+	private JMenuItem editItem;
+	private JMenuItem deleteItem;
+	private JMenuItem aboutItem;
+	private JMenuItem helpItem;
+	//private DeleteButtonAction db;
 	
 	public MenuBar(final JFrame parent){
 		
@@ -26,52 +43,47 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu fileMenu = new JMenu("File");
 		
-		JMenuItem newItem = new JMenuItem("New");
+	    newItem = new JMenuItem("New");
 		ImageIcon newIcon = new ImageIcon(new ImageIcon("icons/new.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		newItem.setIcon(newIcon);
-		JMenuItem saveItem = new JMenuItem("Save");
+		newItem.addActionListener(this);
+		
+		saveItem = new JMenuItem("Save");
 		ImageIcon saveIcon = new ImageIcon(new ImageIcon("icons/save.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		saveItem.setIcon(saveIcon);
+		saveItem.addActionListener(this);
+		
 		JMenu openItem = new JMenu("Open");
 		ImageIcon openIcon = new ImageIcon(new ImageIcon("icons/open.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		openItem.setIcon(openIcon);
+		openItem.addActionListener(this);
 		
-		 JMenuItem miStudents = new JMenuItem("Studenti");
+		 miStudents = new JMenuItem("Studenti");
 		 ImageIcon studentIcon = new ImageIcon(new ImageIcon("icons/student.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miStudents.setIcon(studentIcon);
-		 JMenuItem miSubjects = new JMenuItem("Predmeti");
+		 miStudents.addActionListener(this);
+		 
+		 miSubjects = new JMenuItem("Predmeti");
 		 ImageIcon subjectIcon = new ImageIcon(new ImageIcon("icons/subject.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miSubjects.setIcon(subjectIcon);
-		 JMenuItem miProfessors = new JMenuItem("Profesori");
+		 miSubjects.addActionListener(this);
+		 
+		 miProfessors = new JMenuItem("Profesori");
 		 ImageIcon professorIcon = new ImageIcon(new ImageIcon("icons/professor.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miProfessors.setIcon(professorIcon);
+		 miProfessors.addActionListener(this);
 		 
-		 miProfessors.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					AddProfessorDialog prof = new AddProfessorDialog(parent, "Profesor", true);
-					prof.setVisible(true);
-				}
-	    	
-	    	});
 		 
-		 JMenuItem miDesks = new JMenuItem("Katedre");
+		 miDesks = new JMenuItem("Katedre");
 		 ImageIcon desksIcon = new ImageIcon(new ImageIcon("icons/desks.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miDesks.setIcon(desksIcon);
+		 miDesks.addActionListener(this);
 		 
-		JMenuItem closeItem = new JMenuItem("Close");
+		closeItem = new JMenuItem("Close");
 		ImageIcon closeIcon = new ImageIcon(new ImageIcon("icons/close.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		closeItem.setIcon(closeIcon);
+		closeItem.addActionListener(this);
 		
-		 closeItem.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.exit(0);
-				}
-	    	
-	    	});
 		
 		openItem.add(miStudents);
 		openItem.add(miSubjects);
@@ -88,45 +100,35 @@ public class MenuBar extends JMenuBar {
 		
 		JMenu editMenu = new JMenu("Edit");
 		
-		JMenuItem editItem = new JMenuItem("Edit");
+		editItem = new JMenuItem("Edit");
 		ImageIcon editIcon = new ImageIcon(new ImageIcon("icons/mEdit.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		editItem.setIcon(editIcon);
+		editItem.addActionListener(this);
 		
-		 editItem.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					ChangeProfessorDialog prof = new ChangeProfessorDialog(parent, "Change professor", true);
-					prof.setVisible(true);
-				}
-	    	
-	    	});
 		
-		JMenuItem deleteItem = new JMenuItem("Delete");
+		deleteItem = new JMenuItem("Delete");
 		ImageIcon deleteIcon = new ImageIcon(new ImageIcon("icons/mDelete.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		deleteItem.setIcon(deleteIcon);
+		deleteItem.addActionListener(this);
+		//db = new DeleteButtonAction(parent, "icons/mDelete.png", 15, 15);
+		//deleteItem.add(db);
 		
-		deleteItem.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DeleteProfessorDialog prof = new DeleteProfessorDialog(parent, "Delete subject", true);
-				prof.setVisible(true);
-			}
-    	
-    	});
 		
 		editMenu.add(editItem);
 		editMenu.add(deleteItem);
 		
 		JMenu helpMenu = new JMenu("Help");
+		//helpMenu.add(db);
 		
-		JMenuItem helpItem = new JMenuItem("Help");
+		helpItem = new JMenuItem("Help");
 		ImageIcon helpIcon = new ImageIcon(new ImageIcon("icons/help.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH));
 		helpItem.setIcon(helpIcon);
-		JMenuItem aboutItem = new JMenuItem("About");
+		helpItem.addActionListener(this);
+		
+		aboutItem = new JMenuItem("About");
 		ImageIcon aboutIcon = new ImageIcon(new ImageIcon("icons/info.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH));
 		aboutItem.setIcon(aboutIcon);
+		aboutItem.addActionListener(this);
 		
 		helpMenu.add(helpItem);
 		helpMenu.add(aboutItem);
@@ -167,6 +169,59 @@ public class MenuBar extends JMenuBar {
 		miSubjects.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
 		miProfessors.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK));
 		miDesks.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
+	}
+	
+	public void openTab(TabbedPane tp){
+		tab = tp;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == newItem){
+			if(tab.getSelectedIndex() == 0){
+				AddStudentDialog stud = new AddStudentDialog(parent, "Student", true);
+				stud.setVisible(true);
+			}
+			else if(tab.getSelectedIndex() == 1){
+				AddProfessorDialog prof = new AddProfessorDialog(parent, "Professor", true);
+				prof.setVisible(true);
+			}
+			else{
+				AddSubjectDialog subj = new AddSubjectDialog(parent, "Subject", true);
+				subj.setVisible(true);
+			}
+		}
+		
+		if(e.getSource() == saveItem){
+			
+		}
+		
+        if(e.getSource() == closeItem){
+			System.exit(0);
+		}
+		
+		if(e.getSource() == miStudents){
+			tab.updateTab(0);
+			//System.out.println(0);
+		}
+		if(e.getSource() == miProfessors){
+			tab.updateTab(1);
+			//System.out.println(1);
+		}
+		if(e.getSource() == miSubjects){
+			tab.updateTab(2);
+			//System.out.println(2);
+		}
+		
+        if(e.getSource() == editItem){
+			
+		}
+        
+        //if(e.getSource() == deleteItem){
+			
+		//}
+		
 	}
 
 }
