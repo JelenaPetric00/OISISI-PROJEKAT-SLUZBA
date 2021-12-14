@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import controller.StudentsCtrl;
 import view.dialogs.AddStudentDialog;
 
 public class AddButtonAction extends AbstractAction{

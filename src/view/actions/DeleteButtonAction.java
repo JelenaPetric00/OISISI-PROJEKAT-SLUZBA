@@ -10,6 +10,7 @@ import javax.swing.KeyStroke;
 
 import view.dialogs.AddStudentDialog;
 import view.dialogs.ChangeStudentDialog;
+import view.dialogs.DeleteStudentDialog;
 
 public class DeleteButtonAction extends AbstractAction{
 	
@@ -28,7 +29,7 @@ public class DeleteButtonAction extends AbstractAction{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ChangeStudentDialog dialog = new ChangeStudentDialog(parent, "Change student", true);	//Modalni jer je modal true
+		DeleteStudentDialog dialog = new DeleteStudentDialog(parent, "Delete student", true);	//Modalni jer je modal true
 		dialog.setVisible(true);
 		
 	}

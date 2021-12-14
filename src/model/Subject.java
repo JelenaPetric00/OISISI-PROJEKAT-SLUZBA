@@ -13,7 +13,18 @@ public class Subject {
 	private ArrayList<Student> studentsPassed;
 	private ArrayList<Student> studentsRemaining;
 	
-	public enum Semester {SUMMER, WINTER}
+	public enum Semester {
+		SUMMER {
+			public String toString() {
+				return "Summer";
+			}
+		}
+		, WINTER {
+			public String toString() {
+				return "Winter";
+			}
+		}
+		}
 
 	public Subject() {}
 

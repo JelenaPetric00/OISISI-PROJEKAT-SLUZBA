@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import view.dialogs.AddStudentDialog;
+import view.dialogs.ChangeStudentDialog;
 
 public class EditButtonAction extends AbstractAction{
 	
@@ -27,7 +28,7 @@ public class EditButtonAction extends AbstractAction{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AddStudentDialog dialog = new AddStudentDialog(parent, "Student addition", true);
+		ChangeStudentDialog dialog = new ChangeStudentDialog(parent, "Change student", true);	//Modalni jer je modal true
 		dialog.setVisible(true);
 		
 	}

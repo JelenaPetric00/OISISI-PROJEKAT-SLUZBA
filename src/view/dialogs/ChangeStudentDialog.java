@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -12,6 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+
+import controller.StudentsCtrl;
+import view.tables.StudentsTable;
 
 public class ChangeStudentDialog extends AddStudentDialog{
 	
@@ -86,7 +91,25 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		panBtn.add(Box.createHorizontalStrut(14));
+		btnSave.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow());
+				dispose();
+			}
+    	
+    	});
+		
 		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
+		btnCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+    	
+    	});
 		
 		Box box = Box.createVerticalBox();
 		box.add(Box.createVerticalStrut(20));

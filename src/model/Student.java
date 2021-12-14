@@ -19,7 +19,18 @@ public class Student {
 	private ArrayList<Grade> gradesPassedSubjects;
 	private ArrayList<Subject> remainingSubjects;
 	
-	public enum MethodOfFinancing  {B, S}
+	public enum MethodOfFinancing  {
+			B {
+				public String toString() {
+					return "Budget";
+				}
+			}
+			, S {
+				public String toString() {
+					return "Self finance";
+				}
+			}
+		}
 
 	
 	public Student() {}
