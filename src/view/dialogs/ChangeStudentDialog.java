@@ -79,8 +79,9 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\]]+", "ID number");
-		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
+		//DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\]]+", "ID number");
+		DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
+		//tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 		
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
@@ -107,13 +108,13 @@ public class ChangeStudentDialog extends AddStudentDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
+				if ( tfName.getText().equals("") || tfSurname.getText().equals("")
 						|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
 						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
 					btnSave.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
-				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),tfID.getText(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
 						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
 						stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
 				dispose();
