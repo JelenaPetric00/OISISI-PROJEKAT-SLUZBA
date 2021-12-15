@@ -48,7 +48,7 @@ public class StudentsCtrl {
 		}
 		
 		Student student = DBStudents.getInstance().getRow(rowSelectedIndex);
-		DBStudents.getInstance().editStudent(id, name, surname, dateOfBirth, currYear, startYear, mof, address, phoneNum, mail);
+		DBStudents.getInstance().editStudent(student.getidNumber(), name, surname, dateOfBirth, currYear, startYear, mof, address, phoneNum, mail);
 		//AZURIRJ PRIKAZ
 		studentstab.updateView("EDITED", -1);
 	}
