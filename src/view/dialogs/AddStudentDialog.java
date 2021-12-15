@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -114,59 +115,69 @@ public class AddStudentDialog extends JDialog{
 		setLayout(new BorderLayout());
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name", panName);		
+		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "name");
 		
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname", panSurname);		
+		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "surname");
 		
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth", panBday);		
+		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
 		DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
 		
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblAdr = new DiaLabel("Enter address", "Address", panAdr);
+		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
 		DiaTFld tfAdr = new DiaTFld(panAdr, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "address");
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number", panPhNum);
+		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
 		
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address", panMail);		
-		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ]]+", "e-mail address");
+		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
+		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ@.]]+", "e-mail address");
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblID = new DiaLabel("Enter id number", "ID number", panID);		
+		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
 		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "ID number");
 		
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment", panSYear);		
+		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
 		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
 		
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study", panCYear);
+		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
 		
 		JPanel panFin = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing", panFin);
+		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing*", panFin);
 		String financing[] = {"budget", "self financing"};
 		DiaCbox tfFinancing = new DiaCbox(financing, panFin);
-		
+
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		btnSave.addActionListener(new ActionListener() {
-
+//TODO bday must be LocalDate not string, addres must bi class adress?
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StudentsCtrl.getInstance().addStudent();
-				dispose();
+				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
+						|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
+					btnSave.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+				     btnSave.setEnabled(true);
+				     StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+								Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+								stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
+						dispose();
+				}
+				btnSave.setEnabled(true);
 			}
-    	
     	});
-		
+
 		panBtn.add(Box.createHorizontalStrut(vspace));
 		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
 		btnCancel.addActionListener(new ActionListener() {
@@ -175,9 +186,8 @@ public class AddStudentDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
-    	
     	});
-		
+
 		Box box = Box.createVerticalBox();
 		box.add(Box.createVerticalStrut(dim.height));
 		box.add(panName);
@@ -193,6 +203,12 @@ public class AddStudentDialog extends JDialog{
 		box.add(Box.createRigidArea(dim));
 		box.add(panBtn);
 		add(box, BorderLayout.NORTH);
-		
+
 	}
+
+	public MethodOfFinancing stringToMOF(String s) {
+		if(s == "self financing") { return MethodOfFinancing.S;}
+		if(s == "budget") { return MethodOfFinancing.B;}
+		return MethodOfFinancing.B;
+    }
 }

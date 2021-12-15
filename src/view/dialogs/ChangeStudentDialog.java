@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SpinnerModel;
@@ -47,46 +48,57 @@ public class ChangeStudentDialog extends AddStudentDialog{
 	    add(tp); 
 		
 	    JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name", panName);		
+		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z]]+", "name");
+		tfName.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getname());
 		
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname", panSurname);		
+		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-Z]]+", "surname");
+		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
 		
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth", panBday);		
+		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
 		DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
+		tfBday.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth().toString());
 		
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblAdr = new DiaLabel("Enter address", "Address", panAdr);
+		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
 		DiaTFld tfAdr = new DiaTFld(panAdr, "[^[a-z A-Z0-9/\\-]]+", "address");
+		tfAdr.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getaddress().toString());
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number", panPhNum);
+		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
+		tfPhNum.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getphoneNumber());
 		
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address", panMail);		
+		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
 		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9]@.]+", "e-mail address");
+		tfMail.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getEmail());
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblID = new DiaLabel("Enter id number", "ID number", panID);		
+		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
 		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\]]+", "ID number");
+		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 		
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment", panSYear);		
+		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
 		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
+		tfStartYear.setText(String.valueOf(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getyearOfEnrollment()));
 		
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study", panCYear);
+		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
+		tfCurrYear.setValue(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getyearOfStudy());
+		
 		
 		JPanel panFin = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing", panFin);
+		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing*", panFin);
 		String financing[] = {"budget", "self financing"};
 		DiaCbox tfFinancing = new DiaCbox(financing, panFin);
+		tfFinancing.setSelectedItem(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getmethodOfFinancing().toString());
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
@@ -95,8 +107,18 @@ public class ChangeStudentDialog extends AddStudentDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow());
+				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
+						|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
+					btnSave.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),tfID.getText(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+						stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
 				dispose();
+				}
+				btnSave.setEnabled(true);
 			}
     	
     	});

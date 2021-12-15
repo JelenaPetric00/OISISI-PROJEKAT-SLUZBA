@@ -30,8 +30,8 @@ public class Student {
 					return "Self finance";
 				}
 			}
+			
 		}
-
 	
 	public Student() {}
 	

@@ -24,9 +24,9 @@ public class StudentsCtrl {
 		dbstudents = DBStudents.getInstance();
 	}
 	
-	public void addStudent() { //String id, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade) {
-		//DBStudents.getInstance().addStudent(id, name, surname, yearOfStudy, mof, avgGrade);
-		DBStudents.getInstance().addStudent("RA 100/2019", "Aleksa", "Colovic", (byte)3, MethodOfFinancing.B, (float)8.5);
+	public void addStudent(String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
+		DBStudents.getInstance().addStudent(id, name, surname, (byte)currYear, mof, (float)0);
+		//DBStudents.getInstance().addStudent("RA 100/2019", "Aleksa", "Colovic", (byte)3, MethodOfFinancing.B, (float)8.5);
 		//AZURIRJ PRIKAZ
 		studentstab.updateView("ADDED", -1);
 	}
@@ -42,15 +42,19 @@ public class StudentsCtrl {
 		studentstab.updateView("DELETED", rowSelectedIndex);
 	}
 	
-	public void editStudent(int rowSelectedIndex) {
+	public void editStudent(int rowSelectedIndex, String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
 		if(rowSelectedIndex < 0){
 			return;
 		}
 		
 		Student student = DBStudents.getInstance().getRow(rowSelectedIndex);
-		DBStudents.getInstance().editStudent("ra 222","ree","faaa");
+		DBStudents.getInstance().editStudent(id, name, surname, dateOfBirth, currYear, startYear, mof, address, phoneNum, mail);
 		//AZURIRJ PRIKAZ
-		studentstab.updateView(null, -1);
+		studentstab.updateView("EDITED", -1);
+	}
+	
+	public Student getStudentAtIdx(int i) {
+		return DBStudents.getInstance().getStudents().get(i);
 	}
 
 }
