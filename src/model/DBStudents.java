@@ -85,7 +85,7 @@ public class DBStudents {
 
 	public void addStudent(String ID, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade) {
 		this.students.add(new Student(name, surname, LocalDate.of(2000, 8, 2), new Address(), "0600000000", "isidorapoznanovic1@gmail.com",
-				ID, (byte)2019, yearOfStudy, mof, avgGrade,
+				ID, (short)2019, yearOfStudy, mof, avgGrade,
 				new ArrayList<Grade>(), new ArrayList<Subject>()));
 	}
 
@@ -98,11 +98,16 @@ public class DBStudents {
 		}
 	}
 
-	public void editStudent(String id, String name, String surname) {		//dodaj polja
+	public void editStudent(String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {		//dodaj polja
 		for (Student student : students) {
 			if (student.getidNumber() == id) {
 				student.setname(name);
 				student.setsurname(surname);
+				student.setEmail(mail);
+				student.setphoneNumber(phoneNum);
+				student.setmethodOfFinancing(mof);
+				student.setyearOfEnrollment(startYear);
+				student.setyearOfStudy(currYear);
 			}
 		}
 	}

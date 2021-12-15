@@ -6,6 +6,7 @@ import java.awt.event.FocusListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import model.Student;
@@ -54,6 +55,7 @@ public class MyFocusListener implements FocusListener{
 			txt.setText("Invalid "+name+"...");
 			txt.requestFocus();
 			txt.setForeground(Color.RED);
+			JOptionPane.showMessageDialog(null, "Please don't use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
 //			try {
 //				txt.setText("Invalid "+name+"...");
 //				txt.requestFocus();
@@ -64,6 +66,8 @@ public class MyFocusListener implements FocusListener{
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
+			txt.setText("");
+			txt.setForeground(Color.BLACK);
 	
 		} else {
 			txt.setForeground(Color.BLACK);
