@@ -5,7 +5,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.tabs.ProfessorsTab;
 import view.tabs.StudentsTab;
+import view.tabs.SubjectsTab;
 
 public class TabbedPane extends JTabbedPane {
 	
@@ -22,8 +24,10 @@ public class TabbedPane extends JTabbedPane {
 		studentsPanel.add(StudentsTab.getInstance());
 		JPanel professorPanel = new JPanel();
 		professorPanel.setName("Professors");
+		professorPanel.add(ProfessorsTab.getInstance());
 		JPanel subjectsPanel = new JPanel();
 		subjectsPanel.setName("Subjects");
+		subjectsPanel.add(SubjectsTab.getInstance());
 		
 		add(studentsPanel);
 		add(professorPanel);
