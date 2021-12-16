@@ -26,8 +26,6 @@ public class StudentsCtrl {
 	
 	public void addStudent(String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
 		DBStudents.getInstance().addStudent(id, name, surname, (byte)currYear, mof, (float)0);
-		//DBStudents.getInstance().addStudent("RA 100/2019", "Aleksa", "Colovic", (byte)3, MethodOfFinancing.B, (float)8.5);
-		//AZURIRJ PRIKAZ
 		studentstab.updateView("ADDED", -1);
 	}
 	

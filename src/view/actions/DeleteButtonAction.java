@@ -8,9 +8,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import view.TabbedPane;
+import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
+import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeStudentDialog;
+import view.dialogs.DeleteProfessorDialog;
 import view.dialogs.DeleteStudentDialog;
+import view.dialogs.DeleteSubjectDialog;
 
 public class DeleteButtonAction extends AbstractAction{
 	
@@ -29,8 +34,21 @@ public class DeleteButtonAction extends AbstractAction{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		DeleteStudentDialog dialog = new DeleteStudentDialog(parent, "Delete student", true);	//Modalni jer je modal true
-		dialog.setVisible(true);
+		switch (TabbedPane.getInstance().getSelectedIndex()) {
+			case 0:
+				DeleteStudentDialog studentDia = new DeleteStudentDialog(parent, "Delete student", true);
+				studentDia.setVisible(true);
+				break;
+			case 1:
+				DeleteProfessorDialog professorDia = new DeleteProfessorDialog(parent, "Delete professor", true);
+				professorDia.setVisible(true);
+				break;
+			case 2:
+				DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, "Delete subject", true);
+				subjectDia.setVisible(true);
+				break;
+			default:
+		}
 		
 	}
 

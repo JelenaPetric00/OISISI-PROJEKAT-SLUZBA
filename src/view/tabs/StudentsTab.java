@@ -34,7 +34,6 @@ public class StudentsTab extends JPanel {
 
 	public void updateView(String akcija, int vrednost) {
 		AbstractTableModelStudents model = (AbstractTableModelStudents) studentsTable.getModel();
-		// azuriranje modela tabele, kao i njenog prikaza
 		model.fireTableDataChanged();
 		validate();
 	}

@@ -22,7 +22,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import controller.StudentsCtrl;
-import model.Student;
 import model.Student.MethodOfFinancing;
 import view.listeners.MyFocusListener;
 
@@ -31,7 +30,6 @@ public class AddStudentDialog extends JDialog{
 
 	Dimension dim = new Dimension(180, 25);
 	int vspace = 14;
-	private Student student;
 	
 	public class DiaLabel extends JLabel {
 		
@@ -57,7 +55,7 @@ public class AddStudentDialog extends JDialog{
 		
 		public DiaTFld(JPanel panel, String regex, String name) {
 			super();
-			MyFocusListener focusListener = new MyFocusListener(regex, name, student);
+			MyFocusListener focusListener = new MyFocusListener(regex, name);
 			
 			setPreferredSize(dim);
 			setBackground(Color.LIGHT_GRAY);
@@ -106,6 +104,7 @@ public class AddStudentDialog extends JDialog{
 	 *AddStudentDialog dialog = new AddStudentDialog(parent, "Student addition", true);	//Modalni jer je modal true
 	 *dialog.setVisible(true);
 	*/
+	@SuppressWarnings("unused")
 	public AddStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 
