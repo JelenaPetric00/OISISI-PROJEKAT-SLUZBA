@@ -1,8 +1,10 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Student.MethodOfFinancing;
 import model.Subject.Semester;
 
 public class DBSubjects {
@@ -71,6 +73,32 @@ public class DBSubjects {
 			return subject.getsemester().toString();
 		default:
 			return null;
+		}
+	}
+	
+	public void addSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+		this.subjects.add(new Subject(ID, name, semester, yearOfStudy, new Professor(), espb,
+				new ArrayList<Student>(), new ArrayList<Student>()));
+	}
+
+	public void delSubject(String id) {
+		for (Subject subject : subjects) {
+			if (subject.getid() == id) {
+				subjects.remove(subject);
+				break;
+			}
+		}
+	}
+
+	public void editSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+		for (Subject subject : subjects) {
+			if (subject.getid() == ID) {
+				subject.setname(name);
+				subject.setsemester(semester);
+				subject.setyearOfStudy(yearOfStudy);
+				//subject.setprof
+				subject.setEspb(espb);
+			}
 		}
 	}
 

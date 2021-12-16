@@ -9,7 +9,6 @@ import view.tables.AbstractTableModelSubjects;
 import view.tables.SubjectsTable;
 
 public class SubjectsTab extends JPanel{
-	
 	private SubjectsTable subjectsTable;
 	
 	private static SubjectsTab instance;
@@ -29,11 +28,11 @@ public class SubjectsTab extends JPanel{
 		JScrollPane scrollP = new JScrollPane(subjectsTable);
 		add(scrollP, BorderLayout.CENTER);
 		
-		this.updateViewS(null, -1);
+		this.updateView(null, -1);
 		
 	}
 	
-	public void updateViewS(String action, int value){
+	public void updateView(String action, int value){
 		AbstractTableModelSubjects model = (AbstractTableModelSubjects) subjectsTable.getModel();
 		model.fireTableDataChanged();
 		validate();

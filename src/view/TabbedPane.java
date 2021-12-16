@@ -5,6 +5,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import view.tables.ProfessorsTable;
 import view.tabs.ProfessorsTab;
 import view.tabs.StudentsTab;
 import view.tabs.SubjectsTab;
@@ -17,7 +18,16 @@ public class TabbedPane extends JTabbedPane {
 		observer = sub;
 	}
 	
-	public TabbedPane(){
+	private static TabbedPane instance = null;
+	
+	public static TabbedPane getInstance(){
+		if(instance == null){
+			instance = new TabbedPane();
+		}
+		return instance;
+	}
+	
+	private TabbedPane(){
 		
 		JPanel studentsPanel = new JPanel();
 		studentsPanel.setName("Students");

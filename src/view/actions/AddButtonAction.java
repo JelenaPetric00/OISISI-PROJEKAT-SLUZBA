@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import controller.StudentsCtrl;
+import view.TabbedPane;
+import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
+import view.dialogs.AddSubjectDialog;
 
 public class AddButtonAction extends AbstractAction{
 	
@@ -28,8 +31,21 @@ public class AddButtonAction extends AbstractAction{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AddStudentDialog dialog = new AddStudentDialog(parent, "Student addition", true);	//Modalni jer je modal true
-		dialog.setVisible(true);
+		switch (TabbedPane.getInstance().getSelectedIndex()) {
+			case 0:
+				AddStudentDialog studentDia = new AddStudentDialog(parent, "Add student", true);
+				studentDia.setVisible(true);
+				break;
+			case 1:
+				AddProfessorDialog professorDia = new AddProfessorDialog(parent, "Add professor", true);
+				professorDia.setVisible(true);
+				break;
+			case 2:
+				AddSubjectDialog subjectDia = new AddSubjectDialog(parent, "Add subject", true);
+				subjectDia.setVisible(true);
+				break;
+			default:
+		}
 		
 	}
 

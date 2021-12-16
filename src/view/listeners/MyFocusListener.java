@@ -15,7 +15,6 @@ public class MyFocusListener implements FocusListener{
 	
 	String regex;
 	String name;
-	Student student = new Student();
 	private String word;
 	
 	public String getWord() {
@@ -26,11 +25,10 @@ public class MyFocusListener implements FocusListener{
 		this.word = word;
 	}
 
-	public MyFocusListener(String regex, String name, Student student) {
+	public MyFocusListener(String regex, String name) {
 		super();
 		this.regex = regex;
 		this.name = name;
-		this.student = student;
 	}
 
 	@Override

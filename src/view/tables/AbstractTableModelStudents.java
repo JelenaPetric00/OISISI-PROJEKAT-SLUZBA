@@ -6,12 +6,10 @@ import model.DBStudents;
 
 public class AbstractTableModelStudents extends AbstractTableModel {
 	
-	
 	public AbstractTableModelStudents() {}
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
 		return DBStudents.getInstance().getStudents().size();
 	}
 

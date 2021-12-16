@@ -35,7 +35,7 @@ public class MainWindow extends JFrame{
 		StatusBar status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
 		
-		TabbedPane tabs = new TabbedPane();
+		TabbedPane tabs = TabbedPane.getInstance();
 		tabs.subscriber(status);
 		tabs.refreshSub();
 		menu.openTab(tabs);

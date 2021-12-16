@@ -25,7 +25,7 @@ import view.dialogs.DeleteSubjectDialog;
 public class MenuBar extends JMenuBar implements ActionListener{
 	
 	private JFrame parent = null;
-	private TabbedPane tab;
+	private TabbedPane tab = TabbedPane.getInstance();
 	
 	private JMenuItem newItem;
 	private JMenuItem saveItem;
@@ -227,8 +227,8 @@ public class MenuBar extends JMenuBar implements ActionListener{
 				profCh.setVisible(true);
 			}
 			else{
-				//ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Subject", true);
-				//subjCh.setVisible(true);
+				ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Change subject", true);
+				subjCh.setVisible(true);
 			}
 			
 		}
