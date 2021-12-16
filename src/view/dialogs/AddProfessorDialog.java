@@ -7,17 +7,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import controller.ProfessorsCtl;
 import view.listeners.ProfFocusListener;
 
 public class AddProfessorDialog extends JDialog{
@@ -164,6 +168,36 @@ public class AddProfessorDialog extends JDialog{
 		JButton cancelBtn = new JButton("Cancel");
 		saveBtn.setToolTipText("add professor");
 		cancelBtn.setToolTipText("cancel adding");
+		
+		saveBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtBirthDP.getText().equals("") || txtAddrResP.getText().equals("") || txtPhoneP.getText().equals("")
+						|| txtEmailP.getText().equals("") || txtOfficeP.getText().equals("") || txtIDP.getText().equals("") || txtTitleP.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Please make sure that you fill all required fileds", "Error", JOptionPane.ERROR_MESSAGE);
+				}else {
+				     saveBtn.setEnabled(true);
+				     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), txtBirthDP.getText(), txtAddrResP.getText(), txtPhoneP.getText(), txtEmailP.getText(), txtOfficeP.getText(),
+					       txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				     dispose();
+				}
+				saveBtn.setEnabled(true);
+			}
+			
+		});
+		
+		cancelBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+			
+		});
+		
 		profButtonP.add(saveBtn, Component.CENTER_ALIGNMENT);
 		profButtonP.add(Box.createHorizontalStrut(40));
 		profButtonP.add(cancelBtn, Component.CENTER_ALIGNMENT);

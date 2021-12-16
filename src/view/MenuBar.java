@@ -16,7 +16,10 @@ import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeProfessorDialog;
+import view.dialogs.ChangeStudentDialog;
+import view.dialogs.ChangeSubjectDialog;
 import view.dialogs.DeleteProfessorDialog;
+import view.dialogs.DeleteStudentDialog;
 import view.dialogs.DeleteSubjectDialog;
 
 public class MenuBar extends JMenuBar implements ActionListener{
@@ -180,15 +183,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == newItem){
 			if(tab.getSelectedIndex() == 0){
-				AddStudentDialog stud = new AddStudentDialog(parent, "Student", true);
+				AddStudentDialog stud = new AddStudentDialog(parent, "Add student", true);
 				stud.setVisible(true);
 			}
 			else if(tab.getSelectedIndex() == 1){
-				AddProfessorDialog prof = new AddProfessorDialog(parent, "Professor", true);
+				AddProfessorDialog prof = new AddProfessorDialog(parent, "Add professor", true);
 				prof.setVisible(true);
 			}
 			else{
-				AddSubjectDialog subj = new AddSubjectDialog(parent, "Subject", true);
+				AddSubjectDialog subj = new AddSubjectDialog(parent, "Add subject", true);
 				subj.setVisible(true);
 			}
 		}
@@ -215,12 +218,36 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		}
 		
         if(e.getSource() == editItem){
+        	if(tab.getSelectedIndex() == 0){
+				ChangeStudentDialog studCh = new ChangeStudentDialog(parent, "Change student", true);
+				studCh.setVisible(true);
+			}
+			else if(tab.getSelectedIndex() == 1){
+				ChangeProfessorDialog profCh = new ChangeProfessorDialog(parent, "Change professor", true);
+				profCh.setVisible(true);
+			}
+			else{
+				//ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Subject", true);
+				//subjCh.setVisible(true);
+			}
 			
 		}
         
-        //if(e.getSource() == deleteItem){
+        if(e.getSource() == deleteItem){
+        	if(tab.getSelectedIndex() == 0){
+				DeleteStudentDialog studDel = new DeleteStudentDialog(parent, "Delete student", true);
+				studDel.setVisible(true);
+			}
+			else if(tab.getSelectedIndex() == 1){
+				DeleteProfessorDialog profDel = new DeleteProfessorDialog(parent, "Delete professor", true);
+				profDel.setVisible(true);
+			}
+			else{
+				DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, "Delete subject", true);
+				subjDel.setVisible(true);
+			}
 			
-		//}
+		}
 		
 	}
 
