@@ -1,6 +1,7 @@
 package view.dialogs;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,6 +9,12 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
+import java.time.Instant;
+import java.util.Date;
+import java.util.Calendar;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -18,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
@@ -123,7 +131,11 @@ public class AddStudentDialog extends JDialog{
 		
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
-		DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
+		Date today = new Date();
+		JSpinner spinner2 = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
+		spinner2.setEditor(new JSpinner.DateEditor(spinner2, "dd/MM/yy"));
+		setPreferredSize(dim);
+		panBday.add(spinner2);
 		
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
@@ -162,16 +174,21 @@ public class AddStudentDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
-						|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfStartYear.getText().equals("") || tfAdr.getText().equals("")
 						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
 					btnSave.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
 				     btnSave.setEnabled(true);
-				     StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+				     Date date = (Date) spinner2.getValue();
+				     ZoneId defaultZoneId = ZoneId.systemDefault();
+				     Instant instant = date.toInstant();
+				     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				     StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
 								Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
 								stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
-						dispose();
+					
+				     dispose();
 				}
 				btnSave.setEnabled(true);
 			}
