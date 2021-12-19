@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -30,12 +32,15 @@ public class TabbedPane extends JTabbedPane {
 	private TabbedPane(){
 		
 		JPanel studentsPanel = new JPanel();
+		studentsPanel.setLayout(new BorderLayout());
 		studentsPanel.setName("Students");
 		studentsPanel.add(StudentsTab.getInstance());
 		JPanel professorPanel = new JPanel();
+		professorPanel.setLayout(new BorderLayout());
 		professorPanel.setName("Professors");
 		professorPanel.add(ProfessorsTab.getInstance());
 		JPanel subjectsPanel = new JPanel();
+		subjectsPanel.setLayout(new BorderLayout());
 		subjectsPanel.setName("Subjects");
 		subjectsPanel.add(SubjectsTab.getInstance());
 		
