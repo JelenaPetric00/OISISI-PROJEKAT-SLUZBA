@@ -6,13 +6,20 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
@@ -59,8 +66,17 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
-		DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
-		tfBday.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth().toString());
+		//DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
+		//tfBday.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth().toString());
+		
+		LocalDate bDay = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date date = Date.from(bDay.atStartOfDay(defaultZoneId).toInstant());
+        
+		JSpinner spinner2 = new JSpinner(new SpinnerDateModel(date, null, null, Calendar.MONTH));
+		spinner2.setEditor(new JSpinner.DateEditor(spinner2, "dd/MM/yy"));
+		setPreferredSize(dim);
+		panBday.add(spinner2);
 		
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
@@ -109,15 +125,21 @@ public class ChangeStudentDialog extends AddStudentDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ( tfName.getText().equals("") || tfSurname.getText().equals("")
-						|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						//|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfStartYear.getText().equals("") || tfAdr.getText().equals("")
 						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
 					btnSave.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
-				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+					Date date = (Date) spinner2.getValue();
+					ZoneId defaultZoneId = ZoneId.systemDefault();
+					Instant instant = date.toInstant();
+				    LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					//StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
+					StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), localDate,
 						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-						stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
-				dispose();
+							stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
+					dispose();
 				}
 				btnSave.setEnabled(true);
 			}

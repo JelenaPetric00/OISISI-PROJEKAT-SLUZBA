@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+
 import model.DBStudents;
 import model.Student;
 import model.Student.MethodOfFinancing;
@@ -24,8 +26,8 @@ public class StudentsCtrl {
 		dbstudents = DBStudents.getInstance();
 	}
 	
-	public void addStudent(String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
-		DBStudents.getInstance().addStudent(id, name, surname, (byte)currYear, mof, (float)0);
+	public void addStudent(String id, String name, String surname, LocalDate dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
+		DBStudents.getInstance().addStudent(id, name, surname, (byte)currYear, mof, (float)0, dateOfBirth, startYear, address, phoneNum, mail);
 		studentstab.updateView("ADDED", -1);
 	}
 	
@@ -40,13 +42,13 @@ public class StudentsCtrl {
 		studentstab.updateView("DELETED", rowSelectedIndex);
 	}
 	
-	public void editStudent(int rowSelectedIndex, String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
+	public void editStudent(int rowSelectedIndex, String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {
 		if(rowSelectedIndex < 0){
 			return;
 		}
 		
 		Student student = DBStudents.getInstance().getRow(rowSelectedIndex);
-		DBStudents.getInstance().editStudent(student.getidNumber(), name, surname, dateOfBirth, currYear, startYear, mof, address, phoneNum, mail);
+		DBStudents.getInstance().editStudent(student.getidNumber(), name, surname, localDate, currYear, startYear, mof, address, phoneNum, mail);
 		//AZURIRJ PRIKAZ
 		studentstab.updateView("EDITED", -1);
 	}

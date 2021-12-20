@@ -33,7 +33,7 @@ public class DBStudents {
 		this.columns.add("Average grade");
 		
 	}
-
+//TODO Citaj fajl i ubacuj  redom
 	private void initStudents() {
 		this.students = new ArrayList<Student>();
 		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address(), "0603028000", "isidorapoznanovic1@gmail.com",
@@ -83,12 +83,12 @@ public class DBStudents {
 		
 	}
 
-	public void addStudent(String ID, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade) {
-		this.students.add(new Student(name, surname, LocalDate.of(2000, 8, 2), new Address(), "0600000000", "isidorapoznanovic1@gmail.com",
-				ID, (short)2019, yearOfStudy, mof, avgGrade,
+	public void addStudent(String ID, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade, LocalDate localDate, short currYear, String address, String phoneNum, String mail) {
+		this.students.add(new Student(name, surname, localDate, new Address(), phoneNum, mail,
+				ID, currYear, yearOfStudy, mof, avgGrade,
 				new ArrayList<Grade>(), new ArrayList<Subject>()));
 	}
-
+	
 	public void delStudent(String id) {
 		for (Student student : students) {		//equal
 			if (student.getidNumber() == id) {
@@ -98,7 +98,7 @@ public class DBStudents {
 		}
 	}
 
-	public void editStudent(String id, String name, String surname, String dateOfBirth, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {		//dodaj polja
+	public void editStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {		//dodaj polja
 		for (Student student : students) {
 			if (student.getidNumber() == id) {
 				student.setname(name);
@@ -108,8 +108,14 @@ public class DBStudents {
 				student.setmethodOfFinancing(mof);
 				student.setyearOfEnrollment(startYear);
 				student.setyearOfStudy(currYear);
+				student.setdateOfBirth(localDate);
 			}
 		}
+	}
+	public void addStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear,
+			MethodOfFinancing mof, String address, String phoneNum, String mail) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
