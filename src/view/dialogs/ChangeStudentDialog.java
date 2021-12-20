@@ -24,6 +24,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import controller.StudentsCtrl;
+import model.Address;
+import view.dialogs.AddStudentDialog.DiaButton;
 import view.tables.StudentsTable;
 
 public class ChangeStudentDialog extends AddStudentDialog{
@@ -66,9 +68,6 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
-		//DiaTFld tfBday = new DiaTFld(panBday,"[^[0-9,.]]+", "date of birth");
-		//tfBday.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth().toString());
-		
 		LocalDate bDay = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		Date date = Date.from(bDay.atStartOfDay(defaultZoneId).toInstant());
@@ -78,10 +77,19 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		setPreferredSize(dim);
 		panBday.add(spinner2);
 		
+		Address address = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getaddress();
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
-		DiaTFld tfAdr = new DiaTFld(panAdr, "[^[a-z A-Z0-9/\\-]]+", "address");
-		tfAdr.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getaddress().toString());
+		
+		DiaButton btnAddress = new DiaButton("Change address", panAdr);
+		btnAddress.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change address", true, address);
+				addressDia.setVisible(true);
+			}
+    	});
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
@@ -125,8 +133,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ( tfName.getText().equals("") || tfSurname.getText().equals("")
-						//|| tfBday.getText().equals("") || tfStartYear.getText().equals("") || tfAdr.getText().equals("")
-						|| tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfStartYear.getText().equals("") || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")
 						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
 					btnSave.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
@@ -135,10 +142,9 @@ public class ChangeStudentDialog extends AddStudentDialog{
 					ZoneId defaultZoneId = ZoneId.systemDefault();
 					Instant instant = date.toInstant();
 				    LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-					//StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), tfBday.getText(),
 					StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), localDate,
 						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-							stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
+							stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
 					dispose();
 				}
 				btnSave.setEnabled(true);
@@ -174,9 +180,6 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		JPanel panDnGrade = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaButton btnDnGrade = new DiaButton("Cancel", panDnGrade);
-		
-		//JPanel panTbl = new JPanel(new BorderLayout()));
-		
 		
 	}
 }	

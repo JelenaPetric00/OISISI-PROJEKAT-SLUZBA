@@ -36,8 +36,8 @@ public class DBStudents {
 //TODO Citaj fajl i ubacuj  redom
 	private void initStudents() {
 		this.students = new ArrayList<Student>();
-		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address(), "0603028000", "isidorapoznanovic1@gmail.com",
-				"RA 163/2019", (byte)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
+		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address("Fruskogorsa", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
+				"RA 163/2019", (short)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
 				new ArrayList<Grade>(), new ArrayList<Subject>()));
 		
 	}
@@ -83,8 +83,8 @@ public class DBStudents {
 		
 	}
 
-	public void addStudent(String ID, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade, LocalDate localDate, short currYear, String address, String phoneNum, String mail) {
-		this.students.add(new Student(name, surname, localDate, new Address(), phoneNum, mail,
+	public void addStudent(String ID, String name, String surname, Byte yearOfStudy, MethodOfFinancing mof, Float avgGrade, LocalDate localDate, short currYear, Address address, String phoneNum, String mail) {
+		this.students.add(new Student(name, surname, localDate, address, phoneNum, mail,
 				ID, currYear, yearOfStudy, mof, avgGrade,
 				new ArrayList<Grade>(), new ArrayList<Subject>()));
 	}
@@ -98,7 +98,7 @@ public class DBStudents {
 		}
 	}
 
-	public void editStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, String address, String phoneNum, String mail) {		//dodaj polja
+	public void editStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, Address address, String phoneNum, String mail) {		//dodaj polja
 		for (Student student : students) {
 			if (student.getidNumber() == id) {
 				student.setname(name);
@@ -109,13 +109,14 @@ public class DBStudents {
 				student.setyearOfEnrollment(startYear);
 				student.setyearOfStudy(currYear);
 				student.setdateOfBirth(localDate);
+				student.setaddress(address);
 			}
 		}
 	}
-	public void addStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear,
-			MethodOfFinancing mof, String address, String phoneNum, String mail) {
-		// TODO Auto-generated method stub
-		
-	}
+//	public void addStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear,
+//			MethodOfFinancing mof, String address, String phoneNum, String mail) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 }
