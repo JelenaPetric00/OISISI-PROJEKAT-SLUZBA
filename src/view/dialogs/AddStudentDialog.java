@@ -30,6 +30,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import controller.StudentsCtrl;
+import model.Address;
 import model.Student.MethodOfFinancing;
 import view.listeners.MyFocusListener;
 
@@ -137,9 +138,23 @@ public class AddStudentDialog extends JDialog{
 		setPreferredSize(dim);
 		panBday.add(spinner2);
 		
+		Address address = new Address();
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
-		DiaTFld tfAdr = new DiaTFld(panAdr, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "address");
+		DiaButton btnAddress = new DiaButton("Add address", panAdr);
+		btnAddress.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(address.getCountry() == null) {
+					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add address", true, address);
+					addressDia.setVisible(true);
+				}else {
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change address", true, address);
+					addressDia.setVisible(true);
+				}
+			}
+    	});
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
@@ -170,24 +185,23 @@ public class AddStudentDialog extends JDialog{
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		btnSave.addActionListener(new ActionListener() {
-//TODO bday must be LocalDate not string, addres must bi class adress?
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
-						|| tfStartYear.getText().equals("") || tfAdr.getText().equals("")
+						|| tfStartYear.getText().equals("") || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")
 						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
 					btnSave.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
-				     btnSave.setEnabled(true);
-				     Date date = (Date) spinner2.getValue();
-				     ZoneId defaultZoneId = ZoneId.systemDefault();
-				     Instant instant = date.toInstant();
-				     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				     StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
+				    btnSave.setEnabled(true);
+				    Date date = (Date) spinner2.getValue();
+				    ZoneId defaultZoneId = ZoneId.systemDefault();
+				    Instant instant = date.toInstant();
+				    LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				    StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
 								Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-								stringToMOF(tfFinancing.getSelectedItem().toString()), tfAdr.getText(), tfPhNum.getText(), tfMail.getText());
-					
+								stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+								
 				     dispose();
 				}
 				btnSave.setEnabled(true);
