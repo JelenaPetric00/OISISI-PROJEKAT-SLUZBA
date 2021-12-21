@@ -5,16 +5,22 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
+import view.dialogs.AddStudentDialog.DiaTFld;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
@@ -33,6 +39,8 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
+
+		List<DiaTFld> list = new ArrayList<>();
 		
 		JTabbedPane tp = new JTabbedPane(); 
 		
@@ -56,7 +64,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		DiaLabel lblName = new DiaLabel("Name must contain only letters and numbers", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9]]+", "name");
 		tfName.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getname());
-		
+		list.add(tfName);
 		JPanel panSem = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblSem = new DiaLabel("Select semester", "Semester*", panSem);
 		String semester[] = {"summer", "winter"};
@@ -74,7 +82,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		DiaLabel lblProf = new DiaLabel("Professor must contain only letters", "Professor*", panProf);		
 		DiaTFld tfProf = new DiaTFld(panProf, "[^[a-z A-Z]]+", "professor");
 		//tfProf.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).get().toString());
-		
+		list.add(tfProf);
 		JPanel panESPB = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblESPB = new DiaLabel("Select espb", "ESPB*", panESPB);
 		SpinnerModel espb = new SpinnerNumberModel(1, 1, 30, 1);
@@ -84,19 +92,35 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
-		btnSave.addActionListener(new ActionListener() {
+		
+		DocumentListener listener = new DocumentListener() {
+		    @Override
+		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
+		    @Override
+		    public void insertUpdate(DocumentEvent e) { changedUpdate(e); }
 
+		    @Override
+		    public void changedUpdate(DocumentEvent e) {
+		        boolean canEnable = true;
+		        for (JTextField tf : list) {
+		            if (tf.getText().isEmpty()){
+		                canEnable = false;
+		            }
+		        }
+		        btnSave.setEnabled(canEnable);
+		    }
+		};
+		
+		for (DiaTFld tf : list) {
+		    tf.getDocument().addDocumentListener(listener);
+		}
+		
+		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (tfName.getText().equals("") || tfProf.getText().equals("")){
-					btnSave.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}else {
-					SubjectsCtrl.getInstance().editSubject(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
-							Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
-					dispose();
-				}
-				btnSave.setEnabled(true);
+				SubjectsCtrl.getInstance().editSubject(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
+					Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
+				dispose();
 			}
     	
     	});
