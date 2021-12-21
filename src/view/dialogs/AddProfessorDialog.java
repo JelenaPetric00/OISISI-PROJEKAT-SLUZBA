@@ -9,6 +9,11 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -18,10 +23,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import controller.ProfessorsCtl;
+import model.Address;
 import view.listeners.ProfFocusListener;
 
 public class AddProfessorDialog extends JDialog{
@@ -75,9 +82,15 @@ public class AddProfessorDialog extends JDialog{
 		profBirthDP.add(Box.createHorizontalStrut(vspace));
 		profBirthDP.add(pBirthDLbl);
 		
-		DialogTxtField txtBirthDP = new DialogTxtField();
-		txtBirthDP.setName("txtBirthDP");
-		profBirthDP.add(txtBirthDP);
+		//DialogTxtField txtBirthDP = new DialogTxtField();
+		//txtBirthDP.setName("txtBirthDP");
+		//profBirthDP.add(txtBirthDP);
+		
+		Date today = new Date();
+		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
+		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
+		setPreferredSize(dim2);
+		profBirthDP.add(dateSpinner);
 		
 		JPanel profAddrResP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pAddrResLbl = new JLabel("Residential Address: *");
@@ -86,9 +99,29 @@ public class AddProfessorDialog extends JDialog{
 		profAddrResP.add(Box.createHorizontalStrut(vspace));
 		profAddrResP.add(pAddrResLbl);
 		
-		DialogTxtField txtAddrResP = new DialogTxtField();
-		txtAddrResP.setName("txtAddrResP");
-		profAddrResP.add(txtAddrResP);
+		//DialogTxtField txtAddrResP = new DialogTxtField();
+		//txtAddrResP.setName("txtAddrResP");
+		//profAddrResP.add(txtAddrResP);
+		
+		Address addressR = new Address();
+		JButton btnAddressP = new JButton("Add Address");
+		profAddrResP.add(btnAddressP, Component.CENTER_ALIGNMENT);
+		
+		btnAddressP.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(addressR.getCountry() == null){
+					AddAddressDialog resAddressDia = new AddAddressDialog(parent, "Add residential address", true, addressR);
+					resAddressDia.setVisible(true);
+				}else{
+					ChangeAddressDialog addressDiaP = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
+					addressDiaP.setVisible(true);
+				}
+				
+			}
+			
+		});
 		
 		JPanel profPhoneP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pPhoneLbl = new JLabel("Contact phone: *");
@@ -119,9 +152,33 @@ public class AddProfessorDialog extends JDialog{
 		profOfficeP.add(Box.createHorizontalStrut(vspace));
 		profOfficeP.add(pOfficeLbl);
 		
-		DialogTxtField txtOfficeP = new DialogTxtField();
-		txtOfficeP.setName("txtOfficeP");
-		profOfficeP.add(txtOfficeP);
+		//DialogTxtField txtOfficeP = new DialogTxtField();
+		//txtOfficeP.setName("txtOfficeP");
+		//profOfficeP.add(txtOfficeP);
+		
+		Address addressO = new Address();
+		JButton btnAddressO = new JButton("Add address");
+		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
+		
+		btnAddressO.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(addressO.getCountry() == null){
+					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add office address", true, addressO);
+					addressDia.setVisible(true);
+				}else{
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change office address", true, addressO);
+					addressDia.setVisible(true);
+					
+				}
+				
+				
+			}
+			
+		});
+		
+		
 		
 		JPanel profIDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pIDLbl = new JLabel("ID number: *");
@@ -174,13 +231,22 @@ public class AddProfessorDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtBirthDP.getText().equals("") || txtAddrResP.getText().equals("") || txtPhoneP.getText().equals("")
-						|| txtEmailP.getText().equals("") || txtOfficeP.getText().equals("") || txtIDP.getText().equals("") || txtTitleP.getText().equals("")){
+				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtPhoneP.getText().equals("")
+						|| txtEmailP.getText().equals("")  || txtIDP.getText().equals("") || txtTitleP.getText().equals("") || addressO.getCountry().equals("")
+						|| addressO.getStreet().equals("") || addressO.getStreetNumber().equals("") || addressO.getTown().equals("") || addressR.getCountry().equals("") || addressR.getStreet().equals("")
+						|| addressR.getStreetNumber().equals("") || addressR.getTown().equals("")){
 					JOptionPane.showMessageDialog(null, "Please make sure that you fill all required fileds", "Error", JOptionPane.ERROR_MESSAGE);
 				}else {
 				     saveBtn.setEnabled(true);
-				     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), txtBirthDP.getText(), txtAddrResP.getText(), txtPhoneP.getText(), txtEmailP.getText(), txtOfficeP.getText(),
-					       txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				     //ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), txtBirthDP.getText(), txtAddrResP.getText(), txtPhoneP.getText(), txtEmailP.getText(), txtOfficeP.getText(),
+					      // txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				    // ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, residentialAddress, txtPhoneP.getText(), txtEmailP.getText(), officeAddress, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				     Date date = (Date) dateSpinner.getValue();
+				     ZoneId defaultZoneId = ZoneId.systemDefault();
+				     Instant instant = date.toInstant();
+				     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				     
 				     dispose();
 				}
 				saveBtn.setEnabled(true);
@@ -221,7 +287,7 @@ public class AddProfessorDialog extends JDialog{
 		//box.add(instructionP);
 		
 		add(box, BorderLayout.NORTH);
-		add(instructionP, BorderLayout.SOUTH);
+		//add(instructionP, BorderLayout.SOUTH);
 		
 		
 		

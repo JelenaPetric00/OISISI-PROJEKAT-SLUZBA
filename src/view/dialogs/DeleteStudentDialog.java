@@ -23,7 +23,7 @@ public class DeleteStudentDialog extends AddStudentDialog{
 	public DeleteStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
-		setSize(300, 100);
+		setSize(300, 125);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());

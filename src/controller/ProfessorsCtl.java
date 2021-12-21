@@ -3,7 +3,7 @@ package controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javax.security.auth.Subject;
+//import javax.security.auth.Subject;
 
 import model.Address;
 import model.DBProfessors;
@@ -31,8 +31,9 @@ public class ProfessorsCtl {
 		
 	}
 	
-	public void addProfessor(String surname, String name, String dateOfBirth, String residentialAddress, String contactPhone, String email, String officeAddress, String idNumber, String title, short yearsOfTrail){
-		DBProfessors.getInstance().addProfessor(surname, name, email, title);
+	public void addProfessor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String email, Address officeAddress, String idNumber, String title, short yearsOfTrail){
+		//DBProfessors.getInstance().addProfessor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, idNumber, title, yearsOfTrail);
+		DBProfessors.getInstance().addProfessor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, idNumber, title, (short)yearsOfTrail);
 		professorstab.updateViewP("ADDED", -1);
 		
 	}
@@ -48,15 +49,25 @@ public class ProfessorsCtl {
 		professorstab.updateViewP("DELETED", rowSelectedIndex);
 	}
 	
-	public void editProfessor(int rowSelectedIndex, String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String email, Address officeAddress, String idNumber, String title, short yearsOfTrial){
+	/*public void editProfessor(int rowSelectedIndex, String email, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String idNumber, Address officeAddress, String surname, String title, short yearsOfTrial){
 		if(rowSelectedIndex < 0){
 			return;
 		}
 		
 		Professor professor = DBProfessors.getInstance().getRow(rowSelectedIndex);
-		DBProfessors.getInstance().editProfessor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, professor.getIdNumber(), title, yearsOfTrial);
+		DBProfessors.getInstance().editProfessor( professor.getEmail(), name, dateOfBirth, residentialAddress, contactPhone, idNumber, officeAddress, surname, title, yearsOfTrial);
 		professorstab.updateViewP("EDITED", -1);
-	} 
+	} */
+	
+	public void editProfessor(int rowSelectedIndex, String name, String surname, String title, String emailP, LocalDate birthD, Address addressR, String phoneP, Address addressO,String idN, short yearsP){
+		if(rowSelectedIndex < 0){
+			return;
+		}
+		
+		Professor professor = DBProfessors.getInstance().getRow(rowSelectedIndex);
+		DBProfessors.getInstance().editProfessor(name, surname, title, emailP, birthD, addressR, phoneP, addressO, idN, yearsP);
+		professorstab.updateViewP("EDITED", -1);
+	}
 	
 	public Professor getProfessorAtIdx(int i){
 		return DBProfessors.getInstance().getProfesssors().get(i);

@@ -22,14 +22,19 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 	public DeleteSubjectDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
-		setSize(300,150);
+		setSize(300,125);
 		setLocationRelativeTo(parent);
 		
-		JPanel deleteSubP = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		setLayout(new BorderLayout());
+		JPanel deleteSubP = new JPanel(new BorderLayout());
 		JLabel delMessSub = new JLabel("Are you sure you want\n"
 				+ " to delete the subject?");
+		delMessSub.setPreferredSize(dim);
+		deleteSubP.add(Box.createHorizontalStrut(vspace));
 		
-		deleteSubP.add(delMessSub, Component.LEFT_ALIGNMENT);
+		deleteSubP.add(delMessSub);
+		add(deleteSubP, BorderLayout.NORTH);
+		add(Box.createVerticalStrut(15));
 		
 		JPanel btnS = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton yesButton = new JButton("Yes");
@@ -55,12 +60,14 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 		btnS.add(Box.createHorizontalStrut(40));
 		btnS.add(noButton, Component.CENTER_ALIGNMENT);
 		
-		Box box = Box.createVerticalBox();
-		box.add(delMessSub);
-		box.add(Box.createHorizontalStrut(dim.height));
-		box.add(btnS);
+		//Box box = Box.createVerticalBox();
+		//box.add(delMessSub);
+		//box.add(Box.createHorizontalStrut(dim.height));
+		//box.add(btnS);
 		
-		add(box, BorderLayout.NORTH);
+		//add(box, BorderLayout.NORTH);
+		
+		add(btnS, BorderLayout.SOUTH);
 		
 		
 		
