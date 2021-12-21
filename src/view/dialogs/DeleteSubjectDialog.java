@@ -22,7 +22,7 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 	public DeleteSubjectDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
-		setSize(300,125);
+		setSize(350,125);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());

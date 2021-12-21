@@ -1,12 +1,14 @@
 package view.dialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.StudentsCtrl;
@@ -23,13 +25,12 @@ public class DeleteStudentDialog extends AddStudentDialog{
 	public DeleteStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
-		setSize(300, 125);
+		setSize(350, 125);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
 		JPanel panLbl = new JPanel(new BorderLayout());
 		DiaLabel lbl = new DiaLabel("", "Are you sure you want\n to delete student?", panLbl);		
-
 		add(panLbl, BorderLayout.NORTH);
 		
 		add(Box.createRigidArea(dim));

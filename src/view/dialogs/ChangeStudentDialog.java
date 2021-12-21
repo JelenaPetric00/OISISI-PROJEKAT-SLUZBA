@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -19,9 +21,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import model.Address;
@@ -42,6 +47,8 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
+
+		List<DiaTFld> list = new ArrayList<>();
 		
 		JTabbedPane tp = new JTabbedPane(); 
 		
@@ -60,12 +67,12 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z]]+", "name");
 		tfName.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getname());
-		
+		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-Z]]+", "surname");
 		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
-		
+		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
 		LocalDate bDay = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth();
@@ -95,23 +102,23 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
 		tfPhNum.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getphoneNumber());
-		
+		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
 		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9]@.]+", "e-mail address");
 		tfMail.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getEmail());
-		
+		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
 		//DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\]]+", "ID number");
 		DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
 		//tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
-		
+
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
 		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
 		tfStartYear.setText(String.valueOf(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getyearOfEnrollment()));
-		
+		list.add(tfStartYear);
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
@@ -128,26 +135,41 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		panBtn.add(Box.createHorizontalStrut(14));
+		
+		DocumentListener listener = new DocumentListener() {
+		    @Override
+		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
+		    @Override
+		    public void insertUpdate(DocumentEvent e) { changedUpdate(e); }
+
+		    @Override
+		    public void changedUpdate(DocumentEvent e) {
+		        boolean canEnable = true;
+		        for (JTextField tf : list) {
+		            if (tf.getText().isEmpty()) {
+		                canEnable = false;
+		            }
+		        }
+		        btnSave.setEnabled(canEnable);
+		    }
+		};
+		
+		for (JTextField tf : list) {
+		    tf.getDocument().addDocumentListener(listener);
+		}
+		
 		btnSave.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if ( tfName.getText().equals("") || tfSurname.getText().equals("")
-						|| tfStartYear.getText().equals("") || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")
-						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
-					btnSave.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}else {
-					Date date = (Date) spinner2.getValue();
-					ZoneId defaultZoneId = ZoneId.systemDefault();
-					Instant instant = date.toInstant();
-				    LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-					StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), localDate,
-						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-							stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
-					dispose();
-				}
-				btnSave.setEnabled(true);
+				Date date = (Date) spinner2.getValue();
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Instant instant = date.toInstant();
+				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), localDate,
+					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+				dispose();
 			}
     	
     	});

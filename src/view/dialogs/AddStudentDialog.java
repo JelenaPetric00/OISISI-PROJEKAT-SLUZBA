@@ -11,9 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.temporal.TemporalAccessor;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.Box;
@@ -21,13 +22,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import model.Address;
@@ -121,15 +123,17 @@ public class AddStudentDialog extends JDialog{
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
+
+		List<DiaTFld> list = new ArrayList<>();
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "name");
-		
+		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "surname");
-		
+		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
 		Date today = new Date();
@@ -159,19 +163,19 @@ public class AddStudentDialog extends JDialog{
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
-		
+		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
 		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ@.]]+", "e-mail address");
-		
+		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
 		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "ID number");
-		
+		list.add(tfID);
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
 		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
-		
+		list.add(tfStartYear);
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
@@ -184,27 +188,45 @@ public class AddStudentDialog extends JDialog{
 
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);
+		btnSave.setEnabled(false);
+		
+		//TODO treba koristi klasu 
+//		MyDocumentListener listener = new MyDocumentListener(btnSave, list, address);
+		DocumentListener listener = new DocumentListener() {
+		    @Override
+		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
+		    @Override
+		    public void insertUpdate(DocumentEvent e) { changedUpdate(e); }
+
+		    @Override
+		    public void changedUpdate(DocumentEvent e) {
+		        boolean canEnable = true;
+		        for (JTextField tf : list) {
+		            if (tf.getText().isEmpty() || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")) {
+		                canEnable = false;
+		            }
+		        }
+		        btnSave.setEnabled(canEnable);
+		    }
+		};
+		
+		for (DiaTFld tf : list) {
+		    tf.getDocument().addDocumentListener(listener);
+		}
+		
 		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (tfID.getText().equals("") || tfName.getText().equals("") || tfSurname.getText().equals("")
-						|| tfStartYear.getText().equals("") || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")
-						|| tfPhNum.getText().equals("") || tfMail.getText().equals("")){
-					btnSave.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "Please fill all of equired fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}else {
-				    btnSave.setEnabled(true);
-				    Date date = (Date) spinner2.getValue();
-				    ZoneId defaultZoneId = ZoneId.systemDefault();
-				    Instant instant = date.toInstant();
-				    LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				    StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
-								Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-								stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+				
+				Date date = (Date) spinner2.getValue();
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Instant instant = date.toInstant();
+				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
+					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
 								
-				     dispose();
-				}
-				btnSave.setEnabled(true);
+				dispose();
 			}
     	});
 
