@@ -25,24 +25,24 @@ public class AddAddressDialog extends AddStudentDialog{
 	public AddAddressDialog(Frame parent, String title, boolean modal, Address address) {
 		super(parent, title, modal);
 		
-		setSize(430, 250);
+		setSize(430, 270);
 		setLocationRelativeTo(parent);
 		
 		JPanel panStreet = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStreet = new DiaLabel("Street must contain only letters", "Street*", panStreet);		
-		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "street");
+		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street");
 		
 		JPanel panStreetNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStreetNum = new DiaLabel("Street number must contain only letters and numbers", "Street number*", panStreetNum);		
-		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-ćčšđžČĆŽŠĐ]]+", "street number");
+		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street number");
 		
 		JPanel panTown = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblTown = new DiaLabel("Town must contain only letters", "Town*", panTown);		
-		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "town");
+		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "town");
 		
 		JPanel panCountry = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblCountry = new DiaLabel("Country must contain only letters", "Country*", panCountry);		
-		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "country");
+		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "country");
 	
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaButton btnSave = new DiaButton("Save", panBtn);

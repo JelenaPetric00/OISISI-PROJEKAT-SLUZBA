@@ -31,7 +31,8 @@ public class DBProfessors {
 	
 	private void initProfessors(){
 		this.professors = new ArrayList<Professor>();
-		professors.add(new Professor("Nebojsa", "Ralevic", LocalDate.of(2000, 5, 1), new Address(), "00000000", "ralevicnmeail", new Address(), "73635", "profesor", (short)20, new ArrayList<Subject>()));
+		professors.add(new Professor("Milan", "Rapajic", LocalDate.of(1982, 11, 17), new Address("ulica", "1", "Novi Sad", "Srbija"), "06000000", "rapaja@uns.ac.rs", 
+				new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), "73635", "redovni profesor", (short)15, new ArrayList<Subject>()));
 	}
 	
 	public List<Professor> getProfesssors(){
@@ -70,8 +71,8 @@ public class DBProfessors {
 		}	
 	}
 	
-	public void addProfessor(String surname, String name, String email, String title){
-		this.professors.add(new Professor(surname, name, LocalDate.of(2000, 5, 1), new Address(), "0100000", email, new Address(), "7464646", title, (short)10, new ArrayList<Subject>()));
+	public void addProfessor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String email, Address officeAddress, String idNumber, String title, short yearsOfTrail){
+		this.professors.add(new Professor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, idNumber, title, yearsOfTrail, new ArrayList<Subject>()));
 	}
 	
 	public void delProfessor(String id){
@@ -83,15 +84,15 @@ public class DBProfessors {
 		}
 	}
 	
-	public void editProfessor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String email, Address officeAddress, String idNumber, String title, short yearsOfTrial){
+	/*public void editProfessor(String email, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String idNumber, Address officeAddress, String surname, String title, short yearsOfTrial){
 		for(Professor professor : professors){
-			if (professor.getIdNumber() == idNumber){
+			if (professor.getEmail() == email){
 				professor.setName(name);
 				professor.setSurname(surname);
 				professor.setDateOfBirth(dateOfBirth);
 				professor.setResidentialAddress(residentialAddress);
 				professor.setContactPhone(contactPhone);
-				professor.setEmail(email);
+				//professor.setEmail(email);
 				professor.setOfficeAddress(officeAddress);
 				professor.setIdNumber(idNumber);
 				professor.setTitle(title);
@@ -99,6 +100,21 @@ public class DBProfessors {
 				//professor.setTeachSubjects(teachSubjects);
 				
 				
+			}
+		}
+	}*/
+	
+	public void editProfessor(String name, String surname, String title, String emailP, LocalDate birthDate, Address addressR,  String phoneP, Address addressO, String idN, short yearsP){
+		for(Professor prof : professors){
+			if(prof.getIdNumber() == idN){
+				prof.setName(name);
+				prof.setSurname(surname);
+				prof.setDateOfBirth(birthDate);
+				prof.setResidentialAddress(addressR);
+				prof.setContactPhone(phoneP);
+				prof.setEmail(emailP);
+				prof.setOfficeAddress(addressO);
+				prof.setYearsOfTrail(yearsP);
 			}
 		}
 	}

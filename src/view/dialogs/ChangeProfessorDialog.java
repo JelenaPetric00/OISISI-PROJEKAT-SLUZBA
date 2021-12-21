@@ -6,17 +6,29 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import controller.ProfessorsCtl;
+import model.Address;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
+import view.tables.ProfessorsTable;
 
 public class ChangeProfessorDialog extends AddProfessorDialog{
 	
@@ -70,7 +82,13 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		
 		DialogTxtField txtBirthDP = new DialogTxtField();
 		txtBirthDP.setName("txtBirthDP");
-		profBirthDP.add(txtBirthDP);
+		//profBirthDP.add(txtBirthDP);
+		
+		Date today = new Date();
+		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
+		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
+		setPreferredSize(dim2);
+		profBirthDP.add(dateSpinner);
 		
 		JPanel profAddrResP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pAddrResLbl = new JLabel("Residential Address: *");
@@ -81,7 +99,21 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		
 		DialogTxtField txtAddrResP = new DialogTxtField();
 		txtAddrResP.setName("txtAddrResP");
-		profAddrResP.add(txtAddrResP);
+		//profAddrResP.add(txtAddrResP);
+		
+		Address addressR = new Address();
+		JButton btnAddressR = new JButton("Change residential address");
+		profAddrResP.add(btnAddressR, Component.CENTER_ALIGNMENT);
+		
+		btnAddressR.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddAddressDialog resAddrDia = new AddAddressDialog(parent, "Change residential address", true, addressR);
+				resAddrDia.setVisible(true);
+			}
+			
+		});
 		
 		JPanel profPhoneP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pPhoneLbl = new JLabel("Contact phone: *");
@@ -114,7 +146,21 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		
 		DialogTxtField txtOfficeP = new DialogTxtField();
 		txtOfficeP.setName("txtOfficeP");
-		profOfficeP.add(txtOfficeP);
+		//profOfficeP.add(txtOfficeP);
+		
+		Address addressO = new Address();
+		JButton btnAddressO = new JButton("Change office address");
+		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
+		
+		btnAddressO.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddAddressDialog resAddrDiaO = new AddAddressDialog(parent, "Change office address", true, addressO);
+				resAddrDiaO.setVisible(true);
+			}
+			
+		});
 		
 		JPanel profIDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pIDLbl = new JLabel("ID number: *");
@@ -158,12 +204,57 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		
 		JPanel profButtonP= new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton confirmBtn = new JButton("Confirm");
-		JButton quiteBtn = new JButton("Quite");
+		JButton quitBtn = new JButton("Quit");
 		confirmBtn.setToolTipText("apply changes");
-		quiteBtn.setToolTipText("quite");
+		quitBtn.setToolTipText("leave as it was");
+		
+		
+		confirmBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtPhoneP.getText().equals("") 
+						|| txtEmailP.getText().equals("") || txtIDP.getText().equals("") || txtTitleP.getText().equals("") || addressR.getCountry().equals("")
+						|| addressR.getStreet().equals("") || addressR.getStreetNumber().equals("") || addressR.getTown().equals("") || addressO.getCountry().equals("") || addressO.getStreet().equals("")
+						|| addressO.getStreetNumber().equals("") || addressO.getTown().equals("")){
+					JOptionPane.showMessageDialog(null,  "Please make sure that you fill all required fields", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					Date date = (Date) dateSpinner.getValue();
+					ZoneId defaultZoneId = ZoneId.systemDefault();
+					Instant instant = date.toInstant();	
+					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					
+					/*ProfessorsCtl.getInstance().editProfessor(ProfessorsTable.getInstance().getSelectedRow(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber(),
+							txtNameP.getText(), txtSurnameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtTitleP.getText(), Short.parseShort(years.getValue().toString()));*/
+					ProfessorsCtl.getInstance().editProfessor(ProfessorsTable.getInstance().getSelectedRow(), txtNameP.getText(), txtSurnameP.getText(), txtTitleP.getText(),
+							txtEmailP.getText(), localDate, addressR, txtPhoneP.getText(), addressO, ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber(),
+							Short.parseShort(years.getValue().toString()));
+					
+					dispose();
+				}
+				confirmBtn.setEnabled(true);
+				
+			}
+			
+		});
+		
+		quitBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+			
+		});
+		
+		
+		
+		
+		
 		profButtonP.add(confirmBtn, Component.CENTER_ALIGNMENT);
 		profButtonP.add(Box.createHorizontalStrut(40));
-		profButtonP.add(quiteBtn, Component.CENTER_ALIGNMENT);
+		profButtonP.add(quitBtn, Component.CENTER_ALIGNMENT);
 		
 		JPanel subjectButtonP = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton addBtn = new JButton("Add subject");

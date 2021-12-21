@@ -20,7 +20,7 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 	public DeleteProfessorDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
-		setSize(300,150);
+		setSize(300,125);
 		setLocationRelativeTo(parent);
 		
 		JPanel deleteProf = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -61,7 +61,7 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 		Box box = Box.createVerticalBox();
 		//box.add(Box.createVerticalStrut(dim2.height));
 		box.add(deleteProf);
-		box.add(Box.createVerticalStrut(dim2.height));
+		box.add(Box.createVerticalStrut(10));
 		box.add(btns);
 		
 		

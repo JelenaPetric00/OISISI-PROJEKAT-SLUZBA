@@ -19,7 +19,7 @@ public class ProfFocusListener implements FocusListener {
 		JTextField txt = (JTextField) arg0.getComponent();
 		txt.setBackground(Color.LIGHT_GRAY);
 		
-		if(txt.getName().equals("txtNameP") || txt.getName().equals("txtSurnameP") || txt.getName().equals("txtBirthDP") || txt.getName().equals("txtAddrResP") || txt.getName().equals("txtPhoneP") || txt.getName().equals("txtEmailP") || txt.getName().equals("txtOfficeP") || txt.getName().equals("txtOfficeP") || txt.getName().equals("txtIDP") || txt.getName().equals("txtTitleP")){
+		if(txt.getName().equals("txtNameP") || txt.getName().equals("txtSurnameP")  || txt.getName().equals("txtPhoneP") || txt.getName().equals("txtEmailP") || txt.getName().equals("txtIDP") || txt.getName().equals("txtTitleP")){
 			
 			if(txt.getText().trim().equals("") || txt.getName().equals("Required field")){
 				txt.setText("Required field");
