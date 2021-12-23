@@ -16,6 +16,9 @@ import view.dialogs.ChangeStudentDialog;
 import view.dialogs.DeleteProfessorDialog;
 import view.dialogs.DeleteStudentDialog;
 import view.dialogs.DeleteSubjectDialog;
+import view.tables.ProfessorsTable;
+import view.tables.StudentsTable;
+import view.tables.SubjectsTable;
 
 public class DeleteButtonAction extends AbstractAction{
 	
@@ -36,16 +39,22 @@ public class DeleteButtonAction extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:
-				DeleteStudentDialog studentDia = new DeleteStudentDialog(parent, "Delete student", true);
-				studentDia.setVisible(true);
+				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteStudentDialog studentDia = new DeleteStudentDialog(parent, "Delete student", true);
+					studentDia.setVisible(true);
+				}
 				break;
 			case 1:
-				DeleteProfessorDialog professorDia = new DeleteProfessorDialog(parent, "Delete professor", true);
-				professorDia.setVisible(true);
+				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteProfessorDialog professorDia = new DeleteProfessorDialog(parent, "Delete professor", true);
+					professorDia.setVisible(true);
+				}
 				break;
 			case 2:
-				DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, "Delete subject", true);
-				subjectDia.setVisible(true);
+				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, "Delete subject", true);
+					subjectDia.setVisible(true);
+				}
 				break;
 			default:
 		}

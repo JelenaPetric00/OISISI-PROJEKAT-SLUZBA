@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -135,7 +136,7 @@ public class AddStudentDialog extends JDialog{
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "surname");
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
+		DiaLabel lblBDay = new DiaLabel("Choose date", "Date of birth*", panBday);		
 		Date today = new Date();
 		JSpinner spinner2 = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
 		spinner2.setEditor(new JSpinner.DateEditor(spinner2, "dd/MM/yy"));
@@ -161,7 +162,7 @@ public class AddStudentDialog extends JDialog{
     	});
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
+		DiaLabel lblPhNum = new DiaLabel("Phone number must contain only letters and +", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -222,11 +223,13 @@ public class AddStudentDialog extends JDialog{
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Instant instant = date.toInstant();
 				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
+				if(!StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
 					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
-								
-				dispose();
+						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText())) {
+					JOptionPane.showMessageDialog(null, "Student with given id number already exists", "ID already exists", JOptionPane.ERROR_MESSAGE);
+				}else {
+					dispose();
+				}
 			}
     	});
 

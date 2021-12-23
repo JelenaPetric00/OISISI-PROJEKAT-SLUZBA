@@ -43,7 +43,7 @@ public class AddSubjectDialog extends AddStudentDialog {
 		List<DiaTFld> list = new ArrayList<>();
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
+		DiaLabel lblID = new DiaLabel("ID number must contain only letters and numbers", "ID number*", panID);		
 		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", "ID number");
 		list.add(tfID);
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -100,9 +100,12 @@ public class AddSubjectDialog extends AddStudentDialog {
 //TODO proff must be proff
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SubjectsCtrl.getInstance().addSubject(tfID.getText(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
-					Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
-				dispose();
+				if(!SubjectsCtrl.getInstance().addSubject(tfID.getText(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
+						Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()))) {
+					JOptionPane.showMessageDialog(null, "Subject with given id number already exists", "ID already exists", JOptionPane.ERROR_MESSAGE);
+				}else {
+					dispose();
+				}
 			}
 		});
 		

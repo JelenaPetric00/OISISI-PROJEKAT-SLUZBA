@@ -21,6 +21,9 @@ import view.dialogs.ChangeSubjectDialog;
 import view.dialogs.DeleteProfessorDialog;
 import view.dialogs.DeleteStudentDialog;
 import view.dialogs.DeleteSubjectDialog;
+import view.tables.ProfessorsTable;
+import view.tables.StudentsTable;
+import view.tables.SubjectsTable;
 
 public class MenuBar extends JMenuBar implements ActionListener{
 	
@@ -219,32 +222,44 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		
         if(e.getSource() == editItem){
         	if(tab.getSelectedIndex() == 0){
-				ChangeStudentDialog studCh = new ChangeStudentDialog(parent, "Change student", true);
-				studCh.setVisible(true);
+				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeStudentDialog studCh = new ChangeStudentDialog(parent, "Change student", true);
+					studCh.setVisible(true);
+				}
 			}
 			else if(tab.getSelectedIndex() == 1){
-				ChangeProfessorDialog profCh = new ChangeProfessorDialog(parent, "Change professor", true);
-				profCh.setVisible(true);
+				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeProfessorDialog profCh = new ChangeProfessorDialog(parent, "Change professor", true);
+					profCh.setVisible(true);
+				}
 			}
 			else{
-				ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Change subject", true);
-				subjCh.setVisible(true);
+				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Change subject", true);
+					subjCh.setVisible(true);
+				}
 			}
 			
 		}
         
         if(e.getSource() == deleteItem){
         	if(tab.getSelectedIndex() == 0){
-				DeleteStudentDialog studDel = new DeleteStudentDialog(parent, "Delete student", true);
-				studDel.setVisible(true);
+				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteStudentDialog studDel = new DeleteStudentDialog(parent, "Delete student", true);
+					studDel.setVisible(true);
+				}
 			}
 			else if(tab.getSelectedIndex() == 1){
-				DeleteProfessorDialog profDel = new DeleteProfessorDialog(parent, "Delete professor", true);
-				profDel.setVisible(true);
+				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteProfessorDialog profDel = new DeleteProfessorDialog(parent, "Delete professor", true);
+					profDel.setVisible(true);
+				}
 			}
 			else{
-				DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, "Delete subject", true);
-				subjDel.setVisible(true);
+				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
+					DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, "Delete subject", true);
+					subjDel.setVisible(true);
+				}
 			}
 			
 		}

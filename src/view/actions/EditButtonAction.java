@@ -15,6 +15,9 @@ import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeProfessorDialog;
 import view.dialogs.ChangeStudentDialog;
 import view.dialogs.ChangeSubjectDialog;
+import view.tables.ProfessorsTable;
+import view.tables.StudentsTable;
+import view.tables.SubjectsTable;
 
 public class EditButtonAction extends AbstractAction{
 	
@@ -35,16 +38,22 @@ public class EditButtonAction extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:
-				ChangeStudentDialog studentDia = new ChangeStudentDialog(parent, "Change student", true);
-				studentDia.setVisible(true);
+				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeStudentDialog studentDia = new ChangeStudentDialog(parent, "Change student", true);
+					studentDia.setVisible(true);
+				}
 				break;
 			case 1:
-				ChangeProfessorDialog professorDia = new ChangeProfessorDialog(parent, "Change professor", true);
-				professorDia.setVisible(true);
+				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeProfessorDialog professorDia = new ChangeProfessorDialog(parent, "Change professor", true);
+					professorDia.setVisible(true);
+				}
 				break;
 			case 2:
-				ChangeSubjectDialog subjectDia = new ChangeSubjectDialog(parent, "Change subject", true);
-				subjectDia.setVisible(true);
+				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
+					ChangeSubjectDialog subjectDia = new ChangeSubjectDialog(parent, "Change subject", true);
+					subjectDia.setVisible(true);
+				}
 				break;
 			default:
 		}

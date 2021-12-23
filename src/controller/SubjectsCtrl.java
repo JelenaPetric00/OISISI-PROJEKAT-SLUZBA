@@ -26,9 +26,20 @@ public class SubjectsCtrl {
 		dbsubjects = DBSubjects.getInstance();
 	}
 	
-	public void addSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
-		DBSubjects.getInstance().addSubject(ID, name, semester, (byte)yearOfStudy, prof, espb);
-		subjectstab.updateView("ADDED", -1);
+	public boolean addSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+		boolean exist = false;
+		for(Subject s: dbsubjects.getSubjects()) {
+			if(s.getid().equals(ID)){
+				exist = true;
+			}
+		}
+		if(exist) {
+			return false;
+		}else {
+			DBSubjects.getInstance().addSubject(ID, name, semester, (byte)yearOfStudy, prof, espb);
+			subjectstab.updateView("ADDED", -1);
+			return true;
+		}
 	}
 	
 	public void delSubject(int rowSelectedIndex) {
