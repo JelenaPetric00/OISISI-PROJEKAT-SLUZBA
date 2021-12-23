@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class DBProfessors {
 	
 	private static DBProfessors instance = null;
@@ -72,7 +74,8 @@ public class DBProfessors {
 	}
 	
 	public void addProfessor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone, String email, Address officeAddress, String idNumber, String title, short yearsOfTrail){
-		this.professors.add(new Professor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, idNumber, title, yearsOfTrail, new ArrayList<Subject>()));
+		   this.professors.add(new Professor(surname, name, dateOfBirth, residentialAddress, contactPhone, email, officeAddress, idNumber, title, yearsOfTrail, new ArrayList<Subject>()));
+		
 	}
 	
 	public void delProfessor(String id){

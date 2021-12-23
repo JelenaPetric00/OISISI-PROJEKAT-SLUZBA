@@ -12,8 +12,10 @@ import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -26,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import controller.ProfessorsCtl;
 import model.Address;
@@ -53,6 +57,8 @@ public class AddProfessorDialog extends JDialog{
 		setSize(430, 500);
 		setLocationRelativeTo(parent);
 		
+		List<DialogTxtField> fields = new ArrayList();
+		
 		JPanel profNameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pNameLbl = new JLabel("Name: *");
 		pNameLbl.setPreferredSize(dim2);
@@ -63,6 +69,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtNameP = new DialogTxtField();
 		txtNameP.setName("txtNameP");
 		profNameP.add(txtNameP);
+		fields.add(txtNameP);
 		
 		JPanel profSurnameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pSurnameLbl = new JLabel("Surname: *");
@@ -74,6 +81,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtSurnameP = new DialogTxtField();
 		txtSurnameP.setName("txtSurnameP");
 		profSurnameP.add(txtSurnameP);
+		fields.add(txtSurnameP);
 		
 		JPanel profBirthDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pBirthDLbl = new JLabel("Date of birth: *");
@@ -133,6 +141,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtPhoneP = new DialogTxtField();
 		txtPhoneP.setName("txtPhoneP");
 		profPhoneP.add(txtPhoneP);
+		fields.add(txtPhoneP);
 		
 		JPanel profEmailP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pEmailLbl = new JLabel("Email address: *");
@@ -144,6 +153,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtEmailP = new DialogTxtField();
 		txtEmailP.setName("txtEmailP");
 		profEmailP.add(txtEmailP);
+		fields.add(txtEmailP);
 		
 		JPanel profOfficeP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pOfficeLbl = new JLabel("Office address: *");
@@ -190,6 +200,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtIDP = new DialogTxtField();
 		txtIDP.setName("txtIDP");
 		profIDP.add(txtIDP);
+		fields.add(txtIDP);
 		
 		JPanel profTitleP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pTitleLbl = new JLabel("Title: *");
@@ -201,6 +212,7 @@ public class AddProfessorDialog extends JDialog{
 		DialogTxtField txtTitleP = new DialogTxtField();
 		txtTitleP.setName("txtTitleP");
 		profTitleP.add(txtTitleP);
+		fields.add(txtTitleP);
 		
 		JPanel profYearsP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pYearsLbl = new JLabel("Years of trail: *");
@@ -225,8 +237,70 @@ public class AddProfessorDialog extends JDialog{
 		JButton cancelBtn = new JButton("Cancel");
 		saveBtn.setToolTipText("add professor");
 		cancelBtn.setToolTipText("cancel adding");
+		saveBtn.setEnabled(false);
+		
+		DocumentListener listener = new DocumentListener(){
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				changedUpdate(e);
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				changedUpdate(e);
+				
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				boolean canEnable = true;
+				for (JTextField tf : fields){
+					if(tf.getText().isEmpty() || addressR.getStreet() == null || addressR.getCountry() == null || addressR.getCountry().equals("") || addressR.getStreet().equals("") 
+							|| addressR.getStreetNumber().equals("") || addressR.getTown().equals("") || addressO.getStreet() == null || addressO.getCountry() == null 
+							||addressO.getCountry().equals("") || addressO.getStreet() == null || addressO.getStreet().equals("") || addressO.getStreetNumber().equals("") || addressO.getTown().equals("")){
+						
+						canEnable = false;
+					}
+					/*if(tf.getText() == txtTitleP.getText()){
+						
+					}*/
+				}
+				
+				/*if(addressR.getStreet() != null && addressR.getCountry() != null && addressR.getStreetNumber() != null && addressR.getTown() != null){
+					canEnable = true;
+				}*/
+				saveBtn.setEnabled(canEnable);
+				
+			}
+			
+		};
+		
+		for (DialogTxtField tf : fields){
+			tf.getDocument().addDocumentListener(listener);
+		}
 		
 		saveBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				 Date date = (Date) dateSpinner.getValue();
+			     ZoneId defaultZoneId = ZoneId.systemDefault();
+			     Instant instant = date.toInstant();
+			     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+			     
+			     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
+				dispose();
+			}
+			
+		});
+		
+		/*saveBtn.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -252,7 +326,7 @@ public class AddProfessorDialog extends JDialog{
 				saveBtn.setEnabled(true);
 			}
 			
-		});
+		});*/
 		
 		cancelBtn.addActionListener(new ActionListener(){
 

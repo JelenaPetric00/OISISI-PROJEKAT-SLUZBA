@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class ProfFocusListener implements FocusListener {
@@ -25,10 +26,33 @@ public class ProfFocusListener implements FocusListener {
 				txt.setText("Required field");
 				txt.requestFocus();
 				txt.setForeground(Color.RED);
-			} else{
-				txt.setForeground(Color.BLACK);
+			} 
+			
+		else if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
+			try{
+				Integer.parseInt(txt.getText());
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Please do not use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
+				txt.requestFocus();
+				}
+			}
+			
+		
+				
+		else{
+			txt.setForeground(Color.BLACK);
 			}
 		}
+		
+		/*if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
+			try{
+				Integer.parseInt(txt.getText());
+			}catch(NumberFormatException e){
+				JOptionPane.showMessageDialog(null, "Please do not use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
+				txt.requestFocus();
+				}
+		}*/
+		
 		
 	}
 
