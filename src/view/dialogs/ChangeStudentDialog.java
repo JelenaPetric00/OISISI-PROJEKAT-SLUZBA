@@ -74,7 +74,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Date of birth cannot contain letters", "Date of birth*", panBday);		
+		DiaLabel lblBDay = new DiaLabel("Choose date", "Date of birth*", panBday);		
 		LocalDate bDay = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		Date date = Date.from(bDay.atStartOfDay(defaultZoneId).toInstant());
@@ -99,7 +99,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
     	});
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblPhNum = new DiaLabel("Enter phone number", "Phone number*", panPhNum);
+		DiaLabel lblPhNum = new DiaLabel("Phone number must contain only letters and +", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
 		tfPhNum.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getphoneNumber());
 		list.add(tfPhNum);
