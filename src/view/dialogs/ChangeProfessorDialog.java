@@ -61,6 +61,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		DialogTxtField txtNameP = new DialogTxtField();
 		txtNameP.setName("txtNameP");
 		profNameP.add(txtNameP);
+		txtNameP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getName());
 		
 		JPanel profSurnameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pSurnameLbl = new JLabel("Surname: *");
@@ -72,6 +73,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		DialogTxtField txtSurnameP = new DialogTxtField();
 		txtSurnameP.setName("txtSurnameP");
 		profSurnameP.add(txtSurnameP);
+		txtSurnameP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getSurname());
 		
 		JPanel profBirthDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pBirthDLbl = new JLabel("Date of birth: *");
@@ -84,8 +86,16 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtBirthDP.setName("txtBirthDP");
 		//profBirthDP.add(txtBirthDP);
 		
-		Date today = new Date();
+		/*Date today = new Date();
 		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
+		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
+		setPreferredSize(dim2);
+		profBirthDP.add(dateSpinner);*/
+		LocalDate birthDay = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getDateOfBirth();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date date = Date.from(birthDay.atStartOfDay(defaultZoneId).toInstant());
+		
+		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(date, null, null, Calendar.MONTH));
 		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
 		setPreferredSize(dim2);
 		profBirthDP.add(dateSpinner);
@@ -101,7 +111,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtAddrResP.setName("txtAddrResP");
 		//profAddrResP.add(txtAddrResP);
 		
-		Address addressR = new Address();
+		Address addressR = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getResidentialAddress();
 		JButton btnAddressR = new JButton("Change residential address");
 		profAddrResP.add(btnAddressR, Component.CENTER_ALIGNMENT);
 		
@@ -109,7 +119,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAddressDialog resAddrDia = new AddAddressDialog(parent, "Change residential address", true, addressR);
+				ChangeAddressDialog resAddrDia = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
 				resAddrDia.setVisible(true);
 			}
 			
@@ -125,6 +135,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		DialogTxtField txtPhoneP = new DialogTxtField();
 		txtPhoneP.setName("txtPhoneP");
 		profPhoneP.add(txtPhoneP);
+		txtPhoneP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getContactPhone());
 		
 		JPanel profEmailP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pEmailLbl = new JLabel("Email address: *");
@@ -136,6 +147,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		DialogTxtField txtEmailP = new DialogTxtField();
 		txtEmailP.setName("txtEmailP");
 		profEmailP.add(txtEmailP);
+		txtEmailP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getEmail());
 		
 		JPanel profOfficeP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pOfficeLbl = new JLabel("Office address: *");
@@ -148,7 +160,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtOfficeP.setName("txtOfficeP");
 		//profOfficeP.add(txtOfficeP);
 		
-		Address addressO = new Address();
+		Address addressO = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getOfficeAddress();
 		JButton btnAddressO = new JButton("Change office address");
 		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
 		
@@ -156,7 +168,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				AddAddressDialog resAddrDiaO = new AddAddressDialog(parent, "Change office address", true, addressO);
+				ChangeAddressDialog resAddrDiaO = new ChangeAddressDialog(parent, "Change office address", true, addressO);
 				resAddrDiaO.setVisible(true);
 			}
 			
@@ -169,9 +181,13 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profIDP.add(Box.createHorizontalStrut(vspace));
 		profIDP.add(pIDLbl);
 		
-		DialogTxtField txtIDP = new DialogTxtField();
+		/*DialogTxtField txtIDP = new DialogTxtField();
 		txtIDP.setName("txtIDP");
 		profIDP.add(txtIDP);
+		txtIDP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());*/
+		JLabel fixID = new JLabel(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());
+		fixID.setPreferredSize(dim2);
+		profIDP.add(fixID);
 		
 		JPanel profTitleP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pTitleLbl = new JLabel("Title: *");
@@ -183,6 +199,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		DialogTxtField txtTitleP = new DialogTxtField();
 		txtTitleP.setName("txtTitleP");
 		profTitleP.add(txtTitleP);
+		txtTitleP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getTitle());
 		
 		JPanel profYearsP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pYearsLbl = new JLabel("Years of trail: *");
@@ -195,6 +212,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		JSpinner years = new JSpinner(modelY);
 		years.setPreferredSize(dim2);
 		profYearsP.add(years);
+		years.setValue(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getYearsOfTrail());
 		
 		JPanel instructionP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel messageLbl = new JLabel("*required");
@@ -214,7 +232,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtPhoneP.getText().equals("") 
-						|| txtEmailP.getText().equals("") || txtIDP.getText().equals("") || txtTitleP.getText().equals("") || addressR.getCountry().equals("")
+						|| txtEmailP.getText().equals("") /**/|| txtTitleP.getText().equals("") || addressR.getCountry().equals("")
 						|| addressR.getStreet().equals("") || addressR.getStreetNumber().equals("") || addressR.getTown().equals("") || addressO.getCountry().equals("") || addressO.getStreet().equals("")
 						|| addressO.getStreetNumber().equals("") || addressO.getTown().equals("")){
 					JOptionPane.showMessageDialog(null,  "Please make sure that you fill all required fields", "Error", JOptionPane.ERROR_MESSAGE);
