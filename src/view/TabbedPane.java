@@ -44,6 +44,7 @@ public class TabbedPane extends JTabbedPane {
 		subjectsPanel.setName("Subjects");
 		subjectsPanel.add(SubjectsTab.getInstance());
 		
+		
 		add(studentsPanel);
 		add(professorPanel);
 		add(subjectsPanel);

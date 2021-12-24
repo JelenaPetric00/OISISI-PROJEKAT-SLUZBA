@@ -50,10 +50,11 @@ public class MyFocusListener implements FocusListener{
 //		}
 		setWord(txt.getText());
 		if(matcher.find()) {
-			txt.setText("Invalid "+name+"...");
-			txt.requestFocus();
-			txt.setForeground(Color.RED);
+			//txt.setText("Invalid "+name+"...");
+			//txt.requestFocus();
+			//txt.setForeground(Color.RED);
 			JOptionPane.showMessageDialog(null, "Please don't use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
+			txt.requestFocus();
 //			try {
 //				txt.setText("Invalid "+name+"...");
 //				txt.requestFocus();
@@ -64,8 +65,8 @@ public class MyFocusListener implements FocusListener{
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			txt.setText("");
-			txt.setForeground(Color.BLACK);
+			//txt.setText("");
+			//txt.setForeground(Color.BLACK);
 	
 		} else {
 			txt.setForeground(Color.BLACK);

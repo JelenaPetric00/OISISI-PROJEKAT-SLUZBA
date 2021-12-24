@@ -112,7 +112,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		//profAddrResP.add(txtAddrResP);
 		
 		Address addressR = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getResidentialAddress();
-		JButton btnAddressR = new JButton("Change residential address");
+		JButton btnAddressR = new JButton("Change address");
 		profAddrResP.add(btnAddressR, Component.CENTER_ALIGNMENT);
 		
 		btnAddressR.addActionListener(new ActionListener(){
@@ -161,7 +161,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		//profOfficeP.add(txtOfficeP);
 		
 		Address addressO = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getOfficeAddress();
-		JButton btnAddressO = new JButton("Change office address");
+		JButton btnAddressO = new JButton("Change address");
 		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
 		
 		btnAddressO.addActionListener(new ActionListener(){
@@ -181,13 +181,13 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profIDP.add(Box.createHorizontalStrut(vspace));
 		profIDP.add(pIDLbl);
 		
-		/*DialogTxtField txtIDP = new DialogTxtField();
+		DialogTxtField txtIDP = new DialogTxtField();
 		txtIDP.setName("txtIDP");
 		profIDP.add(txtIDP);
-		txtIDP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());*/
-		JLabel fixID = new JLabel(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());
+		txtIDP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());
+		/*JLabel fixID = new JLabel(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber());
 		fixID.setPreferredSize(dim2);
-		profIDP.add(fixID);
+		profIDP.add(fixID);*/
 		
 		JPanel profTitleP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pTitleLbl = new JLabel("Title: *");
@@ -231,26 +231,22 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtPhoneP.getText().equals("") 
-						|| txtEmailP.getText().equals("") /**/|| txtTitleP.getText().equals("") || addressR.getCountry().equals("")
-						|| addressR.getStreet().equals("") || addressR.getStreetNumber().equals("") || addressR.getTown().equals("") || addressO.getCountry().equals("") || addressO.getStreet().equals("")
-						|| addressO.getStreetNumber().equals("") || addressO.getTown().equals("")){
-					JOptionPane.showMessageDialog(null,  "Please make sure that you fill all required fields", "Error", JOptionPane.ERROR_MESSAGE);
-				}else{
+				if(ProfessorsCtl.getInstance().wrongEdit(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber(), txtIDP.getText())){
+					
 					Date date = (Date) dateSpinner.getValue();
 					ZoneId defaultZoneId = ZoneId.systemDefault();
 					Instant instant = date.toInstant();	
 					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
 					
-					/*ProfessorsCtl.getInstance().editProfessor(ProfessorsTable.getInstance().getSelectedRow(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber(),
-							txtNameP.getText(), txtSurnameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtTitleP.getText(), Short.parseShort(years.getValue().toString()));*/
 					ProfessorsCtl.getInstance().editProfessor(ProfessorsTable.getInstance().getSelectedRow(), txtNameP.getText(), txtSurnameP.getText(), txtTitleP.getText(),
 							txtEmailP.getText(), localDate, addressR, txtPhoneP.getText(), addressO, ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber(),
 							Short.parseShort(years.getValue().toString()));
 					
 					dispose();
+					
+				}else{
+					JOptionPane.showMessageDialog(null,  "Professor with this ID number is already in the system and it's not the one you choose to edit", "ID already exists", JOptionPane.ERROR_MESSAGE);
 				}
-				confirmBtn.setEnabled(true);
 				
 			}
 			

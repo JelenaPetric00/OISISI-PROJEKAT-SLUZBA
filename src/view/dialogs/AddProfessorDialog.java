@@ -294,39 +294,16 @@ public class AddProfessorDialog extends JDialog{
 			     Instant instant = date.toInstant();
 			     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
 			     
-			     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
-				dispose();
+			     if(!ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), 
+			    		 addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()))){
+			    	 JOptionPane.showMessageDialog(null, "Professor with this ID number already exists in the system", "ID already exists", JOptionPane.ERROR_MESSAGE);
+			     }else{
+			    	 dispose();
+			     }
 			}
 			
 		});
 		
-		/*saveBtn.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(txtSurnameP.getText().equals("") || txtNameP.getText().equals("") || txtPhoneP.getText().equals("")
-						|| txtEmailP.getText().equals("")  || txtIDP.getText().equals("") || txtTitleP.getText().equals("") || addressO.getCountry().equals("")
-						|| addressO.getStreet().equals("") || addressO.getStreetNumber().equals("") || addressO.getTown().equals("") || addressR.getCountry().equals("") || addressR.getStreet().equals("")
-						|| addressR.getStreetNumber().equals("") || addressR.getTown().equals("")){
-					JOptionPane.showMessageDialog(null, "Please make sure that you fill all required fileds", "Error", JOptionPane.ERROR_MESSAGE);
-				}else {
-				     saveBtn.setEnabled(true);
-				     //ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), txtBirthDP.getText(), txtAddrResP.getText(), txtPhoneP.getText(), txtEmailP.getText(), txtOfficeP.getText(),
-					      // txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
-				    // ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, residentialAddress, txtPhoneP.getText(), txtEmailP.getText(), officeAddress, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
-				     Date date = (Date) dateSpinner.getValue();
-				     ZoneId defaultZoneId = ZoneId.systemDefault();
-				     Instant instant = date.toInstant();
-				     LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				     ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()));
-				     
-				     dispose();
-				}
-				saveBtn.setEnabled(true);
-			}
-			
-		});*/
 		
 		cancelBtn.addActionListener(new ActionListener(){
 
