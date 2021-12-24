@@ -1,10 +1,8 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Student.MethodOfFinancing;
 import model.Subject.Semester;
 
 public class DBSubjects {
@@ -90,9 +88,10 @@ public class DBSubjects {
 		}
 	}
 
-	public void editSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+	public void editSubject(String idOld, String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
 		for (Subject subject : subjects) {
-			if (subject.getid() == ID) {
+			if(subject.getid().equals(idOld)) {
+				subject.setid(ID);
 				subject.setname(name);
 				subject.setsemester(semester);
 				subject.setyearOfStudy(yearOfStudy);

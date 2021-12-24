@@ -15,8 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -30,7 +28,6 @@ import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import model.Address;
-import view.dialogs.AddStudentDialog.DiaButton;
 import view.tables.StudentsTable;
 
 public class ChangeStudentDialog extends AddStudentDialog{
@@ -110,9 +107,9 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		//DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\]]+", "ID number");
-		DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
-		//tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "ID number");
+		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
+		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
@@ -162,14 +159,19 @@ public class ChangeStudentDialog extends AddStudentDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Date date = (Date) spinner2.getValue();
-				ZoneId defaultZoneId = ZoneId.systemDefault();
-				Instant instant = date.toInstant();
-				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(),StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfName.getText(), tfSurname.getText(), localDate,
-					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
-				dispose();
+				if(StudentsCtrl.getInstance().uniqueEdit(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfID.getText())){
+					Date date = (Date) spinner2.getValue();
+					ZoneId defaultZoneId = ZoneId.systemDefault();
+					Instant instant = date.toInstant();
+					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(), StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
+						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+							stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Student with given id number already exists and it's not student you choose to edit", "ID already exists", JOptionPane.ERROR_MESSAGE);
+				}
+					
 			}
     	
     	});

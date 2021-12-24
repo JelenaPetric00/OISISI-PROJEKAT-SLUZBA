@@ -98,9 +98,10 @@ public class DBStudents {
 		}
 	}
 
-	public void editStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, Address address, String phoneNum, String mail) {		//dodaj polja
+	public void editStudent(String idOld, String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, Address address, String phoneNum, String mail) {		//dodaj polja
 		for (Student student : students) {
-			if (student.getidNumber() == id) {
+			if(student.getidNumber().equals(idOld)) {
+				student.setidNumber(id);
 				student.setname(name);
 				student.setsurname(surname);
 				student.setEmail(mail);
