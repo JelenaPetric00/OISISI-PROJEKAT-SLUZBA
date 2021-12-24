@@ -34,7 +34,7 @@ public class DBProfessors {
 	private void initProfessors(){
 		this.professors = new ArrayList<Professor>();
 		professors.add(new Professor("Milan", "Rapajic", LocalDate.of(1982, 11, 17), new Address("ulica", "1", "Novi Sad", "Srbija"), "06000000", "rapaja@uns.ac.rs", 
-				new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), "73635", "redovni profesor", (short)15, new ArrayList<Subject>()));
+				new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), "1234567891234", "redovni profesor", (short)15, new ArrayList<Subject>()));
 	}
 	
 	public List<Professor> getProfesssors(){

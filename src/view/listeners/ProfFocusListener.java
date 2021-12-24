@@ -29,13 +29,29 @@ public class ProfFocusListener implements FocusListener {
 			} 
 			
 		else if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
+			
 			try{
 				Integer.parseInt(txt.getText());
 			}catch(NumberFormatException e){
 				JOptionPane.showMessageDialog(null, "Please do not use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
 				txt.requestFocus();
 				}
+			
+			/*if(txt.getName().equals("txtIDP") && !txt.getText().isEmpty()){
+				if(txt.getText().length() != 13){
+					JOptionPane.showMessageDialog(null, "ID must contain 13 numbers", "Invalid input", JOptionPane.ERROR_MESSAGE);
+					txt.requestFocus();
+				}
+			}*/
+		}
+			
+		 /*else if(txt.getName().equals("txtIDP") && !txt.getText().isEmpty()){
+			//System.out.println("Tu sam");
+			if(txt.getText().length() != 13){
+				JOptionPane.showMessageDialog(null, "ID must contain 13 numbers", "Invalid input", JOptionPane.ERROR_MESSAGE);
+				txt.requestFocus();
 			}
+		}*/
 			
 		
 				
@@ -43,15 +59,6 @@ public class ProfFocusListener implements FocusListener {
 			txt.setForeground(Color.BLACK);
 			}
 		}
-		
-		/*if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
-			try{
-				Integer.parseInt(txt.getText());
-			}catch(NumberFormatException e){
-				JOptionPane.showMessageDialog(null, "Please do not use forbidden characters", "Invalid input", JOptionPane.ERROR_MESSAGE);
-				txt.requestFocus();
-				}
-		}*/
 		
 		
 	}
