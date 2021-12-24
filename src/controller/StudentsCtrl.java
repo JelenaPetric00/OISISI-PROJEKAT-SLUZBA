@@ -52,14 +52,14 @@ public class StudentsCtrl {
 		studentstab.updateView("DELETED", rowSelectedIndex);
 	}
 	
-	public void editStudent(int rowSelectedIndex, String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, Address address, String phoneNum, String mail) {
+	public void editStudent(int rowSelectedIndex, String idOld, String id, String name, String surname, LocalDate localDate, byte currYear, short startYear, MethodOfFinancing mof, Address address, String phoneNum, String mail) {
 		if(rowSelectedIndex < 0){
 			System.out.println(rowSelectedIndex);
 			
 			return;
 		}
-		Student student = DBStudents.getInstance().getRow(rowSelectedIndex);
-		DBStudents.getInstance().editStudent(student.getidNumber(), name, surname, localDate, currYear, startYear, mof, address, phoneNum, mail);
+		//Student student = DBStudents.getInstance().getRow(rowSelectedIndex);
+		DBStudents.getInstance().editStudent(idOld, id, name, surname, localDate, currYear, startYear, mof, address, phoneNum, mail);
 		//AZURIRJ PRIKAZ
 		studentstab.updateView("EDITED", -1);
 	}
@@ -68,4 +68,17 @@ public class StudentsCtrl {
 		return DBStudents.getInstance().getStudents().get(i);
 	}
 
+	public boolean uniqueEdit(String IDrow, String IDnew) {
+		if(IDrow.equals(IDnew)) {
+		return true;
+		}else {
+			boolean exist = false;
+			for(Student s: dbstudents.getStudents()) {
+				if(s.getidNumber().equals(IDnew)){
+					exist = true;
+				}
+			}
+			return !exist;
+		}
+	}
 }

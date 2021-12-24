@@ -18,10 +18,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
-import view.dialogs.AddStudentDialog.DiaTFld;
-import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
 
@@ -56,9 +53,9 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		//DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", "ID number");
-		DiaLabel lblID1 = new DiaLabel("Id number is fixed", SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), panID);
-		//tfID.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", "ID number");
+		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), panID);
+		tfID.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel("Name must contain only letters and numbers", "Name*", panName);		
@@ -118,9 +115,13 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		btnSave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SubjectsCtrl.getInstance().editSubject(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
-					Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
-				dispose();
+				if(SubjectsCtrl.getInstance().uniqueEdit(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfID.getText())) {
+					SubjectsCtrl.getInstance().editSubject(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfID.getText(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
+							Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Subject with given id number already exists", "ID already exists and it's not subject you choose to edit", JOptionPane.ERROR_MESSAGE);
+				}
 			}
     	
     	});
