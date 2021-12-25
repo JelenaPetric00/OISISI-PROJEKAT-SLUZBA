@@ -115,22 +115,6 @@ public class AddProfessorDialog extends JDialog{
 		JButton btnAddressP = new JButton("Add Address");
 		profAddrResP.add(btnAddressP, Component.CENTER_ALIGNMENT);
 		
-		btnAddressP.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(addressR.getCountry() == null){
-					AddAddressDialog resAddressDia = new AddAddressDialog(parent, "Add residential address", true, addressR);
-					resAddressDia.setVisible(true);
-				}else{
-					ChangeAddressDialog addressDiaP = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
-					addressDiaP.setVisible(true);
-				}
-				
-			}
-			
-		});
-		
 		JPanel profPhoneP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pPhoneLbl = new JLabel("Contact phone: *");
 		pPhoneLbl.setPreferredSize(dim2);
@@ -169,26 +153,6 @@ public class AddProfessorDialog extends JDialog{
 		Address addressO = new Address();
 		JButton btnAddressO = new JButton("Add address");
 		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
-		
-		btnAddressO.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(addressO.getCountry() == null){
-					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add office address", true, addressO);
-					addressDia.setVisible(true);
-				}else{
-					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change office address", true, addressO);
-					addressDia.setVisible(true);
-					
-				}
-				
-				
-			}
-			
-		});
-		
-		
 		
 		JPanel profIDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel pIDLbl = new JLabel("ID number: *");
@@ -238,6 +202,41 @@ public class AddProfessorDialog extends JDialog{
 		saveBtn.setToolTipText("add professor");
 		cancelBtn.setToolTipText("cancel adding");
 		saveBtn.setEnabled(false);
+		
+
+		btnAddressP.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(addressR.getCountry() == null){
+					AddAddressDialog resAddressDia = new AddAddressDialog(parent, "Add residential address", true, addressR, fields, saveBtn, addressO);
+					resAddressDia.setVisible(true);
+				}else{
+					ChangeAddressDialog addressDiaP = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
+					addressDiaP.setVisible(true);
+				}
+				
+			}
+			
+		});
+		
+		btnAddressO.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(addressO.getCountry() == null){
+					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add office address", true, addressO, fields, saveBtn, addressR);
+					addressDia.setVisible(true);
+				}else{
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change office address", true, addressO);
+					addressDia.setVisible(true);
+					
+				}
+				
+				
+			}
+			
+		});
 		
 		DocumentListener listener = new DocumentListener(){
 			

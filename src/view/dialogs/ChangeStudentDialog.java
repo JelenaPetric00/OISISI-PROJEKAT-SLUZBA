@@ -28,6 +28,7 @@ import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import model.Address;
+import view.listeners.MyDocumentListener;
 import view.tables.StudentsTable;
 
 public class ChangeStudentDialog extends AddStudentDialog{
@@ -133,23 +134,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		panBtn.add(Box.createHorizontalStrut(14));
 		
-		DocumentListener listener = new DocumentListener() {
-		    @Override
-		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
-		    @Override
-		    public void insertUpdate(DocumentEvent e) { changedUpdate(e); }
-
-		    @Override
-		    public void changedUpdate(DocumentEvent e) {
-		        boolean canEnable = true;
-		        for (JTextField tf : list) {
-		            if (tf.getText().isEmpty()) {
-		                canEnable = false;
-		            }
-		        }
-		        btnSave.setEnabled(canEnable);
-		    }
-		};
+		MyDocumentListener listener = new MyDocumentListener(btnSave, list, address);
 		
 		for (JTextField tf : list) {
 		    tf.getDocument().addDocumentListener(listener);

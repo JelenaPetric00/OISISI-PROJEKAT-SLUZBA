@@ -24,13 +24,13 @@ public class MyDocumentListener implements DocumentListener{
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
+		changedUpdate(e);
 		
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
+		changedUpdate(e);
 		
 	}
 
