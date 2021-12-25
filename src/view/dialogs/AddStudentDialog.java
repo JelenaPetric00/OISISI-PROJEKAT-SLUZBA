@@ -14,6 +14,8 @@ import java.time.ZoneId;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -35,6 +37,7 @@ import javax.swing.event.DocumentListener;
 import controller.StudentsCtrl;
 import model.Address;
 import model.Student.MethodOfFinancing;
+import view.listeners.MyDocumentListener;
 import view.listeners.MyFocusListener;
 
 
@@ -68,10 +71,36 @@ public class AddStudentDialog extends JDialog{
 		public DiaTFld(JPanel panel, String regex, String name) {
 			super();
 			MyFocusListener focusListener = new MyFocusListener(regex, name);
-			
 			setPreferredSize(dim);
 			setBackground(Color.LIGHT_GRAY);
 			addFocusListener(focusListener);
+			getDocument().addDocumentListener(new DocumentListener()
+		        {
+		            @Override
+		            public void removeUpdate(DocumentEvent e) {
+		            	update(e);
+		            }
+
+		            @Override
+		            public void insertUpdate(DocumentEvent e) {
+		            	update(e);
+		            }
+
+		            @Override
+		            public void changedUpdate(DocumentEvent e) {
+		            	update(e);
+		            }
+
+		            public void update(DocumentEvent e) {
+		            	Pattern pattern = Pattern.compile(regex);
+		        		Matcher matcher = pattern.matcher(getText());
+		        		if(matcher.find()) {
+		        			setForeground(Color.RED);
+		        		} else {
+		        			setForeground(Color.BLACK);
+		        		}
+		            }
+		        });
 	    	panel.add(this);
 		}
 	}
@@ -147,19 +176,7 @@ public class AddStudentDialog extends JDialog{
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
 		DiaButton btnAddress = new DiaButton("Add address", panAdr);
-		btnAddress.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(address.getCountry() == null) {
-					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add address", true, address);
-					addressDia.setVisible(true);
-				}else {
-					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change address", true, address);
-					addressDia.setVisible(true);
-				}
-			}
-    	});
+		
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblPhNum = new DiaLabel("Phone number must contain only letters and +", "Phone number*", panPhNum);
@@ -191,25 +208,21 @@ public class AddStudentDialog extends JDialog{
 		DiaButton btnSave = new DiaButton("Save", panBtn);
 		btnSave.setEnabled(false);
 		
-		//TODO treba koristi klasu 
-//		MyDocumentListener listener = new MyDocumentListener(btnSave, list, address);
-		DocumentListener listener = new DocumentListener() {
-		    @Override
-		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
-		    @Override
-		    public void insertUpdate(DocumentEvent e) { changedUpdate(e); }
+		btnAddress.addActionListener(new ActionListener() {
 
-		    @Override
-		    public void changedUpdate(DocumentEvent e) {
-		        boolean canEnable = true;
-		        for (JTextField tf : list) {
-		            if (tf.getText().isEmpty() || address.getStreet() == null || address.getCountry().equals("") || address.getStreet().equals("") || address.getStreetNumber().equals("") || address.getTown().equals("")) {
-		                canEnable = false;
-		            }
-		        }
-		        btnSave.setEnabled(canEnable);
-		    }
-		};
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(address.getCountry() == null) {
+					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add address", true, address, list, btnSave);
+					addressDia.setVisible(true);
+				}else {
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change address", true, address);
+					addressDia.setVisible(true);
+				}
+			}
+    	});
+		
+		MyDocumentListener listener = new MyDocumentListener(btnSave, list, address);
 		
 		for (DiaTFld tf : list) {
 		    tf.getDocument().addDocumentListener(listener);
