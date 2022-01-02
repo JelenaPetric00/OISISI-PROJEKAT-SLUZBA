@@ -30,6 +30,7 @@ import controller.StudentsCtrl;
 import model.Address;
 import view.listeners.MyDocumentListener;
 import view.tables.StudentsTable;
+import view.tabs.PassedSubjectsTab;
 
 public class ChangeStudentDialog extends AddStudentDialog{
 	
@@ -54,6 +55,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		panelInfo.setLayout(new BorderLayout());
 		JPanel panelPass = new JPanel();
 		panelPass.setLayout(new BorderLayout());
+		panelPass.add(PassedSubjectsTab.getInstance());
 		JPanel panelRemain = new JPanel();
 		
 		tp.add("Informations", panelInfo);  
