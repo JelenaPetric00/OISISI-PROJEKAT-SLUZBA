@@ -2,6 +2,7 @@ package controller;
 
 import model.DBStudents;
 import model.DBSubjects;
+import model.Professor;
 import model.Student;
 import model.Subject;
 import model.Student.MethodOfFinancing;
@@ -26,7 +27,7 @@ public class SubjectsCtrl {
 		dbsubjects = DBSubjects.getInstance();
 	}
 	
-	public boolean addSubject(String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+	public boolean addSubject(String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
 		boolean exist = false;
 		for(Subject s: dbsubjects.getSubjects()) {
 			if(s.getid().equals(ID)){
@@ -51,7 +52,7 @@ public class SubjectsCtrl {
 		subjectstab.updateView("DELETED", -1);
 	}
 	
-	public void editSubject(int rowSelectedIndex, String idOld, String ID, String name, Semester semester, Byte yearOfStudy, String prof, Byte espb) {
+	public void editSubject(int rowSelectedIndex, String idOld, String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
 		if(rowSelectedIndex < 0){
 			return;
 		}

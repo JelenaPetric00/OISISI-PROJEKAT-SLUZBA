@@ -19,6 +19,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import controller.SubjectsCtrl;
+import model.DBProfessors;
+import model.Professor;
+import view.dialogs.AddStudentDialog.DiaCbox;
+import view.dialogs.AddStudentDialog.DiaLabel;
 import view.tables.SubjectsTable;
 
 
@@ -76,10 +80,19 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 		//izmeniti da bude klasa profesor
 		JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblProf = new DiaLabel("Professor must contain only letters", "Professor*", panProf);		
-		DiaTFld tfProf = new DiaTFld(panProf, "[^[a-z A-Z]]+", "professor");
-		//tfProf.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).get().toString());
-		list.add(tfProf);
+		DiaLabel lblProf = new DiaLabel("Select professor", "Professor*", panProf);
+		List<Professor> profs = DBProfessors.getInstance().getProfesssors();
+		List<String> where = new ArrayList<String>();
+		for(Professor prof: profs) {
+			where.add(prof.getName() + " " + prof.getSurname());
+		}
+		String[] simpleArray = new String[ where.size() ];
+		where.toArray( simpleArray );
+		DiaCbox tfProf = new DiaCbox(simpleArray, panProf);
+		Professor profa = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor();
+		String profas = profa.getName() + " " + profa.getSurname();
+		tfProf.setSelectedItem(profas);
+		
 		JPanel panESPB = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblESPB = new DiaLabel("Select espb", "ESPB*", panESPB);
 		SpinnerModel espb = new SpinnerNumberModel(1, 1, 30, 1);
@@ -117,7 +130,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 			public void actionPerformed(ActionEvent e) {
 				if(SubjectsCtrl.getInstance().uniqueEdit(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfID.getText())) {
 					SubjectsCtrl.getInstance().editSubject(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), tfID.getText(), tfName.getText(), stringToSemester(tfSem.getSelectedItem().toString()), 
-							Byte.parseByte(tfCurrYear.getValue().toString()), tfProf.getText(), Byte.parseByte(tfESPB.getValue().toString()));
+							Byte.parseByte(tfCurrYear.getValue().toString()), profs.get(tfProf.getSelectedIndex()), Byte.parseByte(tfESPB.getValue().toString()));
 					dispose();
 				}else {
 					JOptionPane.showMessageDialog(null, "Subject with given id number already exists", "ID already exists and it's not subject you choose to edit", JOptionPane.ERROR_MESSAGE);
