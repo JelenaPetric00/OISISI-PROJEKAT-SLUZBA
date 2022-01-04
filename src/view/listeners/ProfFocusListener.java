@@ -28,7 +28,7 @@ public class ProfFocusListener implements FocusListener {
 				txt.setForeground(Color.RED);
 			} 
 			
-		else if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
+		/*else if(txt.getName().equals("txtIDP") || txt.getName().equals("txtPhoneP")){
 			
 			try{
 				Integer.parseInt(txt.getText());
@@ -37,21 +37,9 @@ public class ProfFocusListener implements FocusListener {
 				txt.requestFocus();
 				}
 			
-			/*if(txt.getName().equals("txtIDP") && !txt.getText().isEmpty()){
-				if(txt.getText().length() != 13){
-					JOptionPane.showMessageDialog(null, "ID must contain 13 numbers", "Invalid input", JOptionPane.ERROR_MESSAGE);
-					txt.requestFocus();
-				}
-			}*/
-		}
-			
-		 /*else if(txt.getName().equals("txtIDP") && !txt.getText().isEmpty()){
-			//System.out.println("Tu sam");
-			if(txt.getText().length() != 13){
-				JOptionPane.showMessageDialog(null, "ID must contain 13 numbers", "Invalid input", JOptionPane.ERROR_MESSAGE);
-				txt.requestFocus();
-			}
 		}*/
+			
+		 
 			
 		
 				

@@ -270,14 +270,14 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profButtonP.add(Box.createHorizontalStrut(40));
 		profButtonP.add(quitBtn, Component.CENTER_ALIGNMENT);
 		
-		JPanel subjectButtonP = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		/*JPanel subjectButtonP = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JButton addBtn = new JButton("Add subject");
 		JButton removeBtn = new JButton("Remove subject");
 		addBtn.setToolTipText("add new subject");
 		removeBtn.setToolTipText("Remove existing subject");
 		subjectButtonP.add(addBtn, Component.CENTER_ALIGNMENT);
 		subjectButtonP.add(Box.createHorizontalStrut(40));
-		subjectButtonP.add(removeBtn, Component.CENTER_ALIGNMENT);
+		subjectButtonP.add(removeBtn, Component.CENTER_ALIGNMENT);*/
 		
 		
 		
@@ -300,7 +300,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profInfo.add(instructionP, BorderLayout.SOUTH);
 		profInfo.add(box, BorderLayout.NORTH);
 		
-		profSubject.add(subjectButtonP, BorderLayout.NORTH);
+		//profSubject.add(subjectButtonP, BorderLayout.NORTH);
 		
 		
 		

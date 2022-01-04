@@ -31,6 +31,7 @@ import model.Address;
 import view.listeners.MyDocumentListener;
 import view.tables.StudentsTable;
 import view.tabs.PassedSubjectsTab;
+import view.tabs.RemainingSubjectsTab;
 
 public class ChangeStudentDialog extends AddStudentDialog{
 	
@@ -57,6 +58,8 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		panelPass.setLayout(new BorderLayout());
 		panelPass.add(PassedSubjectsTab.getInstance());
 		JPanel panelRemain = new JPanel();
+		panelRemain.setLayout(new BorderLayout());
+		panelRemain.add(RemainingSubjectsTab.getInstance());
 		
 		tp.add("Informations", panelInfo);  
 	    tp.add("Passed subjects", panelPass);  
@@ -110,7 +113,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "ID number");
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "ID number");
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
 		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 
