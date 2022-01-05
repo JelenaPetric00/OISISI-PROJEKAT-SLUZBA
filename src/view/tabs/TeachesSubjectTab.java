@@ -18,35 +18,34 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import model.DBPassedSubjects;
-import model.DBRemainingSubjects;
 import model.DBSubjects;
+import model.DBTeachesSubject;
 import model.Subject;
-import view.dialogs.AddSubjectToStudentDialog;
-import view.tables.AbstractTableModelRemainingSubjects;
-import view.tables.RemainingSubjectsTable;
+import view.dialogs.AddSubjectToProfessorDialog;
+import view.tables.AbstractTableModelTeachesSubject;
 import view.tables.StudentsTable;
+import view.tables.TeachesSubjectTable;
 
-public class RemainingSubjectsTab extends JPanel{
+public class TeachesSubjectTab extends JPanel{
 	
-	private RemainingSubjectsTable remainingSubjectsTable;
-	private static RemainingSubjectsTab instance;
+	private TeachesSubjectTable teachesSubjectTable;
+	private static TeachesSubjectTab instance;
 	private int heightRow = 40;
 	
-	public static RemainingSubjectsTab getInstance(Frame parent){
+	public static TeachesSubjectTab getInstance(Frame parent){
 		if(instance == null){
-			instance = new RemainingSubjectsTab(parent);
+			instance = new TeachesSubjectTab(parent);
 		}
 		return instance;
 	}
 	
-	private RemainingSubjectsTab(Frame parent){
+	private TeachesSubjectTab(Frame parent){
 		
 		this.setLayout(new BorderLayout());
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btnAdd = new JButton("Add ");
+		JButton btnAdd = new JButton("Add subject");
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -56,54 +55,43 @@ public class RemainingSubjectsTab extends JPanel{
 				
 				if(!subjects.isEmpty()) {
 					for(Subject s: subjects) {
-						List<Subject> remains = DBRemainingSubjects.getInstance().getRemainingSubjects();
+						List<Subject> remains = DBTeachesSubject.getInstance().getSubjects();
 						for(Subject s1: remains) {
 							if(s.getid().equals(s1.getid())){
 								subjectsForList.remove(s);
 							}
 						}
-						for(Subject s1: DBPassedSubjects.getInstance().getSubjects()) {
-							if(s.getid().equals(s1.getid())){
-								subjectsForList.remove(s);
-							}
-						}
-						if(DBPassedSubjects.getInstance().getStudent().getyearOfStudy() < s.getyearOfStudy()){
-							subjectsForList.remove(s);
-						}
 					}
 				}
 				if(!subjectsForList.isEmpty()) {
-					AddSubjectToStudentDialog studentsubjectDia = new AddSubjectToStudentDialog(parent, "Add subject to student", true);
+					AddSubjectToProfessorDialog studentsubjectDia = new AddSubjectToProfessorDialog(parent, "Add subject to student", true);
 					studentsubjectDia.setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(parent, "There is no subjects to add", "There is no subjects to add", JOptionPane.ERROR_MESSAGE);
 				}
 			}
     	});
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton("Remove subject");
 		
-		JButton btnPassed = new JButton("Passed subjects");
+		;
 		btnPanel.add(btnAdd, Component.CENTER_ALIGNMENT);
 		btnPanel.add(Box.createVerticalStrut(10));
 		btnPanel.add(btnDelete, Component.CENTER_ALIGNMENT);
-		btnPanel.add(Box.createVerticalStrut(10));
-		btnPanel.add(btnPassed, Component.CENTER_ALIGNMENT);
 		add(btnPanel, BorderLayout.NORTH);
 		
 		JPanel panTable = new JPanel();
 		
-		remainingSubjectsTable = RemainingSubjectsTable.getInstance();
-		add(remainingSubjectsTable);
+		teachesSubjectTable = TeachesSubjectTable.getInstance();
+		add(teachesSubjectTable);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		remainingSubjectsTable.getColumnModel().getColumn(0).setPreferredWidth(screenSize.width*3/20);
-		remainingSubjectsTable.getColumnModel().getColumn(1).setPreferredWidth(screenSize.width*6/20);
-		remainingSubjectsTable.getColumnModel().getColumn(2).setPreferredWidth(screenSize.width*3/20);
-		remainingSubjectsTable.getColumnModel().getColumn(3).setPreferredWidth(screenSize.width*3/20);
-		remainingSubjectsTable.getColumnModel().getColumn(4).setPreferredWidth(screenSize.width*6/20);
-		remainingSubjectsTable.setRowHeight(heightRow);
-		remainingSubjectsTable.setAutoResizeMode(StudentsTable.AUTO_RESIZE_LAST_COLUMN);
-		JScrollPane scrollPane = new JScrollPane(remainingSubjectsTable);
+		teachesSubjectTable.getColumnModel().getColumn(0).setPreferredWidth(screenSize.width*4/20);
+		teachesSubjectTable.getColumnModel().getColumn(1).setPreferredWidth(screenSize.width*9/20);
+		teachesSubjectTable.getColumnModel().getColumn(2).setPreferredWidth(screenSize.width*4/20);
+		teachesSubjectTable.getColumnModel().getColumn(3).setPreferredWidth(screenSize.width*3/20);
+		teachesSubjectTable.setRowHeight(heightRow);
+		teachesSubjectTable.setAutoResizeMode(StudentsTable.AUTO_RESIZE_LAST_COLUMN);
+		JScrollPane scrollPane = new JScrollPane(teachesSubjectTable);
 		scrollPane.setBorder(new EmptyBorder(5, 10, 5, 10));
 		panTable.add(scrollPane, BorderLayout.CENTER);
 		add(panTable, BorderLayout.CENTER);
@@ -112,13 +100,13 @@ public class RemainingSubjectsTab extends JPanel{
 		btnDelete.addActionListener(new ActionListener() {
 			@Override
 	        public void actionPerformed(ActionEvent e) {
-				if(remainingSubjectsTable.getSelectedRow() != -1) {
+				if(teachesSubjectTable.getSelectedRow() != -1) {
 		        	int result = JOptionPane.showConfirmDialog(parent,"Are you sure you want\\n to remove subject?", "Remove subject",
 		        			JOptionPane.YES_NO_OPTION,
 		        			JOptionPane.QUESTION_MESSAGE);
 		        	if(result == JOptionPane.YES_OPTION){
-		        		Subject s =  DBRemainingSubjects.getInstance().getRow(remainingSubjectsTable.getSelectedRow());
-			            DBRemainingSubjects.getInstance().deleteRemainingSubject(s.getid());
+		        		Subject s =  DBTeachesSubject.getInstance().getRow(teachesSubjectTable.getSelectedRow());
+		        		DBTeachesSubject.getInstance().delSubject(s.getid());
 		        	}
 				}
 	         }
@@ -127,7 +115,7 @@ public class RemainingSubjectsTab extends JPanel{
 	}
 	
 	public void updateView(String action, int value){
-		AbstractTableModelRemainingSubjects model = (AbstractTableModelRemainingSubjects) remainingSubjectsTable.getModel();
+		AbstractTableModelTeachesSubject model = (AbstractTableModelTeachesSubject) teachesSubjectTable.getModel();
 		model.fireTableDataChanged();
 		validate();
 	}
