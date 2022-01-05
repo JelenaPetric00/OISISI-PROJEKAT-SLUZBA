@@ -43,7 +43,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 	public ChangeStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 
-		setSize(425, 500);
+		setSize(475, 500);
 		setLocationRelativeTo(parent);
 		
 		setLayout(new BorderLayout());
@@ -59,29 +59,29 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		panelPass.add(PassedSubjectsTab.getInstance());
 		JPanel panelRemain = new JPanel();
 		panelRemain.setLayout(new BorderLayout());
-		panelRemain.add(RemainingSubjectsTab.getInstance());
+		panelRemain.add(RemainingSubjectsTab.getInstance(parent));
 		
 		tp.add("Informations", panelInfo);  
 	    tp.add("Passed subjects", panelPass);  
 	    tp.add("Remaining subjects", panelRemain);    
 	    add(tp); 
 		
-	    JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    JPanel panName = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
 		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z]]+", "name");
 		tfName.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
-		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
 		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-Z]]+", "surname");
 		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Choose date", "Date of birth*", panBday);		
+		DiaLabel lblBDay = new DiaLabel("Choose date", "          Date of birth*", panBday);		
 		LocalDate bDay = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getdateOfBirth();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		Date date = Date.from(bDay.atStartOfDay(defaultZoneId).toInstant());
-        
+		panBday.add(Box.createHorizontalStrut(33));
 		JSpinner spinner2 = new JSpinner(new SpinnerDateModel(date, null, null, Calendar.MONTH));
 		spinner2.setEditor(new JSpinner.DateEditor(spinner2, "dd/MM/yy"));
 		setPreferredSize(dim);
@@ -89,8 +89,8 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		Address address = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getaddress();
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
-		
+		DiaLabel lblAdr = new DiaLabel("Enter address", "          Address*", panAdr);
+		panAdr.add(Box.createHorizontalStrut(33));
 		DiaButton btnAddress = new DiaButton("Change address", panAdr);
 		btnAddress.addActionListener(new ActionListener() {
 
@@ -101,35 +101,35 @@ public class ChangeStudentDialog extends AddStudentDialog{
 			}
     	});
 		
-		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblPhNum = new DiaLabel("Phone number must contain only letters and +", "Phone number*", panPhNum);
 		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
 		tfPhNum.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getphoneNumber());
 		list.add(tfPhNum);
-		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
 		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9]@.]+", "e-mail address");
 		tfMail.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getEmail());
 		list.add(tfMail);
-		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panID = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
 		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "ID number");
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
 		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 
-		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
 		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
 		tfStartYear.setText(String.valueOf(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getyearOfEnrollment()));
 		list.add(tfStartYear);
-		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
 		tfCurrYear.setValue(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getyearOfStudy());
 		
 		
-		JPanel panFin = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panFin = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing*", panFin);
 		String financing[] = {"budget", "self financing"};
 		DiaCbox tfFinancing = new DiaCbox(financing, panFin);
