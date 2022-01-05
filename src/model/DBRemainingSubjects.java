@@ -1,11 +1,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import controller.StudentsCtrl;
 import model.Subject.Semester;
 import view.tables.StudentsTable;
+import view.tabs.RemainingSubjectsTab;
 
 public class DBRemainingSubjects {
 	
@@ -18,12 +21,12 @@ public class DBRemainingSubjects {
 		return instance;
 	}
 	
+	private Map<Student, List<Subject>> mapStudSubjs = new HashMap<>();
 	private Student student;
 	private List<Subject> remainingSubjects;
 	private List<String> columns;
 	
 	private DBRemainingSubjects(){
-		
 		initRemainSubjects();
 		
 		this.columns = new ArrayList<String>();
@@ -33,14 +36,26 @@ public class DBRemainingSubjects {
 		this.columns.add("Year of study");
 		this.columns.add("Semester");
 	}
-	
+	private void refreshRemainSubjects() {
+		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
+		if(mapStudSubjs.containsKey(student)) {
+			this.remainingSubjects = new ArrayList<Subject>(mapStudSubjs.get(student));
+		}else {
+			this.remainingSubjects = new ArrayList<Subject>();
+			this.mapStudSubjs.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(remainingSubjects));
+		}
+	}
 	private void initRemainSubjects(){
 		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
 		this.remainingSubjects = new ArrayList<Subject>();
 		remainingSubjects.add(new Subject("AN1","Analiza", Semester.WINTER, (byte)1, new Professor(), (byte)9, new ArrayList<Student>(), new ArrayList<Student>()));
+		if(!mapStudSubjs.containsKey(student)) {
+			this.mapStudSubjs.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(remainingSubjects));
+		}
 	}
 	
 	public List<Subject> getRemainingSubjects(){
+		refreshRemainSubjects();
 		return remainingSubjects;
 	}
 	
@@ -53,6 +68,7 @@ public class DBRemainingSubjects {
 	}
 	
 	public Student getStudent(){
+		refreshRemainSubjects();
 		return student;
 	}
 	
@@ -87,7 +103,10 @@ public class DBRemainingSubjects {
 	}
 	
 	public void addRemainingSubject(String id, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb){
-		this.remainingSubjects.add(new Subject(id, name, semester, yearOfStudy, prof, espb, new ArrayList<Student>(), new ArrayList<Student>()));
+		refreshRemainSubjects();
+		remainingSubjects.add(new Subject(id, name, semester, yearOfStudy, prof, espb, new ArrayList<Student>(), new ArrayList<Student>()));
+		mapStudSubjs.replace(student, new ArrayList<Subject>(remainingSubjects));
+		RemainingSubjectsTab.getInstance(null).updateView(null, -1);
 	}
 	
 	public void deleteRemainingSubject(String id){
@@ -97,6 +116,8 @@ public class DBRemainingSubjects {
 				break;
 			}
 		}
+		this.mapStudSubjs.replace(student, remainingSubjects);
+		RemainingSubjectsTab.getInstance(null).updateView(null, -1);
 	}
 	
 	public void nowPassedSubject(String id, String name, Semester semester, Byte yearsOfStudy, Professor prof, Byte espb){
