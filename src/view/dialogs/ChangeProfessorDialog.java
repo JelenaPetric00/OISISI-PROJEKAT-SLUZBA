@@ -29,13 +29,14 @@ import controller.ProfessorsCtl;
 import model.Address;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
 import view.tables.ProfessorsTable;
+import view.tabs.TeachesSubjectTab;
 
 public class ChangeProfessorDialog extends AddProfessorDialog{
 	
 	public ChangeProfessorDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
-		setSize(430, 500);
+		setSize(475, 500);
 		setLocationRelativeTo(parent);
 		setLayout(new BorderLayout());
 		
@@ -45,6 +46,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profInfo.setLayout(new BorderLayout());
 		JPanel profSubject = new JPanel();
 		profSubject.setLayout(new BorderLayout());
+		profSubject.add(TeachesSubjectTab.getInstance(parent));
 		
 		profTP.add("Info", profInfo);
 		profTP.add("Subjects", profSubject);

@@ -17,14 +17,13 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import model.DBPassedSubjects;
-import model.DBRemainingSubjects;
 import model.DBSubjects;
+import model.DBTeachesSubject;
 import model.Subject;
 
-public class AddSubjectToStudentDialog extends AddStudentDialog{
+public class AddSubjectToProfessorDialog extends AddStudentDialog{
 	
-	public AddSubjectToStudentDialog(Frame parent, String title, boolean modal) {
+	public AddSubjectToProfessorDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
 		setSize(300, 300);
@@ -54,32 +53,11 @@ public class AddSubjectToStudentDialog extends AddStudentDialog{
 		
 		if(!subjects.isEmpty()) {
 			for(Subject s: subjects) {
-				List<Subject> remains = DBRemainingSubjects.getInstance().getRemainingSubjects();
-				for(Subject s1: remains) {
+				List<Subject> teaches = DBTeachesSubject.getInstance().getSubjects();
+				for(Subject s1: teaches) {
 					if(s.getid().equals(s1.getid())){
 						subjectsForList.remove(s);
-//						if(subjects.isEmpty()) {
-//							break;
-//						}else {
-//							continue;
-//						}
 					}
-				}
-				for(Subject s1: DBPassedSubjects.getInstance().getSubjects()) {
-					if(s.getid().equals(s1.getid())){
-						subjectsForList.remove(s);
-//						if(subjects.isEmpty()) {
-//							break;
-//						}else {
-//							continue;
-//						}
-					}
-				}
-				if(DBPassedSubjects.getInstance().getStudent().getyearOfStudy() < s.getyearOfStudy()){
-					subjectsForList.remove(s);
-//					if(subjects.isEmpty()) {
-//						break;
-//					}
 				}
 			} 
 		}
@@ -123,7 +101,8 @@ public class AddSubjectToStudentDialog extends AddStudentDialog{
 				
 //				for(int i = 0; i < idxs.length; i++) {
 //					Subject s = subjectsForList.get(i);
-					DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
+				System.out.println(s.getid() + " " + s.getname());
+					DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
 //				}
 						
 				dispose();
