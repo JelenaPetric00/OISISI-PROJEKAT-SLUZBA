@@ -3,15 +3,17 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-//import view.actions.DeleteButtonAction;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
@@ -42,6 +44,9 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	private JMenuItem aboutItem;
 	private JMenuItem helpItem;
 	//private DeleteButtonAction db;
+	JMenu mnuAdministration;
+	JCheckBoxMenuItem mniSr;
+	JCheckBoxMenuItem mniEn;
 	
 	public MenuBar(final JFrame parent){
 		
@@ -138,6 +143,37 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		
 		helpMenu.add(helpItem);
 		helpMenu.add(aboutItem);
+		
+		mnuAdministration = new JMenu(MainWindow.getInstance().getResourceBundle().getString("mnuAdministration"));
+		add(mnuAdministration);
+
+		mniSr = new JCheckBoxMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniSr"));
+		mniSr.setSelected(true);
+		mniSr.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Locale.setDefault(new Locale("sr", "RS"));
+				MainWindow.getInstance().changeLanguage();
+
+			}
+		});
+		mnuAdministration.add(mniSr);
+
+		mniEn= new JCheckBoxMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniEn"));
+		mniEn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Locale.setDefault(new Locale("en", "US"));
+				MainWindow.getInstance().changeLanguage();
+			}
+		});
+		mnuAdministration.add(mniEn);
+
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(mniSr);
+		bg.add(mniEn);
 		
 		add(fileMenu);
 		add(editMenu);
