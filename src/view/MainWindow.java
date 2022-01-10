@@ -5,16 +5,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class MainWindow extends JFrame{
 
-	Toolbar toolbar;
+	private static MainWindow instance = null;
 	
-	public MainWindow() {
+	public static MainWindow getInstance() {
+		if (instance == null) {
+			instance = new MainWindow();
+			instance.initGUI();
+		}
+
+		return instance;
+	}
+	
+	Toolbar toolbar;
+	private ResourceBundle resourceBundle;
+	
+	private MainWindow() {
+		//Locale.setDefault(new Locale("sr", "RS"));
+		resourceBundle = ResourceBundle.getBundle("view.messageResources.MessageResources", Locale.getDefault());
+	}
+	
+	public void initGUI() {
 		
-		setTitle("Studentska sluzba");
+		setTitle(resourceBundle.getString("Student service"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		
@@ -40,6 +60,29 @@ public class MainWindow extends JFrame{
 		tabs.refreshSub();
 		menu.openTab(tabs);
 		add(tabs, BorderLayout.CENTER);
+		
+		UIManager.put("OptionPane.yesButtonText", resourceBundle.getObject("yesOption"));
+		UIManager.put("OptionPane.noButtonText", resourceBundle.getObject("noOption"));
+		UIManager.put("OptionPane.okButtonText", resourceBundle.getObject("okOption"));
+		UIManager.put("OptionPane.cancelButtonText", resourceBundle.getObject("cancelOption"));
+	
+	}
+
+	public void changeLanguage() {
+
+		resourceBundle = ResourceBundle.getBundle("view.messageResources.MessageResources", Locale.getDefault());
+		setTitle(resourceBundle.getString("Student service"));
+		//menu.initComponents();
+		//statusBar.initComponents();
+
+		UIManager.put("OptionPane.yesButtonText", resourceBundle.getObject("yesOption"));
+		UIManager.put("OptionPane.noButtonText", resourceBundle.getObject("noOption"));
+		UIManager.put("OptionPane.okButtonText", resourceBundle.getObject("okOption"));
+		UIManager.put("OptionPane.cancelButtonText", resourceBundle.getObject("cancelOption"));
+	}
+	
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
 	}
 	
 }
