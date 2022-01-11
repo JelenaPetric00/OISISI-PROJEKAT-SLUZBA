@@ -16,6 +16,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import model.Address;
+import view.MainWindow;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
 
 public class AddAddressDialog extends AddStudentDialog{
@@ -28,24 +29,24 @@ public class AddAddressDialog extends AddStudentDialog{
 		setLocationRelativeTo(parent);
 
 		List<DiaTFld> list = new ArrayList<>();
-		JPanel panStreet = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStreet = new DiaLabel("Street must contain only letters", "Street*", panStreet);		
-		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street");
+		JPanel panStreet = new JPanel(new FlowLayout(FlowLayout.LEFT));	
+		DiaLabel lblStreet = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("streetTooltip"), MainWindow.getInstance().getResourceBundle().getString("street*"), panStreet);		
+		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("street"));
 		list.add(tfStreet);
 		JPanel panStreetNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStreetNum = new DiaLabel("Street number must contain only letters and numbers", "Street number*", panStreetNum);		
-		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street number");
+		DiaLabel lblStreetNum = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("streetNumTooltip"), MainWindow.getInstance().getResourceBundle().getString("streetNumber*"), panStreetNum);		
+		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("streetNumber"));
 		list.add(tfStreetNum);
 		JPanel panTown = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblTown = new DiaLabel("Town must contain only letters", "Town*", panTown);		
-		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "town");
+		DiaLabel lblTown = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("townTooltip"), MainWindow.getInstance().getResourceBundle().getString("town*"), panTown);		
+		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("town"));
 		list.add(tfTown);
 		JPanel panCountry = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCountry = new DiaLabel("Country must contain only letters", "Country*", panCountry);		
-		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "country");
+		DiaLabel lblCountry = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("countryTooltip"), MainWindow.getInstance().getResourceBundle().getString("country*"), panCountry);		
+		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("country"));
 		list.add(tfCountry);
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton("Save", panBtn);
+		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("save"), panBtn);
 		btnSave.setEnabled(false);
 		
 		DocumentListener listener = new DocumentListener() {
@@ -92,7 +93,7 @@ public class AddAddressDialog extends AddStudentDialog{
 			}
     	});
 		panBtn.add(Box.createHorizontalStrut(vspace));
-		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
+		DiaButton btnCancel = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"), panBtn);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -119,25 +120,26 @@ public class AddAddressDialog extends AddStudentDialog{
 		setLocationRelativeTo(parent);
 
 		List<DiaTFld> list = new ArrayList<>();
-		JPanel panStreet = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStreet = new DiaLabel("Street must contain only letters", "Street*", panStreet);		
-		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street");
+		JPanel panStreet = new JPanel(new FlowLayout(FlowLayout.LEFT));	
+		DiaLabel lblStreet = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("streetTooltip"), MainWindow.getInstance().getResourceBundle().getString("street*"), panStreet);		
+		DiaTFld tfStreet = new DiaTFld(panStreet, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("street"));
 		list.add(tfStreet);
 		JPanel panStreetNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStreetNum = new DiaLabel("Street number must contain only letters and numbers", "Street number*", panStreetNum);		
-		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "street number");
+		DiaLabel lblStreetNum = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("streetNumTooltip"), MainWindow.getInstance().getResourceBundle().getString("streetNumber*"), panStreetNum);		
+		DiaTFld tfStreetNum = new DiaTFld(panStreetNum, "[^[a-z A-Z0-9/\\\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("streetNumber"));
 		list.add(tfStreetNum);
 		JPanel panTown = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblTown = new DiaLabel("Town must contain only letters", "Town*", panTown);		
-		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "town");
+		DiaLabel lblTown = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("townTooltip"), MainWindow.getInstance().getResourceBundle().getString("town*"), panTown);		
+		DiaTFld tfTown = new DiaTFld(panTown, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("town"));
 		list.add(tfTown);
 		JPanel panCountry = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCountry = new DiaLabel("Country must contain only letters", "Country*", panCountry);		
-		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", "country");
+		DiaLabel lblCountry = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("countryTooltip"), MainWindow.getInstance().getResourceBundle().getString("country*"), panCountry);		
+		DiaTFld tfCountry = new DiaTFld(panCountry, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("country"));
 		list.add(tfCountry);
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton("Save", panBtn);
+		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("save"), panBtn);
 		btnSave.setEnabled(false);
+		
 		DocumentListener listener = new DocumentListener() {
 		    @Override
 		    public void removeUpdate(DocumentEvent e) { changedUpdate(e); }
@@ -186,7 +188,7 @@ public class AddAddressDialog extends AddStudentDialog{
 			}
     	});
 		panBtn.add(Box.createHorizontalStrut(vspace));
-		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
+		DiaButton btnCancel = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"), panBtn);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override

@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 import model.DBSubjects;
 import model.DBTeachesSubject;
 import model.Subject;
+import view.MainWindow;
 
 public class AddSubjectToProfessorDialog extends AddStudentDialog{
 	
@@ -31,10 +32,10 @@ public class AddSubjectToProfessorDialog extends AddStudentDialog{
 
 		setLayout(new BorderLayout());
 		
-		JButton btnAdd = new JButton("Add ");
+		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.setEnabled(false);
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"));
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override

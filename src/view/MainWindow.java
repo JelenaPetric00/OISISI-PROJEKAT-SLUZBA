@@ -28,7 +28,7 @@ public class MainWindow extends JFrame{
 	private ResourceBundle resourceBundle;
 	
 	private MainWindow() {
-		//Locale.setDefault(new Locale("sr", "RS"));
+		Locale.setDefault(new Locale("sr", "RS"));
 		resourceBundle = ResourceBundle.getBundle("view.messageResources.MessageResources", Locale.getDefault());
 	}
 	

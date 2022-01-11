@@ -33,6 +33,7 @@ import javax.swing.event.DocumentListener;
 
 import controller.ProfessorsCtl;
 import model.Address;
+import view.MainWindow;
 import view.listeners.ProfFocusListener;
 
 public class AddProfessorDialog extends JDialog{
@@ -60,9 +61,9 @@ public class AddProfessorDialog extends JDialog{
 		List<DialogTxtField> fields = new ArrayList();
 		
 		JPanel profNameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pNameLbl = new JLabel("Name: *");
+		JLabel pNameLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("name*"));
 		pNameLbl.setPreferredSize(dim2);
-		pNameLbl.setToolTipText("Name: Only letters allowed");
+		pNameLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"));
 		profNameP.add(Box.createHorizontalStrut(vspace));
 		profNameP.add(pNameLbl);
 		
@@ -72,9 +73,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtNameP);
 		
 		JPanel profSurnameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pSurnameLbl = new JLabel("Surname: *");
+		JLabel pSurnameLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("surname*"));
 		pSurnameLbl.setPreferredSize(dim2);
-		pSurnameLbl.setToolTipText("Surname: Only letters allowed");
+		pSurnameLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"));
 		profSurnameP.add(Box.createHorizontalStrut(vspace));
 		profSurnameP.add(pSurnameLbl);
 		
@@ -84,9 +85,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtSurnameP);
 		
 		JPanel profBirthDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pBirthDLbl = new JLabel("Date of birth: *");
+		JLabel pBirthDLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("dateOfBirth*"));
 		pBirthDLbl.setPreferredSize(dim2);
-		pBirthDLbl.setToolTipText("Date: Letters are not allowed");
+		pBirthDLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("dateOfBirthTooltip"));
 		profBirthDP.add(Box.createHorizontalStrut(vspace));
 		profBirthDP.add(pBirthDLbl);
 		
@@ -96,14 +97,14 @@ public class AddProfessorDialog extends JDialog{
 		
 		Date today = new Date();
 		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
-		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
+		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, MainWindow.getInstance().getResourceBundle().getString("dateFormat")));
 		setPreferredSize(dim2);
 		profBirthDP.add(dateSpinner);
 		
 		JPanel profAddrResP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pAddrResLbl = new JLabel("Residential Address: *");
+		JLabel pAddrResLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("residentialAddress*"));
 		pAddrResLbl.setPreferredSize(dim2);
-		pAddrResLbl.setToolTipText("Address: enter the full address");
+		pAddrResLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("addressTooltip"));
 		profAddrResP.add(Box.createHorizontalStrut(vspace));
 		profAddrResP.add(pAddrResLbl);
 		
@@ -112,13 +113,13 @@ public class AddProfessorDialog extends JDialog{
 		//profAddrResP.add(txtAddrResP);
 		
 		Address addressR = new Address();
-		JButton btnAddressP = new JButton("Add Address");
+		JButton btnAddressP = new JButton(MainWindow.getInstance().getResourceBundle().getString("addAddress"));
 		profAddrResP.add(btnAddressP, Component.CENTER_ALIGNMENT);
 		
 		JPanel profPhoneP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pPhoneLbl = new JLabel("Contact phone: *");
+		JLabel pPhoneLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("contactPhone*"));
 		pPhoneLbl.setPreferredSize(dim2);
-		pPhoneLbl.setToolTipText("Phone: Only digits allowed");
+		pPhoneLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("phoneTooltip"));
 		profPhoneP.add(Box.createHorizontalStrut(vspace));
 		profPhoneP.add(pPhoneLbl);
 		
@@ -128,9 +129,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtPhoneP);
 		
 		JPanel profEmailP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pEmailLbl = new JLabel("Email address: *");
+		JLabel pEmailLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("email*"));
 		pEmailLbl.setPreferredSize(dim2);
-		pEmailLbl.setToolTipText("Email: enter contact Email");
+		pEmailLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"));
 		profEmailP.add(Box.createHorizontalStrut(vspace));
 		profEmailP.add(pEmailLbl);
 		
@@ -140,9 +141,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtEmailP);
 		
 		JPanel profOfficeP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pOfficeLbl = new JLabel("Office address: *");
+		JLabel pOfficeLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("officeAddress*"));
 		pOfficeLbl.setPreferredSize(dim2);
-		pOfficeLbl.setToolTipText("Address: enter the full address");
+		pOfficeLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("addressTooltip"));
 		profOfficeP.add(Box.createHorizontalStrut(vspace));
 		profOfficeP.add(pOfficeLbl);
 		
@@ -151,13 +152,13 @@ public class AddProfessorDialog extends JDialog{
 		//profOfficeP.add(txtOfficeP);
 		
 		Address addressO = new Address();
-		JButton btnAddressO = new JButton("Add address");
+		JButton btnAddressO = new JButton(MainWindow.getInstance().getResourceBundle().getString("addAddress"));
 		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
 		
 		JPanel profIDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pIDLbl = new JLabel("ID number: *");
+		JLabel pIDLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("id*"));
 		pIDLbl.setPreferredSize(dim2);
-		pIDLbl.setToolTipText("ID: Only digits allowed");
+		pIDLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("idProfTooltip"));
 		profIDP.add(Box.createHorizontalStrut(vspace));
 		profIDP.add(pIDLbl);
 		
@@ -167,9 +168,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtIDP);
 		
 		JPanel profTitleP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pTitleLbl = new JLabel("Title: *");
+		JLabel pTitleLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("title*"));
 		pTitleLbl.setPreferredSize(dim2);
-		pTitleLbl.setToolTipText("Title: Only letters allowed");
+		pTitleLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("titleTooltip"));
 		profTitleP.add(Box.createHorizontalStrut(vspace));
 		profTitleP.add(pTitleLbl);
 		
@@ -179,9 +180,9 @@ public class AddProfessorDialog extends JDialog{
 		fields.add(txtTitleP);
 		
 		JPanel profYearsP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pYearsLbl = new JLabel("Years of trail: *");
+		JLabel pYearsLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("yearsOfTrail*"));
 		pYearsLbl.setPreferredSize(dim2);
-		pYearsLbl.setToolTipText("Years of trial");
+		pYearsLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("yearsOfTrail"));
 		profYearsP.add(Box.createHorizontalStrut(vspace));
 		profYearsP.add(pYearsLbl);
 		
@@ -191,16 +192,16 @@ public class AddProfessorDialog extends JDialog{
 		profYearsP.add(years);
 		
 		JPanel instructionP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel messageLbl = new JLabel("*required");
+		JLabel messageLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("*required"));
 		messageLbl.setFont(new Font("Calibri", Font.ITALIC, 12));
 		messageLbl.setForeground(Color.RED);
 		instructionP.add(messageLbl);
 		
 		JPanel profButtonP= new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton saveBtn = new JButton("Save");
-		JButton cancelBtn = new JButton("Cancel");
-		saveBtn.setToolTipText("add professor");
-		cancelBtn.setToolTipText("cancel adding");
+		JButton saveBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("save"));
+		JButton cancelBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"));
+		saveBtn.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("addProfessor"));
+		cancelBtn.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("cancelAdding"));
 		saveBtn.setEnabled(false);
 		
 
@@ -209,10 +210,10 @@ public class AddProfessorDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(addressR.getCountry() == null){
-					AddAddressDialog resAddressDia = new AddAddressDialog(parent, "Add residential address", true, addressR, fields, saveBtn, addressO);
+					AddAddressDialog resAddressDia = new AddAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addRAdr"), true, addressR, fields, saveBtn, addressO);
 					resAddressDia.setVisible(true);
 				}else{
-					ChangeAddressDialog addressDiaP = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
+					ChangeAddressDialog addressDiaP = new ChangeAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeRAdr"), true, addressR);
 					addressDiaP.setVisible(true);
 				}
 				
@@ -225,10 +226,10 @@ public class AddProfessorDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(addressO.getCountry() == null){
-					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add office address", true, addressO, fields, saveBtn, addressR);
+					AddAddressDialog addressDia = new AddAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addOAdr"), true, addressO, fields, saveBtn, addressR);
 					addressDia.setVisible(true);
 				}else{
-					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change office address", true, addressO);
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeOAdr"), true, addressO);
 					addressDia.setVisible(true);
 					
 				}
@@ -295,7 +296,7 @@ public class AddProfessorDialog extends JDialog{
 			     
 			     if(!ProfessorsCtl.getInstance().addProfessor(txtSurnameP.getText(), txtNameP.getText(), localDate, addressR, txtPhoneP.getText(), txtEmailP.getText(), 
 			    		 addressO, txtIDP.getText(), txtTitleP.getText(), Short.parseShort(years.getValue().toString()))){
-			    	 JOptionPane.showMessageDialog(null, "Professor with this ID number already exists in the system", "ID already exists", JOptionPane.ERROR_MESSAGE);
+			    	 JOptionPane.showMessageDialog(null, MainWindow.getInstance().getResourceBundle().getString("profIDexists"), MainWindow.getInstance().getResourceBundle().getString("idExists"), JOptionPane.ERROR_MESSAGE);
 			     }else{
 			    	 dispose();
 			     }

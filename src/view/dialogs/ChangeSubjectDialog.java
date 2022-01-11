@@ -24,6 +24,7 @@ import javax.swing.event.DocumentListener;
 import controller.SubjectsCtrl;
 import model.DBProfessors;
 import model.Professor;
+import view.MainWindow;
 import view.dialogs.AddStudentDialog.DiaCbox;
 import view.dialogs.AddStudentDialog.DiaLabel;
 import view.tables.SubjectsTable;
@@ -56,37 +57,39 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		JPanel panelPass = new JPanel();
 		JPanel panelRemain = new JPanel();
 		
-		tp.add("Informations", panelInfo);  
-	    tp.add("Passed students", panelPass);  
-	    tp.add("Remaining students", panelRemain);    
+		tp.add(MainWindow.getInstance().getResourceBundle().getString("info"), panelInfo);  
+	    tp.add(MainWindow.getInstance().getResourceBundle().getString("passStud"), panelPass);  
+	    tp.add(MainWindow.getInstance().getResourceBundle().getString("remStud"), panelRemain);    
 	    add(tp);
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", "ID number");
+		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), panID);
 		tfID.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblName = new DiaLabel("Name must contain only letters and numbers", "Name*", panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9]]+", "name");
+		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		tfName.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
 		JPanel panSem = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblSem = new DiaLabel("Select semester", "Semester*", panSem);
-		String semester[] = {"summer", "winter"};
+		DiaLabel lblSem = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("semesterTooltip"), MainWindow.getInstance().getResourceBundle().getString("semester*"), panSem);
+		String semester[] = {MainWindow.getInstance().getResourceBundle().getString("summer"), MainWindow.getInstance().getResourceBundle().getString("winter")};
 		DiaCbox tfSem = new DiaCbox(semester, panSem);
 		tfSem.setSelectedItem(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getsemester().toString());
 		
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Year of study*", panCYear);
+		DiaLabel lblCurrYear = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("curYearTooltip"), MainWindow.getInstance().getResourceBundle().getString("curYear*"), panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
 		tfCurrYear.setValue(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getyearOfStudy());
 
 		//izmeniti da bude klasa profesor
-		/*JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblProf = new DiaLabel("Select professor", "Professor*", panProf);
+
+		JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		DiaLabel lblProf = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("profTooltip"), MainWindow.getInstance().getResourceBundle().getString("prof*"), panProf);
+
 		List<Professor> profs = DBProfessors.getInstance().getProfesssors();
 		List<String> where = new ArrayList<String>();
 		for(Professor prof: profs) {
@@ -100,7 +103,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		tfProf.setSelectedItem(profas);*/
 		
 		JPanel panESPB = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblESPB = new DiaLabel("Select espb", "ESPB*", panESPB);
+		DiaLabel lblESPB = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("espbTooltip"), "ESPB *", panESPB);
 		SpinnerModel espb = new SpinnerNumberModel(1, 1, 30, 1);
 		DiaSpinner tfESPB = new DiaSpinner(espb, panESPB);
 		tfESPB.setValue(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getEspb());
@@ -150,7 +153,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton("Save", panBtn);
+		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("save"), panBtn);
 		
 		DocumentListener listener = new DocumentListener() {
 		    @Override
@@ -182,14 +185,14 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 							Byte.parseByte(tfCurrYear.getValue().toString()), /*profs.get(tfProf.getSelectedIndex()),*/ Byte.parseByte(tfESPB.getValue().toString()));
 					dispose();
 				}else {
-					JOptionPane.showMessageDialog(null, "Subject with given id number already exists", "ID already exists and it's not subject you choose to edit", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, MainWindow.getInstance().getResourceBundle().getString("subjExCh"), MainWindow.getInstance().getResourceBundle().getString("idExists"), JOptionPane.ERROR_MESSAGE);
 				}
 			}
     	
     	});
 		
 		panBtn.add(Box.createHorizontalStrut(vspace));
-		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
+		DiaButton btnCancel = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"), panBtn);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
