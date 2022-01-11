@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.ProfessorsCtl;
+import view.MainWindow;
 import view.tables.ProfessorsTable;
 
 public class DeleteProfessorDialog extends AddProfessorDialog{
@@ -24,14 +25,13 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 		setLocationRelativeTo(parent);
 		
 		JPanel deleteProf = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel deleteMess = new JLabel("Are you sure you want\n"
-				+ " to delete the professor?");
+		JLabel deleteMess = new JLabel(MainWindow.getInstance().getResourceBundle().getString("delProf"));
 		
 		deleteProf.add(deleteMess, Component.CENTER_ALIGNMENT);
 		
 		JPanel btns = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton yesBtn = new JButton("Yes");
-		JButton noBtn = new JButton("No");
+		JButton yesBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("yesOption"));
+		JButton noBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("noOption"));
 		
 		yesBtn.addActionListener(new ActionListener(){
 

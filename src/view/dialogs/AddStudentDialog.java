@@ -37,6 +37,7 @@ import javax.swing.event.DocumentListener;
 import controller.StudentsCtrl;
 import model.Address;
 import model.Student.MethodOfFinancing;
+import view.MainWindow;
 import view.listeners.MyDocumentListener;
 import view.listeners.MyFocusListener;
 
@@ -157,55 +158,55 @@ public class AddStudentDialog extends JDialog{
 		List<DiaTFld> list = new ArrayList<>();
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblName = new DiaLabel("Name must contain only letters", "Name*", panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "name");
+		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblSurname = new DiaLabel("Surname must contain only letters", "Surname*", panSurname);		
-		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", "surname");
+		DiaLabel lblSurname = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"), MainWindow.getInstance().getResourceBundle().getString("surname*"), panSurname);		
+		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblBDay = new DiaLabel("Choose date", "Date of birth*", panBday);		
+		DiaLabel lblBDay = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("dateTooltip"), MainWindow.getInstance().getResourceBundle().getString("dateOfBirth*"), panBday);		
 		Date today = new Date();
 		JSpinner spinner2 = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
-		spinner2.setEditor(new JSpinner.DateEditor(spinner2, "dd/MM/yy"));
+		spinner2.setEditor(new JSpinner.DateEditor(spinner2, MainWindow.getInstance().getResourceBundle().getString("dateFormat")));
 		setPreferredSize(dim);
 		panBday.add(spinner2);
 		
 		Address address = new Address();
 		JPanel panAdr = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblAdr = new DiaLabel("Enter address", "Address*", panAdr);
-		DiaButton btnAddress = new DiaButton("Add address", panAdr);
+		DiaLabel lblAdr = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("addressTooltip"), MainWindow.getInstance().getResourceBundle().getString("address*"), panAdr);
+		DiaButton btnAddress = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("addAddress"), panAdr);
 		
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblPhNum = new DiaLabel("Phone number must contain only letters and +", "Phone number*", panPhNum);
-		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", "phone number");
+		DiaLabel lblPhNum = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("phoneTooltip"), MainWindow.getInstance().getResourceBundle().getString("contactPhone*"), panPhNum);
+		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", MainWindow.getInstance().getResourceBundle().getString("phoneNum"));
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblMail = new DiaLabel("Enter e-mail address", "E-mail address*", panMail);		
-		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ@.]]+", "e-mail address");
+		DiaLabel lblMail = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"), MainWindow.getInstance().getResourceBundle().getString("email*"), panMail);		
+		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ@.]]+", MainWindow.getInstance().getResourceBundle().getString("email"));
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblID = new DiaLabel("Enter id number", "ID number*", panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", "ID number");
+		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		list.add(tfID);
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblStartYear = new DiaLabel("Enter year of enrollment", "Year of enrollment*", panSYear);		
-		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", "year of enrollment");
+		DiaLabel lblStartYear = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("envYearTooltip"), MainWindow.getInstance().getResourceBundle().getString("envYear*"), panSYear);		
+		DiaTFld tfStartYear = new DiaTFld(panSYear, "[^[0-9]]+", MainWindow.getInstance().getResourceBundle().getString("envYear"));
 		list.add(tfStartYear);
 		JPanel panCYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblCurrYear = new DiaLabel("Choose year of study", "Current year of study*", panCYear);
+		DiaLabel lblCurrYear = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("curYearTooltip"), MainWindow.getInstance().getResourceBundle().getString("curYear*"), panCYear);
 		SpinnerModel years = new SpinnerNumberModel(1, 1, 4, 1);
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
 		
 		JPanel panFin = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblFinancing = new DiaLabel("Select method of financing", "Method of financing*", panFin);
-		String financing[] = {"budget", "self financing"};
+		DiaLabel lblFinancing = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("mofTooltip"), MainWindow.getInstance().getResourceBundle().getString("mof*"), panFin);
+		String financing[] = {MainWindow.getInstance().getResourceBundle().getString("budget"), MainWindow.getInstance().getResourceBundle().getString("selfFin")};
 		DiaCbox tfFinancing = new DiaCbox(financing, panFin);
 
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton("Save", panBtn);
+		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("save"), panBtn);
 		btnSave.setEnabled(false);
 		
 		btnAddress.addActionListener(new ActionListener() {
@@ -213,10 +214,10 @@ public class AddStudentDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(address.getCountry() == null) {
-					AddAddressDialog addressDia = new AddAddressDialog(parent, "Add address", true, address, list, btnSave);
+					AddAddressDialog addressDia = new AddAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addAddress"), true, address, list, btnSave);
 					addressDia.setVisible(true);
 				}else {
-					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, "Change address", true, address);
+					ChangeAddressDialog addressDia = new ChangeAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeAddress"), true, address);
 					addressDia.setVisible(true);
 				}
 			}
@@ -239,7 +240,7 @@ public class AddStudentDialog extends JDialog{
 				if(!StudentsCtrl.getInstance().addStudent(tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
 					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
 						stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText())) {
-					JOptionPane.showMessageDialog(null, "Student with given id number already exists", "ID already exists", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, MainWindow.getInstance().getResourceBundle().getString("studentExists"), MainWindow.getInstance().getResourceBundle().getString("idExists"), JOptionPane.ERROR_MESSAGE);
 				}else {
 					dispose();
 				}
@@ -247,7 +248,7 @@ public class AddStudentDialog extends JDialog{
     	});
 
 		panBtn.add(Box.createHorizontalStrut(vspace));
-		DiaButton btnCancel = new DiaButton("Cancel", panBtn);
+		DiaButton btnCancel = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"), panBtn);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -275,8 +276,8 @@ public class AddStudentDialog extends JDialog{
 	}
 
 	public MethodOfFinancing stringToMOF(String s) {
-		if(s == "self financing") { return MethodOfFinancing.S;}
-		if(s == "budget") { return MethodOfFinancing.B;}
+		if(s == MainWindow.getInstance().getResourceBundle().getString("selfFin")) { return MethodOfFinancing.S;}
+		if(s == MainWindow.getInstance().getResourceBundle().getString("budget")) { return MethodOfFinancing.B;}
 		return MethodOfFinancing.B;
     }
 }

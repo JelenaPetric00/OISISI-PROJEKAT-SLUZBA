@@ -27,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 
 import controller.ProfessorsCtl;
 import model.Address;
+import view.MainWindow;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
 import view.tables.ProfessorsTable;
 import view.tabs.TeachesSubjectTab;
@@ -48,15 +49,15 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profSubject.setLayout(new BorderLayout());
 		profSubject.add(TeachesSubjectTab.getInstance(parent));
 		
-		profTP.add("Info", profInfo);
-		profTP.add("Subjects", profSubject);
+		profTP.add(MainWindow.getInstance().getResourceBundle().getString("info"), profInfo);
+		profTP.add(MainWindow.getInstance().getResourceBundle().getString("subjects"), profSubject);
 		add(profTP);
 		
 		
 		JPanel profNameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pNameLbl = new JLabel("Name: *");
+		JLabel pNameLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("name*"));
 		pNameLbl.setPreferredSize(dim2);
-		pNameLbl.setToolTipText("Name: Only letters allowed");
+		pNameLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"));
 		profNameP.add(Box.createHorizontalStrut(vspace));
 		profNameP.add(pNameLbl);
 		
@@ -66,9 +67,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtNameP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getName());
 		
 		JPanel profSurnameP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pSurnameLbl = new JLabel("Surname: *");
+		JLabel pSurnameLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("surname*"));
 		pSurnameLbl.setPreferredSize(dim2);
-		pSurnameLbl.setToolTipText("Surname: Only letters allowed");
+		pSurnameLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"));
 		profSurnameP.add(Box.createHorizontalStrut(vspace));
 		profSurnameP.add(pSurnameLbl);
 		
@@ -78,9 +79,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtSurnameP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getSurname());
 		
 		JPanel profBirthDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pBirthDLbl = new JLabel("Date of birth: *");
+		JLabel pBirthDLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("dateOfBirth*"));
 		pBirthDLbl.setPreferredSize(dim2);
-		pBirthDLbl.setToolTipText("Date: Letters are not allowed");
+		pBirthDLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("dateOfBirthTooltip"));
 		profBirthDP.add(Box.createHorizontalStrut(vspace));
 		profBirthDP.add(pBirthDLbl);
 		
@@ -98,14 +99,14 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		Date date = Date.from(birthDay.atStartOfDay(defaultZoneId).toInstant());
 		
 		JSpinner dateSpinner = new JSpinner(new SpinnerDateModel(date, null, null, Calendar.MONTH));
-		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, "dd/MM/yy"));
+		dateSpinner.setEditor(new JSpinner.DateEditor(dateSpinner, MainWindow.getInstance().getResourceBundle().getString("dateFormat")));
 		setPreferredSize(dim2);
 		profBirthDP.add(dateSpinner);
 		
 		JPanel profAddrResP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pAddrResLbl = new JLabel("Residential Address: *");
+		JLabel pAddrResLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("residentialAddress*"));
 		pAddrResLbl.setPreferredSize(dim2);
-		pAddrResLbl.setToolTipText("Address: enter the full address");
+		pAddrResLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("addressTooltip"));
 		profAddrResP.add(Box.createHorizontalStrut(vspace));
 		profAddrResP.add(pAddrResLbl);
 		
@@ -114,23 +115,23 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		//profAddrResP.add(txtAddrResP);
 		
 		Address addressR = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getResidentialAddress();
-		JButton btnAddressR = new JButton("Change address");
+		JButton btnAddressR = new JButton(MainWindow.getInstance().getResourceBundle().getString("changeAddress"));
 		profAddrResP.add(btnAddressR, Component.CENTER_ALIGNMENT);
 		
 		btnAddressR.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeAddressDialog resAddrDia = new ChangeAddressDialog(parent, "Change residential address", true, addressR);
+				ChangeAddressDialog resAddrDia = new ChangeAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeRAdr"), true, addressR);
 				resAddrDia.setVisible(true);
 			}
 			
 		});
 		
 		JPanel profPhoneP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pPhoneLbl = new JLabel("Contact phone: *");
+		JLabel pPhoneLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("contactPhone*"));
 		pPhoneLbl.setPreferredSize(dim2);
-		pPhoneLbl.setToolTipText("Phone: Only digits allowed");
+		pPhoneLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("phoneTooltip"));
 		profPhoneP.add(Box.createHorizontalStrut(vspace));
 		profPhoneP.add(pPhoneLbl);
 		
@@ -140,9 +141,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtPhoneP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getContactPhone());
 		
 		JPanel profEmailP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pEmailLbl = new JLabel("Email address: *");
+		JLabel pEmailLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("email*"));
 		pEmailLbl.setPreferredSize(dim2);
-		pEmailLbl.setToolTipText("Email: enter contact Email");
+		pEmailLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"));
 		profEmailP.add(Box.createHorizontalStrut(vspace));
 		profEmailP.add(pEmailLbl);
 		
@@ -152,9 +153,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtEmailP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getEmail());
 		
 		JPanel profOfficeP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pOfficeLbl = new JLabel("Office address: *");
+		JLabel pOfficeLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("officeAddress*"));
 		pOfficeLbl.setPreferredSize(dim2);
-		pOfficeLbl.setToolTipText("Address: enter the full address");
+		pOfficeLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("addressTooltip"));
 		profOfficeP.add(Box.createHorizontalStrut(vspace));
 		profOfficeP.add(pOfficeLbl);
 		
@@ -163,23 +164,23 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		//profOfficeP.add(txtOfficeP);
 		
 		Address addressO = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getOfficeAddress();
-		JButton btnAddressO = new JButton("Change address");
+		JButton btnAddressO = new JButton(MainWindow.getInstance().getResourceBundle().getString("changeAddress"));
 		profOfficeP.add(btnAddressO, Component.CENTER_ALIGNMENT);
 		
 		btnAddressO.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeAddressDialog resAddrDiaO = new ChangeAddressDialog(parent, "Change office address", true, addressO);
+				ChangeAddressDialog resAddrDiaO = new ChangeAddressDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeOAdr"), true, addressO);
 				resAddrDiaO.setVisible(true);
 			}
 			
 		});
 		
 		JPanel profIDP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pIDLbl = new JLabel("ID number: *");
+		JLabel pIDLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("id*"));
 		pIDLbl.setPreferredSize(dim2);
-		pIDLbl.setToolTipText("ID: Only digits allowed");
+		pIDLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("idProfTooltip"));
 		profIDP.add(Box.createHorizontalStrut(vspace));
 		profIDP.add(pIDLbl);
 		
@@ -192,9 +193,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profIDP.add(fixID);*/
 		
 		JPanel profTitleP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pTitleLbl = new JLabel("Title: *");
+		JLabel pTitleLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("title*"));
 		pTitleLbl.setPreferredSize(dim2);
-		pTitleLbl.setToolTipText("Title: Only letters allowed");
+		pTitleLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("titleTooltip"));
 		profTitleP.add(Box.createHorizontalStrut(vspace));
 		profTitleP.add(pTitleLbl);
 		
@@ -204,9 +205,9 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		txtTitleP.setText(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getTitle());
 		
 		JPanel profYearsP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel pYearsLbl = new JLabel("Years of trail: *");
+		JLabel pYearsLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("yearsOfTrail*"));
 		pYearsLbl.setPreferredSize(dim2);
-		pYearsLbl.setToolTipText("Years of trial");
+		pYearsLbl.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("yearsOfTrail"));
 		profYearsP.add(Box.createHorizontalStrut(vspace));
 		profYearsP.add(pYearsLbl);
 		
@@ -217,16 +218,16 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		years.setValue(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()).getYearsOfTrail());
 		
 		JPanel instructionP = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel messageLbl = new JLabel("*required");
+		JLabel messageLbl = new JLabel(MainWindow.getInstance().getResourceBundle().getString("*required"));
 		messageLbl.setFont(new Font("Calibri", Font.ITALIC, 12));
 		messageLbl.setForeground(Color.RED);
 		instructionP.add(messageLbl);
 		
 		JPanel profButtonP= new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton confirmBtn = new JButton("Confirm");
-		JButton quitBtn = new JButton("Quit");
-		confirmBtn.setToolTipText("apply changes");
-		quitBtn.setToolTipText("leave as it was");
+		JButton confirmBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("confirm"));
+		JButton quitBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("quit"));
+		confirmBtn.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("applyChanges"));
+		quitBtn.setToolTipText(MainWindow.getInstance().getResourceBundle().getString("leaveAsItWas"));
 		
 		
 		confirmBtn.addActionListener(new ActionListener(){
@@ -247,7 +248,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 					dispose();
 					
 				}else{
-					JOptionPane.showMessageDialog(null,  "Professor with this ID number is already in the system and it's not the one you choose to edit", "ID already exists", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,  MainWindow.getInstance().getResourceBundle().getString("profIDexChange"), MainWindow.getInstance().getResourceBundle().getString("idExists"), JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

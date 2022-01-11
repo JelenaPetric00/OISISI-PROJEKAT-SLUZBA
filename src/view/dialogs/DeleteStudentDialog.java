@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.StudentsCtrl;
+import view.MainWindow;
 import view.tables.StudentsTable;
 
 
@@ -30,13 +31,13 @@ public class DeleteStudentDialog extends AddStudentDialog{
 		
 		setLayout(new BorderLayout());
 		JPanel panLbl = new JPanel(new BorderLayout());
-		DiaLabel lbl = new DiaLabel("", "Are you sure you want\n to delete student?", panLbl);		
+		DiaLabel lbl = new DiaLabel("", MainWindow.getInstance().getResourceBundle().getString("delStud"), panLbl);		
 		add(panLbl, BorderLayout.NORTH);
 		
 		add(Box.createRigidArea(dim));
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnYes = new DiaButton("Yes", panBtn);
+		DiaButton btnYes = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("yesOption"), panBtn);
 		panBtn.add(Box.createHorizontalStrut(vspace));
 		btnYes.addActionListener(new ActionListener() {
 
@@ -48,7 +49,7 @@ public class DeleteStudentDialog extends AddStudentDialog{
     	
     	});
 		
-		DiaButton btnNo = new DiaButton("No", panBtn);
+		DiaButton btnNo = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("noOption"), panBtn);
 		panBtn.add(Box.createVerticalStrut(vspace));
 		btnNo.addActionListener(new ActionListener() {
 

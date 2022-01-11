@@ -21,6 +21,7 @@ import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
 import model.DBSubjects;
 import model.Subject;
+import view.MainWindow;
 
 public class AddSubjectToStudentDialog extends AddStudentDialog{
 	
@@ -32,10 +33,10 @@ public class AddSubjectToStudentDialog extends AddStudentDialog{
 
 		setLayout(new BorderLayout());
 		
-		JButton btnAdd = new JButton("Add ");
+		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.setEnabled(false);
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"));
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override

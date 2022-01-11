@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
+import view.MainWindow;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
@@ -27,8 +28,7 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 		
 		setLayout(new BorderLayout());
 		JPanel deleteSubP = new JPanel(new BorderLayout());
-		JLabel delMessSub = new JLabel("Are you sure you want\n"
-				+ " to delete the subject?");
+		JLabel delMessSub = new JLabel(MainWindow.getInstance().getResourceBundle().getString("delSubj"));
 		delMessSub.setPreferredSize(dim);
 		deleteSubP.add(Box.createHorizontalStrut(vspace));
 		
@@ -37,7 +37,7 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 		add(Box.createVerticalStrut(15));
 		
 		JPanel btnS = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton yesButton = new JButton("Yes");
+		JButton yesButton = new JButton(MainWindow.getInstance().getResourceBundle().getString("yesOption"));
 		yesButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -47,7 +47,7 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 			}
     	
     	});
-		JButton noButton = new JButton("No");
+		JButton noButton = new JButton(MainWindow.getInstance().getResourceBundle().getString("noOption"));
 		noButton.addActionListener(new ActionListener() {
 
 			@Override
