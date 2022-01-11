@@ -153,7 +153,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString(MainWindow.getInstance().getResourceBundle().getString("save")), panBtn);
+		DiaButton btnSave = new DiaButton(MainWindow.getInstance().getResourceBundle().getString("save"), panBtn);
 		
 		DocumentListener listener = new DocumentListener() {
 		    @Override
