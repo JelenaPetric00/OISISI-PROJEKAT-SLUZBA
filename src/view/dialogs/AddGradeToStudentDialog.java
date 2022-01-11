@@ -27,6 +27,7 @@ import controller.RemainingSubjectsCtrl;
 import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
 import model.Subject;
+import view.MainWindow;
 import view.tables.RemainingSubjectsTable;
 
 public class AddGradeToStudentDialog extends AddStudentDialog{
@@ -40,7 +41,7 @@ public class AddGradeToStudentDialog extends AddStudentDialog{
 		setLayout(new BorderLayout());
 		
 		JPanel idSubPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel idSubLab = new JLabel("ID* ");
+		JLabel idSubLab = new JLabel(MainWindow.getInstance().getResourceBundle().getString("id*"));
 		idSubLab.setPreferredSize(dimg);
 		idSubLab.add(Box.createVerticalStrut(vspace));
 		idSubPan.add(idSubLab);
@@ -55,7 +56,7 @@ public class AddGradeToStudentDialog extends AddStudentDialog{
 		idSubPan.add(txtIDSub);
 		
 		JPanel nameSubPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel nameSubLab = new JLabel("Name* ");
+		JLabel nameSubLab = new JLabel(MainWindow.getInstance().getResourceBundle().getString("name*"));
 		nameSubLab.setPreferredSize(dimg);
 		nameSubLab.add(Box.createVerticalStrut(vspace));
 		nameSubPan.add(nameSubLab);
@@ -70,7 +71,7 @@ public class AddGradeToStudentDialog extends AddStudentDialog{
 		nameSubPan.add(txtNameSub);
 		
 		JPanel gradeSubPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel gradeSubLab = new JLabel("Grade* ");
+		JLabel gradeSubLab = new JLabel(MainWindow.getInstance().getResourceBundle().getString("grade*"));
 		gradeSubLab.setPreferredSize(dimg);
 		gradeSubLab.add(Box.createVerticalStrut(vspace));
 		gradeSubPan.add(gradeSubLab);
@@ -82,20 +83,20 @@ public class AddGradeToStudentDialog extends AddStudentDialog{
 		gradeSubPan.add(gradeBox);
 		
 		JPanel dateSubPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JLabel dateSubLab = new JLabel("Date* ");
+		JLabel dateSubLab = new JLabel(MainWindow.getInstance().getResourceBundle().getString("date*"));
 		dateSubLab.setPreferredSize(dimg);
 		dateSubLab.add(Box.createVerticalStrut(vspace));
 		dateSubPan.add(dateSubLab);
 		
 		Date today = new Date();
 		JSpinner spinnerD = new JSpinner(new SpinnerDateModel(today, null, null, Calendar.MONTH));
-		spinnerD.setEditor(new JSpinner.DateEditor(spinnerD, "yyyy-MM-dd"));
+		spinnerD.setEditor(new JSpinner.DateEditor(spinnerD, MainWindow.getInstance().getResourceBundle().getString("dateFormat")));
 		spinnerD.setPreferredSize(dimg);
 		dateSubPan.add(spinnerD);
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JButton confirmBtn = new JButton("Confirm");
-		JButton cancelBtn = new JButton("Cancel");
+		JButton confirmBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("confirm"));
+		JButton cancelBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"));
 		
 		btnPanel.add(confirmBtn, Component.CENTER_ALIGNMENT);
 		btnPanel.add(Box.createHorizontalStrut(20));
