@@ -57,7 +57,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		panelInfo.setLayout(new BorderLayout());
 		JPanel panelPass = new JPanel();
 		panelPass.setLayout(new BorderLayout());
-		panelPass.add(PassedSubjectsTab.getInstance());
+		panelPass.add(PassedSubjectsTab.getInstance(parent));
 		JPanel panelRemain = new JPanel();
 		panelRemain.setLayout(new BorderLayout());
 		panelRemain.add(RemainingSubjectsTab.getInstance(parent));

@@ -88,15 +88,23 @@ public class DBSubjects {
 		}
 	}
 
-	public void editSubject(String idOld, String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
+	public void editSubject(String idOld, String ID, String name, Semester semester, Byte yearOfStudy,/* Professor prof,*/ Byte espb) {
 		for (Subject subject : subjects) {
 			if(subject.getid().equals(idOld)) {
 				subject.setid(ID);
 				subject.setname(name);
 				subject.setsemester(semester);
 				subject.setyearOfStudy(yearOfStudy);
-				subject.setprofessor(prof);
+				//subject.setprofessor(prof);
 				subject.setEspb(espb);
+			}
+		}
+	}
+	
+	public void addProfOnSubj(String id,Professor prof){
+		for(Subject sub : subjects){
+			if(sub.getid().equals(id)){
+				sub.setprofessor(prof);
 			}
 		}
 	}

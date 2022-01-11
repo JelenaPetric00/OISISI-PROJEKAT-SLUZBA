@@ -22,6 +22,7 @@ import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
 import model.DBSubjects;
 import model.Subject;
+import view.dialogs.AddGradeToStudentDialog;
 import view.dialogs.AddSubjectToStudentDialog;
 import view.tables.AbstractTableModelRemainingSubjects;
 import view.tables.RemainingSubjectsTable;
@@ -123,6 +124,20 @@ public class RemainingSubjectsTab extends JPanel{
 				}
 	         }
 	      });
+		
+		btnPassed.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(remainingSubjectsTable.getInstance().getSelectedRow() >= 0){
+					AddGradeToStudentDialog newGradeDiag = new AddGradeToStudentDialog(parent, "Enter grade", true);
+					newGradeDiag.setVisible(true);
+					
+				}
+				
+			}
+			
+		});
 		
 	}
 	
