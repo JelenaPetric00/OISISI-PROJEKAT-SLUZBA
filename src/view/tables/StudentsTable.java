@@ -2,17 +2,18 @@ package view.tables;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.util.Comparator;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableRowSorter;
 
 public class StudentsTable extends JTable {
 	
 	private static StudentsTable instance = null;
-		
+	TableRowSorter<AbstractTableModelStudents> sorter;
+	
 	public static StudentsTable getInstance() {
 		if(instance == null)
 			instance = new StudentsTable();
@@ -24,8 +25,41 @@ public class StudentsTable extends JTable {
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		// Sama JTable komponenta je implementirana postujuci MVC arhitekturu.
 		this.setModel(new AbstractTableModelStudents());
+		
+		
+		//For example, the following code creates a Comparator that sorts a set of strings by the last word in each string:
+//		Comparator<String> comparator = new Comparator<String>() {
+//		    public int compare(String s1, String s2) {
+//		        String[] strings1 = s1.split("\\s");
+//		        String[] strings2 = s2.split("\\s");
+//		        return strings1[strings1.length - 1]
+//		            .compareTo(strings2[strings2.length - 1]);
+//		    }
+//		};
+		this.setAutoCreateRowSorter(true);
+		Comparator<String> comparator = new Comparator<String>() {
+		    public int compare(String s1, String s2) {
+		        String[] strings1 = s1.split("[/ ]");
+		        String[] strings2 = s2.split("[/ ]");
+		        if (!strings1[0].equals(strings2[0])) {
+		        	return s1.compareTo(s2);
+		        } else{
+		        	if (!strings1[1].equals(strings2[1])) {
+		        		return Integer.compare(Integer.parseInt(strings1[1]), Integer.parseInt(strings2[1]));
+			        }
+		        }
+		        return Integer.compare(Integer.parseInt(strings1[2]), Integer.parseInt(strings2[2]));
+		    }
+		};
+		
+		sorter = new TableRowSorter<AbstractTableModelStudents>(new AbstractTableModelStudents());
+		sorter.setComparator(0, comparator);
+		this.setRowSorter(sorter);
+	}
+
+	public TableRowSorter<AbstractTableModelStudents> getSorter() {
+		return sorter;
 	}
 
 	@Override
