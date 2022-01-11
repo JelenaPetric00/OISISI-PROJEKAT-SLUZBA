@@ -2,11 +2,15 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import controller.StudentsCtrl;
 import model.Subject.Semester;
 import view.tables.StudentsTable;
+import view.tabs.PassedSubjectsTab;
+import view.tabs.RemainingSubjectsTab;
 
 public class DBPassedSubjects {
 	
@@ -19,6 +23,8 @@ public class DBPassedSubjects {
 		return instance;
 	}
 	
+	private Map<Student, List<Grade>> mapStudGrades = new HashMap<>();
+	private Map<Student, List<Subject>> mapStudPassSub = new HashMap<>();
 	private Student student;
 	private List<Subject> subjects;
 	private List<Grade> grades; 
@@ -36,6 +42,26 @@ public class DBPassedSubjects {
 		this.columns.add("Date");
 	}
 	
+	private void refreshSubjectsGrade(){
+		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
+		if(mapStudGrades.containsKey(student)){
+			this.grades = new ArrayList<Grade>(mapStudGrades.get(student));
+		}else {
+			this.grades = new ArrayList<Grade>();
+			this.mapStudGrades.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Grade>(grades));
+		}
+	}
+	
+	private void refreshePassedSubject(){
+		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
+		if(mapStudPassSub.containsKey(student)){
+			this.subjects = new ArrayList<Subject>(mapStudPassSub.get(student));
+		}else{
+			this.subjects = new ArrayList<Subject>();
+			this.mapStudPassSub.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(subjects));
+		}
+	}
+	
 	private void initSubjects(){
 		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
 		this.grades = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getgradesPassedSubjects();
@@ -45,9 +71,16 @@ public class DBPassedSubjects {
 		}
 		subjects.add(new Subject("AL1", "Algebra", Semester.WINTER, (byte)1, new Professor(), (byte)8, new ArrayList<Student>(), new ArrayList<Student>()));
 		grades.add(new Grade(new Student(), subjects.get(0), (byte)10, LocalDate.of(2000, 8, 2)));
+		if(!mapStudGrades.containsKey(student)){
+			this.mapStudGrades.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Grade>(grades));
+		}
+		if(!mapStudPassSub.containsKey(student)){
+			this.mapStudPassSub.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(subjects));
+		}
 	}
 	
 	public List<Subject> getSubjects(){
+		refreshePassedSubject();
 		return subjects;
 	}
 	
@@ -60,6 +93,8 @@ public class DBPassedSubjects {
 	}
 	
 	public Student getStudent() {
+		refreshSubjectsGrade();
+		refreshePassedSubject();
 		return student;
 	}
 
@@ -68,6 +103,7 @@ public class DBPassedSubjects {
 	}
 
 	public List<Grade> getGrades() {
+		refreshSubjectsGrade();
 		return grades;
 	}
 
@@ -80,8 +116,13 @@ public class DBPassedSubjects {
 	}
 	
 	public Subject getRow(int rowIndex){
+		//System.out.println("Hey");
 		return this.subjects.get(rowIndex);
 	}
+	
+	/*public Grade getRow(int rowIndex){
+		return this.grades.get(rowIndex);
+	}*/
 	
 	public String getValueAt(int row, int column){
 		Subject subject = this.subjects.get(row);
@@ -102,18 +143,39 @@ public class DBPassedSubjects {
 		}
 	}
 	
-	public void addSubject(String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
-		this.subjects.add(new Subject(ID, name, semester, yearOfStudy, prof, espb,
-				new ArrayList<Student>(), new ArrayList<Student>()));
+	/*public void addSubject(String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
+		//this.subjects.add(new Subject(ID, name, semester, yearOfStudy, prof, espb,
+				//new ArrayList<Student>(), new ArrayList<Student>()));
+	}*/
+	
+	public void addSubjectGrade(Subject s, byte grade, LocalDate date){
+		refreshSubjectsGrade();
+		refreshePassedSubject();
+		subjects.add(s);
+		grades.add(new Grade(student, s, grade, date));
+		mapStudGrades.replace(student, new ArrayList<Grade>(grades));
+		mapStudPassSub.replace(student, new ArrayList<Subject>(subjects));
+		PassedSubjectsTab.getInstance(null).updateView(null, -1);
+		
 	}
 
 	public void delSubject(String id) {
+		for (Grade grade : grades){
+			if(grade.getsubject().getid() == id){
+				grades.remove(grade);
+				break;
+			}
+		}
+		this.mapStudGrades.replace(student, grades);
+		
 		for (Subject subject : subjects) {
 			if (subject.getid() == id) {
 				subjects.remove(subject);
 				break;
 			}
 		}
+		this.mapStudPassSub.replace(student, subjects);
+		PassedSubjectsTab.getInstance(null).updateView(null, -1);
 	}
 
 	public void editSubject(String idOld, String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {

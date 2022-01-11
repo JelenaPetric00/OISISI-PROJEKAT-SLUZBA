@@ -3,17 +3,24 @@ package view.tabs;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import model.DBPassedSubjects;
+import model.DBRemainingSubjects;
+import model.Grade;
+import model.Subject;
 import view.tables.AbstractTableModelPassedSubjects;
 import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
@@ -23,14 +30,14 @@ public class PassedSubjectsTab extends JPanel{
 	private static PassedSubjectsTab instance;
 	private int heightRow = 40;
 	
-	public static PassedSubjectsTab getInstance(){
+	public static PassedSubjectsTab getInstance(Frame parent){
 		if(instance == null){
-			instance = new PassedSubjectsTab();
+			instance = new PassedSubjectsTab(parent);
 		}
 		return instance;
 	}
 	
-	private PassedSubjectsTab(){
+	private PassedSubjectsTab(Frame parent){
 		this.setLayout(new BorderLayout());
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -72,6 +79,24 @@ public class PassedSubjectsTab extends JPanel{
 		panTxt.add(panTxt1);
 		panTxt.add(panTxt2);
 		add(panTxt, BorderLayout.SOUTH);
+		
+		btn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(passedSubjectsTable.getSelectedRow() >= 0){
+				   int result = JOptionPane.showConfirmDialog(parent, "Are you sure you want \\n to undo the grade?", "Undo grade", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				   if(result == JOptionPane.YES_OPTION){
+				     Subject s = DBPassedSubjects.getInstance().getRow(passedSubjectsTable.getSelectedRow());
+				     DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
+				     DBPassedSubjects.getInstance().delSubject(s.getid());
+				   }
+				 }
+				
+				
+			}
+			
+		});
 	}
 	
 	public void updateView(String action, int value){

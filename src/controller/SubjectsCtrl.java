@@ -52,12 +52,12 @@ public class SubjectsCtrl {
 		subjectstab.updateView("DELETED", -1);
 	}
 	
-	public void editSubject(int rowSelectedIndex, String idOld, String ID, String name, Semester semester, Byte yearOfStudy, Professor prof, Byte espb) {
+	public void editSubject(int rowSelectedIndex, String idOld, String ID, String name, Semester semester, Byte yearOfStudy,/* Professor prof,*/ Byte espb) {
 		if(rowSelectedIndex < 0){
 			return;
 		}
 		
-		DBSubjects.getInstance().editSubject(idOld, ID, name, semester, yearOfStudy, prof, espb);
+		DBSubjects.getInstance().editSubject(idOld, ID, name, semester, yearOfStudy,/* prof,*/ espb);
 		//AZURIRJ PRIKAZ
 		subjectstab.updateView("EDITED", -1);
 	}
@@ -78,6 +78,15 @@ public class SubjectsCtrl {
 			}
 			return !exist;
 		}
+	}
+	
+	public void addProfOnSubj(int rowSelectedIndex,String id ,Professor prof){
+		if(rowSelectedIndex < 0){
+			return;
+		}
+		DBSubjects.getInstance().addProfOnSubj(id, prof);
+		//System.out.println("DODATO");
+		//subjectstab.updateView("ADDED", -1);
 	}
 	
 }
