@@ -87,7 +87,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 		//izmeniti da bude klasa profesor
 
-		JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
+/*		JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblProf = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("profTooltip"), MainWindow.getInstance().getResourceBundle().getString("prof*"), panProf);
 
 		List<Professor> profs = DBProfessors.getInstance().getProfesssors();
@@ -109,7 +109,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		tfESPB.setValue(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getEspb());
 		
 		JPanel profPan = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel profLbl = new DiaLabel("Select professor", "Professor*", profPan);
+		DiaLabel profLbl = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("profTooltip"), MainWindow.getInstance().getResourceBundle().getString("prof*"), profPan);
 		txtProf = new JTextField();
 		txtProf.setPreferredSize(dimp);
 		txtProf.setName("txtProf");
@@ -129,7 +129,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddProfessorToSubjectDialog profToSubDiag = new AddProfessorToSubjectDialog(parent,"Choose the professor", true);
+				AddProfessorToSubjectDialog profToSubDiag = new AddProfessorToSubjectDialog(parent,MainWindow.getInstance().getResourceBundle().getString("chooseProf"), true);
 				profToSubDiag.keepup(txtProf);
 				profToSubDiag.setVisible(true);
 				
@@ -142,7 +142,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!txtProf.getText().isEmpty()){
-					System.out.println("IMA");
+					//System.out.println("IMA");
 					
 				}
 				
