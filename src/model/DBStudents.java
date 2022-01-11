@@ -35,8 +35,10 @@ public class DBStudents {
 	}
 //TODO Citaj fajl i ubacuj  redom
 	private void initStudents() {
-		this.students = new ArrayList<Student>();
-		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address("Fruskogorsa", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
+		this.students = new ArrayList<Student>();students.add(new Student("Jelena", "Petric", LocalDate.of(2000, 5, 1), new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
+				"RA 183/2019", (short)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
+				new ArrayList<Grade>(), new ArrayList<Subject>()));
+		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
 				"RA 163/2019", (short)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
 				new ArrayList<Grade>(), new ArrayList<Subject>()));
 		
