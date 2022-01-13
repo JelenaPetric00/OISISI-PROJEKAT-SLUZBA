@@ -8,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import view.tables.ProfessorsTable;
+import view.tabs.DesksTab;
 import view.tabs.ProfessorsTab;
 import view.tabs.StudentsTab;
 import view.tabs.SubjectsTab;
@@ -43,11 +44,15 @@ public class TabbedPane extends JTabbedPane {
 		subjectsPanel.setLayout(new BorderLayout());
 		subjectsPanel.setName("Subjects");
 		subjectsPanel.add(SubjectsTab.getInstance());
-		
+		JPanel desksPanel = new JPanel();
+		desksPanel.setLayout(new BorderLayout());
+		desksPanel.setName("Desks");
+		desksPanel.add(DesksTab.getInstance(MainWindow.getInstance()));
 		
 		add(studentsPanel);
 		add(professorPanel);
 		add(subjectsPanel);
+		add(desksPanel);
 	}
 	
 	public void notifyObs(int number){
