@@ -21,6 +21,11 @@ public class StudentsTable extends JTable {
 		return instance;
 	}
 	
+	@Override
+	public int getSelectedRow() {
+		return convertRowIndexToModel(super.getSelectedRow());
+	}
+
 	private StudentsTable() {
 		this.setRowSelectionAllowed(true);
 		this.setColumnSelectionAllowed(true);
