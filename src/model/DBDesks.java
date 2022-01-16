@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import view.MainWindow;
+
 public class DBDesks {
 	private static DBDesks instance = null;
 	
@@ -21,7 +23,7 @@ public class DBDesks {
 		initDesks();
 		
 		this.columns = new ArrayList<String>();
-		this.columns.add("ID");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
 		this.columns.add("Name");
 		this.columns.add("Chairmans id");
 		

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
 import controller.StudentsCtrl;
+import view.MainWindow;
 import view.TabbedPane;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
@@ -33,15 +34,15 @@ public class AddButtonAction extends AbstractAction{
 	public void actionPerformed(ActionEvent e) {
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:
-				AddStudentDialog studentDia = new AddStudentDialog(parent, "Add student", true);
+				AddStudentDialog studentDia = new AddStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addStudent"), true);
 				studentDia.setVisible(true);
 				break;
 			case 1:
-				AddProfessorDialog professorDia = new AddProfessorDialog(parent, "Add professor", true);
+				AddProfessorDialog professorDia = new AddProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addProfessor"), true);
 				professorDia.setVisible(true);
 				break;
 			case 2:
-				AddSubjectDialog subjectDia = new AddSubjectDialog(parent, "Add subject", true);
+				AddSubjectDialog subjectDia = new AddSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addSubject"), true);
 				subjectDia.setVisible(true);
 				break;
 			default:

@@ -23,6 +23,8 @@ public class SubjectsTable extends JTable{
 		this.setColumnSelectionAllowed(true);
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelSubjects());
+		
+		this.setAutoCreateRowSorter(true);
 	}
 
 	@Override

@@ -17,6 +17,7 @@ public class StatusBar extends JPanel{
 	
 	private JLabel clockLabel;
 	private JLabel currentTab;
+	private JLabel nameLabel;
 	
 	
 	public StatusBar(){
@@ -25,9 +26,9 @@ public class StatusBar extends JPanel{
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.WHITE);
 		
-		JLabel nameLabel = new JLabel(" Studentska sluzba - ");
+		nameLabel = new JLabel(MainWindow.getInstance().getResourceBundle().getString("lblSbName"));
 		clockLabel = new JLabel();
-		currentTab = new JLabel("Students");
+		currentTab = new JLabel(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
 		Box box = Box.createHorizontalBox();
 		box.add(Box.createHorizontalStrut(10));
 		box.add(nameLabel);
@@ -62,5 +63,10 @@ public class StatusBar extends JPanel{
 		time.setInitialDelay(0);
 		time.start();
   }
+	
+	public void initComponents(){
+		nameLabel.setText(MainWindow.getInstance().getResourceBundle().getString("lblSbName"));
+		//currentTab.setText(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+	}
 
 }

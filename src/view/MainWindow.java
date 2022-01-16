@@ -26,6 +26,9 @@ public class MainWindow extends JFrame{
 	
 	Toolbar toolbar;
 	private ResourceBundle resourceBundle;
+	private MenuBar menu;
+	private StatusBar status;
+	private TabbedPane tabs;
 	
 	private MainWindow() {
 		Locale.setDefault(new Locale("sr", "RS"));
@@ -46,16 +49,16 @@ public class MainWindow extends JFrame{
 		Image img = Toolkit.getDefaultToolkit().getImage("icons/icon.webp");
 		setIconImage(img);
 		
-		MenuBar menu = new MenuBar(this);
+		menu = new MenuBar(this);
 		setJMenuBar(menu);
 	
 		Toolbar tbar = new Toolbar(this);
 		add(tbar, BorderLayout.NORTH);
 		
-		StatusBar status = new StatusBar();
+		status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
 		
-		TabbedPane tabs = TabbedPane.getInstance();
+		tabs = TabbedPane.getInstance();
 		tabs.subscriber(status);
 		tabs.refreshSub();
 		menu.openTab(tabs);
@@ -72,8 +75,9 @@ public class MainWindow extends JFrame{
 
 		resourceBundle = ResourceBundle.getBundle("view.messageResources.MessageResources", Locale.getDefault());
 		setTitle(resourceBundle.getString("Student service"));
-		//menu.initComponents();
-		//statusBar.initComponents();
+		menu.initComponents();
+		status.initComponents();
+		tabs.initComponets();
 
 		UIManager.put("OptionPane.yesButtonText", resourceBundle.getObject("yesOption"));
 		UIManager.put("OptionPane.noButtonText", resourceBundle.getObject("noOption"));
