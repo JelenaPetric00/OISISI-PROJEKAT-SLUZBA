@@ -2,13 +2,11 @@ package view;
 
 import java.awt.BorderLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import view.tables.ProfessorsTable;
 import view.tabs.DesksTab;
 import view.tabs.ProfessorsTab;
 import view.tabs.StudentsTab;
@@ -36,24 +34,22 @@ public class TabbedPane extends JTabbedPane {
 		
 		studentsPanel = new JPanel();
 		studentsPanel.setLayout(new BorderLayout());
-		//studentsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
-		studentsPanel.setName("Students");
+		studentsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
 		studentsPanel.add(StudentsTab.getInstance());
 		JPanel professorPanel = new JPanel();
 		professorPanel.setLayout(new BorderLayout());
-		professorPanel.setName("Professors");
+		professorPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
 		professorPanel.add(ProfessorsTab.getInstance());
 		JPanel subjectsPanel = new JPanel();
 		subjectsPanel.setLayout(new BorderLayout());
-		subjectsPanel.setName("Subjects");
+		subjectsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
 		subjectsPanel.add(SubjectsTab.getInstance());
 		JPanel desksPanel = new JPanel();
 		desksPanel.setLayout(new BorderLayout());
-		desksPanel.setName("Desks");
+		desksPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniDesks"));
 		desksPanel.add(DesksTab.getInstance(MainWindow.getInstance()));
 		
 		add(studentsPanel);
-		//add(MainWindow.getInstance().getResourceBundle().getString("mniStudents"), studentsPanel);
 		add(professorPanel);
 		add(subjectsPanel);
 		add(desksPanel);
@@ -92,8 +88,10 @@ public class TabbedPane extends JTabbedPane {
 	}
 	
 	public void initComponets(){
-		
-		//studentsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+		TabbedPane.getInstance().setTitleAt(0, MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+		TabbedPane.getInstance().setTitleAt(1, MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
+		TabbedPane.getInstance().setTitleAt(2, MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
+		TabbedPane.getInstance().setTitleAt(3, MainWindow.getInstance().getResourceBundle().getString("mniDesks"));		
 		
 		if(getSelectedIndex() == 1){
 			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));

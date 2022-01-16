@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import controller.StudentsCtrl;
@@ -25,7 +26,7 @@ public class AddButtonAction extends AbstractAction{
 		
 		//putValue(NAME, "Edit");
 		putValue(MNEMONIC_KEY, KeyEvent.VK_N);
-		putValue(SHORT_DESCRIPTION, "Create entity");
+		putValue(SHORT_DESCRIPTION, MainWindow.getInstance().getResourceBundle().getString("crEnt"));
 		putValue(SMALL_ICON, new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH)));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 	}
@@ -44,6 +45,9 @@ public class AddButtonAction extends AbstractAction{
 			case 2:
 				AddSubjectDialog subjectDia = new AddSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addSubject"), true);
 				subjectDia.setVisible(true);
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskM"), MainWindow.getInstance().getResourceBundle().getString("deskM"), JOptionPane.INFORMATION_MESSAGE);
 				break;
 			default:
 		}

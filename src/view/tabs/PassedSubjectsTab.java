@@ -21,6 +21,7 @@ import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
 import model.Grade;
 import model.Subject;
+import view.MainWindow;
 import view.tables.AbstractTableModelPassedSubjects;
 import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
@@ -42,7 +43,7 @@ public class PassedSubjectsTab extends JPanel{
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btn = new JButton("Cancel the grade");
+		JButton btn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancGrd"));
 		panBtn.add(Box.createHorizontalStrut(5));
 		panBtn.add(btn);
 		add(panBtn, BorderLayout.NORTH);
@@ -70,10 +71,10 @@ public class PassedSubjectsTab extends JPanel{
 		
 		JPanel panTxt1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JPanel panTxt2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JLabel lbAvg = new JLabel("Average grade: " + Float.toString(DBPassedSubjects.getInstance().getStudent().getavgGrade()));
+		JLabel lbAvg = new JLabel(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(DBPassedSubjects.getInstance().getStudent().getavgGrade()));
 		panTxt1.add(Box.createHorizontalStrut(5));
 		panTxt1.add(lbAvg);
-		JLabel lbEspb = new JLabel("Sum ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
+		JLabel lbEspb = new JLabel(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		panTxt2.add(Box.createHorizontalStrut(5));
 		panTxt2.add(lbEspb);
 		panTxt.add(panTxt1);
@@ -85,7 +86,7 @@ public class PassedSubjectsTab extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(passedSubjectsTable.getSelectedRow() >= 0){
-				   int result = JOptionPane.showConfirmDialog(parent, "Are you sure you want \\n to undo the grade?", "Undo grade", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				   int result = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("sureUndoGr"), MainWindow.getInstance().getResourceBundle().getString("undoGr"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				   if(result == JOptionPane.YES_OPTION){
 				     Subject s = DBPassedSubjects.getInstance().getRow(passedSubjectsTable.getSelectedRow());
 				     DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());

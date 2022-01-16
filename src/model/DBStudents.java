@@ -4,7 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import model.Student.MethodOfFinancing;
+import view.MainWindow;
+import view.tables.StudentsTable;
 
 public class DBStudents {
 	
@@ -25,12 +31,12 @@ public class DBStudents {
 		initStudents();
 		
 		this.columns = new ArrayList<String>();
-		this.columns.add("ID");
-		this.columns.add("Name");
-		this.columns.add("Surname");
-		this.columns.add("Year of study");
-		this.columns.add("Method of financing");
-		this.columns.add("Average grade");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("name"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("surname"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("mof"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("avgGr"));
 		
 	}
 //TODO Citaj fajl i ubacuj  redom
@@ -115,6 +121,24 @@ public class DBStudents {
 				student.setaddress(address);
 			}
 		}
+	}
+	
+	public void initComponents(){
+		JTableHeader th = StudentsTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(2);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("surname"));
+		tc = tcm.getColumn(3);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		tc = tcm.getColumn(4);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("mof"));
+		tc = tcm.getColumn(5);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("avgGr"));
+		tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		th.repaint(); 
 	}
 //	public void addStudent(String id, String name, String surname, LocalDate localDate, byte currYear, short startYear,
 //			MethodOfFinancing mof, String address, String phoneNum, String mail) {

@@ -22,6 +22,7 @@ import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
 import model.DBSubjects;
 import model.Subject;
+import view.MainWindow;
 import view.dialogs.AddGradeToStudentDialog;
 import view.dialogs.AddSubjectToStudentDialog;
 import view.tables.AbstractTableModelRemainingSubjects;
@@ -47,7 +48,7 @@ public class RemainingSubjectsTab extends JPanel{
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btnAdd = new JButton("Add ");
+		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -74,16 +75,16 @@ public class RemainingSubjectsTab extends JPanel{
 					}
 				}
 				if(!subjectsForList.isEmpty()) {
-					AddSubjectToStudentDialog studentsubjectDia = new AddSubjectToStudentDialog(parent, "Add subject to student", true);
+					AddSubjectToStudentDialog studentsubjectDia = new AddSubjectToStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addSubToStud"), true);
 					studentsubjectDia.setVisible(true);
 				}else {
-					JOptionPane.showMessageDialog(parent, "There is no subjects to add", "There is no subjects to add", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("noSub"), MainWindow.getInstance().getResourceBundle().getString("noSub"), JOptionPane.ERROR_MESSAGE);
 				}
 			}
     	});
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
 		
-		JButton btnPassed = new JButton("Passed subjects");
+		JButton btnPassed = new JButton(MainWindow.getInstance().getResourceBundle().getString("passSubj"));
 		btnPanel.add(btnAdd, Component.CENTER_ALIGNMENT);
 		btnPanel.add(Box.createVerticalStrut(10));
 		btnPanel.add(btnDelete, Component.CENTER_ALIGNMENT);
@@ -114,7 +115,7 @@ public class RemainingSubjectsTab extends JPanel{
 			@Override
 	        public void actionPerformed(ActionEvent e) {
 				if(remainingSubjectsTable.getSelectedRow() != -1) {
-		        	int result = JOptionPane.showConfirmDialog(parent,"Are you sure you want\\n to remove subject?", "Remove subject",
+		        	int result = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("sureRmSub"), MainWindow.getInstance().getResourceBundle().getString("rmSubj"),
 		        			JOptionPane.YES_NO_OPTION,
 		        			JOptionPane.QUESTION_MESSAGE);
 		        	if(result == JOptionPane.YES_OPTION){
@@ -130,7 +131,7 @@ public class RemainingSubjectsTab extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(remainingSubjectsTable.getInstance().getSelectedRow() >= 0){
-					AddGradeToStudentDialog newGradeDiag = new AddGradeToStudentDialog(parent, "Enter grade", true);
+					AddGradeToStudentDialog newGradeDiag = new AddGradeToStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("entGr"), true);
 					newGradeDiag.setVisible(true);
 					
 				}

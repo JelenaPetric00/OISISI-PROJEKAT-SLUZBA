@@ -5,9 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import controller.StudentsCtrl;
 import model.Subject.Semester;
+import view.MainWindow;
 import view.tables.StudentsTable;
+import view.tables.SubjectsTable;
 import view.tabs.RemainingSubjectsTab;
 
 public class DBRemainingSubjects {
@@ -30,11 +36,11 @@ public class DBRemainingSubjects {
 		initRemainSubjects();
 		
 		this.columns = new ArrayList<String>();
-		this.columns.add("ID");
-		this.columns.add("Name");
-		this.columns.add("ESBP");
-		this.columns.add("Year of study");
-		this.columns.add("Semester");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("name"));
+		this.columns.add("ESPB");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("semester"));
 	}
 	private void refreshRemainSubjects() {
 		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
@@ -124,5 +130,18 @@ public class DBRemainingSubjects {
 		
 	}
 	
-
+	public void initComponents(){
+		JTableHeader th = SubjectsTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(3);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("grade"));
+		tc = tcm.getColumn(4);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
+		tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		
+		th.repaint(); 
+	}
 }

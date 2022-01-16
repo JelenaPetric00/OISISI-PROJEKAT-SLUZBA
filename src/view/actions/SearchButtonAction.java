@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import view.MainWindow;
 import view.dialogs.AddStudentDialog;
 
 public class SearchButtonAction extends AbstractAction{
@@ -20,7 +21,7 @@ public class SearchButtonAction extends AbstractAction{
 		
 		//putValue(NAME, "Edit");
 		putValue(MNEMONIC_KEY, KeyEvent.VK_N);
-		putValue(SHORT_DESCRIPTION, "Search");
+		putValue(SHORT_DESCRIPTION, MainWindow.getInstance().getResourceBundle().getString("search"));
 		putValue(SMALL_ICON, new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH)));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 	}

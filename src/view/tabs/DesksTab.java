@@ -24,7 +24,16 @@ public class DesksTab extends JPanel {
 	
 	private static DesksTab instance;
 	private int heightRow = 40;
+	private JButton btnAdd = new JButton();
 	
+	public JButton getBtnAdd() {
+		return btnAdd;
+	}
+
+	public void setBtnAdd(JButton btnAdd) {
+		this.btnAdd = btnAdd;
+	}
+
 	public static DesksTab getInstance(Frame parent) {
 		if (instance == null) {
 			instance = new DesksTab(parent);
@@ -38,12 +47,12 @@ public class DesksTab extends JPanel {
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
-		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
+		btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(desksTable.getSelectedRow() != -1) {
-					AddChairmanDialog dialog = new AddChairmanDialog(parent, "Add chairman dialog", true);
+					AddChairmanDialog dialog = new AddChairmanDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addChMD"), true);
 					dialog.setVisible(true);
 				}
 			}
@@ -53,9 +62,9 @@ public class DesksTab extends JPanel {
 		add(btnPanel, BorderLayout.NORTH);
 		
 		JPanel panTable = new JPanel();
-		
+		panTable.setLayout(new BorderLayout());
 		desksTable = DesksTable.getInstance();
-		add(desksTable);
+		add(desksTable, BorderLayout.CENTER);
 		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -64,7 +73,7 @@ public class DesksTab extends JPanel {
 		desksTable.getColumnModel().getColumn(2).setPreferredWidth(screenSize.width*9/24);
 		desksTable.setRowHeight(heightRow);
 		JScrollPane scrollPane = new JScrollPane(desksTable);
-		scrollPane.setBorder(new EmptyBorder(25, 50, 25, 50));
+		scrollPane.setBorder(new EmptyBorder(25, 150, 25, 150));
 		panTable.add(scrollPane, BorderLayout.CENTER);
 		add(panTable, BorderLayout.CENTER);
 		this.updateView(null, -1);

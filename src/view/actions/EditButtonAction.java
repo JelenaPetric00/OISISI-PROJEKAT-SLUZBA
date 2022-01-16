@@ -6,10 +6,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import view.MainWindow;
 import view.TabbedPane;
+import view.dialogs.AddChairmanDialog;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
@@ -30,7 +32,7 @@ public class EditButtonAction extends AbstractAction{
 		
 		//putValue(NAME, "Edit");
 		putValue(MNEMONIC_KEY, KeyEvent.VK_E);
-		putValue(SHORT_DESCRIPTION, "Edit entity");
+		putValue(SHORT_DESCRIPTION, MainWindow.getInstance().getResourceBundle().getString("editEnt"));
 		putValue(SMALL_ICON, new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH)));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK));
 	}
@@ -55,6 +57,9 @@ public class EditButtonAction extends AbstractAction{
 					ChangeSubjectDialog subjectDia = new ChangeSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeSubject"), true);
 					subjectDia.setVisible(true);
 				}
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskME"), MainWindow.getInstance().getResourceBundle().getString("deskME"), JOptionPane.INFORMATION_MESSAGE);
 				break;
 			default:
 		}
