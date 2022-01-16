@@ -3,7 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import view.MainWindow;
+import view.tables.DesksTable;
+import view.tabs.DesksTab;
 
 public class DBDesks {
 	private static DBDesks instance = null;
@@ -24,8 +31,8 @@ public class DBDesks {
 		
 		this.columns = new ArrayList<String>();
 		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
-		this.columns.add("Name");
-		this.columns.add("Chairmans id");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("name"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("chmanId"));
 		
 	}
 
@@ -94,4 +101,19 @@ public class DBDesks {
 		}
 	}
 
+	public void initComponents(){
+		JTableHeader th = DesksTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		tc = tcm.getColumn(2);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("chmanId"));
+		
+		JButton btn = DesksTab.getInstance(null).getBtnAdd();
+		btn.setText(MainWindow.getInstance().getResourceBundle().getString("add"));
+		DesksTab.getInstance(null).setBtnAdd(btn);
+		th.repaint(); 
+	}
 }

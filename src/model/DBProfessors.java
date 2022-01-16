@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
+import view.MainWindow;
+import view.tables.ProfessorsTable;
 
 public class DBProfessors {
 	
@@ -25,10 +30,10 @@ public class DBProfessors {
 		initProfessors();
 		
 		this.columnsP = new ArrayList<String>();
-		this.columnsP.add("Name");
-		this.columnsP.add("Surname");
-		this.columnsP.add("Title");
-		this.columnsP.add("E-mail address");
+		this.columnsP.add(MainWindow.getInstance().getResourceBundle().getString("name"));
+		this.columnsP.add(MainWindow.getInstance().getResourceBundle().getString("surname"));
+		this.columnsP.add(MainWindow.getInstance().getResourceBundle().getString("title"));
+		this.columnsP.add(MainWindow.getInstance().getResourceBundle().getString("email"));
 	}
 	
 	private void initProfessors(){
@@ -120,6 +125,21 @@ public class DBProfessors {
 				prof.setYearsOfTrail(yearsP);
 			}
 		}
+	}
+	
+	public void initComponents(){
+		JTableHeader th = ProfessorsTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("surname"));
+		tc = tcm.getColumn(2);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("title"));
+		tc = tcm.getColumn(3);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("email"));
+		
+		th.repaint(); 
 	}
 
 }

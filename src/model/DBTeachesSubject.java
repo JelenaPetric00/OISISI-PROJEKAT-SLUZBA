@@ -5,9 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import controller.ProfessorsCtl;
 import model.Subject.Semester;
+import view.MainWindow;
 import view.tables.ProfessorsTable;
+import view.tables.TeachesSubjectTable;
 import view.tabs.TeachesSubjectTab;
 
 public class DBTeachesSubject {
@@ -29,10 +35,10 @@ private static DBTeachesSubject instance = null;
 		initSubjects();
 		
 		this.columns = new ArrayList<String>();
-		this.columns.add("ID");
-		this.columns.add("Name");
-		this.columns.add("Year of study");
-		this.columns.add("Semester");
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("name"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("semester"));
 	}
 	
 	private void refreshSubjects(){
@@ -116,5 +122,20 @@ private static DBTeachesSubject instance = null;
 		}
 		this.mapTeachSubjs.replace(prof, subjects);
 		TeachesSubjectTab.getInstance(null).updateView(null, -1);
+	}
+	
+	public void initComponents(){
+		JTableHeader th = TeachesSubjectTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(2);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("grade"));
+		tc = tcm.getColumn(3);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
+		tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		
+		th.repaint(); 
 	}
 }

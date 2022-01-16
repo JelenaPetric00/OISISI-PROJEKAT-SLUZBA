@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import view.MainWindow;
@@ -31,7 +32,7 @@ public class DeleteButtonAction extends AbstractAction{
 		
 		//putValue(NAME, "Edit");
 		putValue(MNEMONIC_KEY, KeyEvent.VK_D);
-		putValue(SHORT_DESCRIPTION, "Delete entity");
+		putValue(SHORT_DESCRIPTION, MainWindow.getInstance().getResourceBundle().getString("delEnt"));
 		putValue(SMALL_ICON, new ImageIcon(new ImageIcon(location).getImage().getScaledInstance(x, y, java.awt.Image.SCALE_SMOOTH)));
 		putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
 	}
@@ -56,6 +57,9 @@ public class DeleteButtonAction extends AbstractAction{
 					DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelSubject"), true);
 					subjectDia.setVisible(true);
 				}
+				break;
+			case 3:
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskMD"), MainWindow.getInstance().getResourceBundle().getString("deskMD"), JOptionPane.INFORMATION_MESSAGE);
 				break;
 			default:
 		}

@@ -81,7 +81,7 @@ public class Toolbar extends JToolBar{
 		
 		addSeparator();
 		
-		ToolbarButton btnMen = new ToolbarButton("Toolbar menu", "icons/menu.png");	
+		ToolbarButton btnMen = new ToolbarButton(MainWindow.getInstance().getResourceBundle().getString("tbMenu"), "icons/menu.png");	
 		leftPanel.add(btnMen);
 
 		AddButtonAction aba = new AddButtonAction(parent, "icons/add.png", 25, 25);

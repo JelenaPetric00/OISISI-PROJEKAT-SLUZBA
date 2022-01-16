@@ -11,6 +11,11 @@ import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import model.DBDesks;
+import model.DBProfessors;
+import model.DBStudents;
+import model.DBSubjects;
+
 public class MainWindow extends JFrame{
 
 	private static MainWindow instance = null;
@@ -78,7 +83,12 @@ public class MainWindow extends JFrame{
 		menu.initComponents();
 		status.initComponents();
 		tabs.initComponets();
-
+		
+		DBStudents.getInstance().initComponents();
+		DBProfessors.getInstance().initComponents();
+		DBSubjects.getInstance().initComponents();
+		DBDesks.getInstance().initComponents();
+		
 		UIManager.put("OptionPane.yesButtonText", resourceBundle.getObject("yesOption"));
 		UIManager.put("OptionPane.noButtonText", resourceBundle.getObject("noOption"));
 		UIManager.put("OptionPane.okButtonText", resourceBundle.getObject("okOption"));

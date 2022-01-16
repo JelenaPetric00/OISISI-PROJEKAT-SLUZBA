@@ -21,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import model.DBSubjects;
 import model.DBTeachesSubject;
 import model.Subject;
+import view.MainWindow;
 import view.dialogs.AddSubjectToProfessorDialog;
 import view.tables.AbstractTableModelTeachesSubject;
 import view.tables.StudentsTable;
@@ -40,12 +41,12 @@ public class TeachesSubjectTab extends JPanel{
 	}
 	
 	private TeachesSubjectTab(Frame parent){
-		
+		DBTeachesSubject.getInstance().initComponents();
 		this.setLayout(new BorderLayout());
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btnAdd = new JButton("Add subject");
+		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("addSubject"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,11 +68,11 @@ public class TeachesSubjectTab extends JPanel{
 					AddSubjectToProfessorDialog studentsubjectDia = new AddSubjectToProfessorDialog(parent, "Add subject to student", true);
 					studentsubjectDia.setVisible(true);
 				}else {
-					JOptionPane.showMessageDialog(parent, "There is no subjects to add", "There is no subjects to add", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("noSub"), MainWindow.getInstance().getResourceBundle().getString("noSub"), JOptionPane.ERROR_MESSAGE);
 				}
 			}
     	});
-		JButton btnDelete = new JButton("Remove subject");
+		JButton btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("rmSubj"));
 		
 		;
 		btnPanel.add(btnAdd, Component.CENTER_ALIGNMENT);
@@ -101,7 +102,7 @@ public class TeachesSubjectTab extends JPanel{
 			@Override
 	        public void actionPerformed(ActionEvent e) {
 				if(teachesSubjectTable.getSelectedRow() != -1) {
-		        	int result = JOptionPane.showConfirmDialog(parent,"Are you sure you want\\n to remove subject?", "Remove subject",
+		        	int result = JOptionPane.showConfirmDialog(parent,MainWindow.getInstance().getResourceBundle().getString("sureRmSub"), MainWindow.getInstance().getResourceBundle().getString("rmSubj"),
 		        			JOptionPane.YES_NO_OPTION,
 		        			JOptionPane.QUESTION_MESSAGE);
 		        	if(result == JOptionPane.YES_OPTION){

@@ -3,7 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 import model.Subject.Semester;
+import view.MainWindow;
+import view.tables.SubjectsTable;
 
 public class DBSubjects {
 	
@@ -24,11 +30,11 @@ public class DBSubjects {
 		initSubjects();
 		
 		this.columnsS = new ArrayList<String>();
-		this.columnsS.add("ID");
-		this.columnsS.add("Name");
+		this.columnsS.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		this.columnsS.add(MainWindow.getInstance().getResourceBundle().getString("name"));
 		this.columnsS.add("ESPB");
-		this.columnsS.add("Year of study");
-		this.columnsS.add("Semester");
+		this.columnsS.add(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		this.columnsS.add(MainWindow.getInstance().getResourceBundle().getString("semester"));
 	}
 	
 	private void initSubjects(){
@@ -107,6 +113,21 @@ public class DBSubjects {
 				sub.setprofessor(prof);
 			}
 		}
+	}
+	
+	public void initComponents(){
+		JTableHeader th = SubjectsTable.getInstance().getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		TableColumn tc = tcm.getColumn(1);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
+		tc = tcm.getColumn(4);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("surname"));
+		tc = tcm.getColumn(3);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
+		tc = tcm.getColumn(0);
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
+		
+		th.repaint(); 
 	}
 
 }

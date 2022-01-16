@@ -12,8 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import view.dialogs.AddChairmanDialog;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
@@ -164,7 +166,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		});
 		mnuAdministration.add(mniSr);
 
-		mniEn= new JCheckBoxMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniEn"));
+		mniEn = new JCheckBoxMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniEn"));
 		mniEn.addActionListener(new ActionListener() {
 
 			@Override
@@ -233,9 +235,11 @@ public class MenuBar extends JMenuBar implements ActionListener{
 				AddProfessorDialog prof = new AddProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addProfessor"), true);
 				prof.setVisible(true);
 			}
-			else{
+			else if(tab.getSelectedIndex() == 2){
 				AddSubjectDialog subj = new AddSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addSubject"), true);
 				subj.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskM"), MainWindow.getInstance().getResourceBundle().getString("deskM"), JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 		
@@ -276,11 +280,13 @@ public class MenuBar extends JMenuBar implements ActionListener{
 					profCh.setVisible(true);
 				}
 			}
-			else{
+			else if(tab.getSelectedIndex() == 2){
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
 					ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeSubject"), true);
 					subjCh.setVisible(true);
 				}
+			}else {
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskME"), MainWindow.getInstance().getResourceBundle().getString("deskME"), JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}
@@ -298,11 +304,13 @@ public class MenuBar extends JMenuBar implements ActionListener{
 					profDel.setVisible(true);
 				}
 			}
-			else{
+			else if(tab.getSelectedIndex() == 2){
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
 					DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelSubject"), true);
 					subjDel.setVisible(true);
 				}
+			} else {
+				JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("deskMD"), MainWindow.getInstance().getResourceBundle().getString("deskMD"), JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		}
