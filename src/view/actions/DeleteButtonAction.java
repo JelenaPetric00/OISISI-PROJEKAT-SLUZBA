@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import view.MainWindow;
 import view.TabbedPane;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
@@ -40,19 +41,19 @@ public class DeleteButtonAction extends AbstractAction{
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:
 				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteStudentDialog studentDia = new DeleteStudentDialog(parent, "Delete student", true);
+					DeleteStudentDialog studentDia = new DeleteStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelStudent"), true);
 					studentDia.setVisible(true);
 				}
 				break;
 			case 1:
 				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteProfessorDialog professorDia = new DeleteProfessorDialog(parent, "Delete professor", true);
+					DeleteProfessorDialog professorDia = new DeleteProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelProfessor"), true);
 					professorDia.setVisible(true);
 				}
 				break;
 			case 2:
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, "Delete subject", true);
+					DeleteSubjectDialog subjectDia = new DeleteSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelSubject"), true);
 					subjectDia.setVisible(true);
 				}
 				break;

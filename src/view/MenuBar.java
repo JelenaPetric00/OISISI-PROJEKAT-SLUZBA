@@ -47,50 +47,54 @@ public class MenuBar extends JMenuBar implements ActionListener{
 	JMenu mnuAdministration;
 	JCheckBoxMenuItem mniSr;
 	JCheckBoxMenuItem mniEn;
+	private JMenu editMenu;
+	private JMenu helpMenu;
+	private JMenu openItem;
+	private JMenu fileMenu;
 	
 	public MenuBar(final JFrame parent){
 		
 		this.parent = parent;
 		
-		JMenu fileMenu = new JMenu("File");
+		fileMenu = new JMenu(MainWindow.getInstance().getResourceBundle().getString("mnuFile"));
 		
-	    newItem = new JMenuItem("New");
+		newItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniNew"));
 		ImageIcon newIcon = new ImageIcon(new ImageIcon("icons/new.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		newItem.setIcon(newIcon);
 		newItem.addActionListener(this);
 		
-		saveItem = new JMenuItem("Save");
+		saveItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniSave"));
 		ImageIcon saveIcon = new ImageIcon(new ImageIcon("icons/save.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		saveItem.setIcon(saveIcon);
 		saveItem.addActionListener(this);
 		
-		JMenu openItem = new JMenu("Open");
+		openItem = new JMenu(MainWindow.getInstance().getResourceBundle().getString("mnuOpen"));
 		ImageIcon openIcon = new ImageIcon(new ImageIcon("icons/open.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		openItem.setIcon(openIcon);
 		openItem.addActionListener(this);
 		
-		 miStudents = new JMenuItem("Studenti");
+		 miStudents = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
 		 ImageIcon studentIcon = new ImageIcon(new ImageIcon("icons/student.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miStudents.setIcon(studentIcon);
 		 miStudents.addActionListener(this);
 		 
-		 miSubjects = new JMenuItem("Predmeti");
+		 miSubjects = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
 		 ImageIcon subjectIcon = new ImageIcon(new ImageIcon("icons/subject.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miSubjects.setIcon(subjectIcon);
 		 miSubjects.addActionListener(this);
 		 
-		 miProfessors = new JMenuItem("Profesori");
+		 miProfessors = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
 		 ImageIcon professorIcon = new ImageIcon(new ImageIcon("icons/professor.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miProfessors.setIcon(professorIcon);
 		 miProfessors.addActionListener(this);
 		 
 		 
-		 miDesks = new JMenuItem("Katedre");
+		 miDesks = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniDesks"));
 		 ImageIcon desksIcon = new ImageIcon(new ImageIcon("icons/desks.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		 miDesks.setIcon(desksIcon);
 		 miDesks.addActionListener(this);
 		 
-		closeItem = new JMenuItem("Close");
+		closeItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniClose"));
 		ImageIcon closeIcon = new ImageIcon(new ImageIcon("icons/close.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		closeItem.setIcon(closeIcon);
 		closeItem.addActionListener(this);
@@ -109,15 +113,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		fileMenu.add(closeItem);
 		
 		
-		JMenu editMenu = new JMenu("Edit");
+		editMenu = new JMenu(MainWindow.getInstance().getResourceBundle().getString("mniEdit"));
 		
-		editItem = new JMenuItem("Edit");
+		editItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniEdit"));
 		ImageIcon editIcon = new ImageIcon(new ImageIcon("icons/mEdit.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		editItem.setIcon(editIcon);
 		editItem.addActionListener(this);
 		
 		
-		deleteItem = new JMenuItem("Delete");
+		deleteItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
 		ImageIcon deleteIcon = new ImageIcon(new ImageIcon("icons/mDelete.png").getImage().getScaledInstance(15, 15, java.awt.Image.SCALE_SMOOTH));
 		deleteItem.setIcon(deleteIcon);
 		deleteItem.addActionListener(this);
@@ -128,15 +132,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		editMenu.add(editItem);
 		editMenu.add(deleteItem);
 		
-		JMenu helpMenu = new JMenu("Help");
+		 helpMenu = new JMenu(MainWindow.getInstance().getResourceBundle().getString("mniHelp"));
 		//helpMenu.add(db);
 		
-		helpItem = new JMenuItem("Help");
+		helpItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniHelp"));
 		ImageIcon helpIcon = new ImageIcon(new ImageIcon("icons/help.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH));
 		helpItem.setIcon(helpIcon);
 		helpItem.addActionListener(this);
 		
-		aboutItem = new JMenuItem("About");
+		aboutItem = new JMenuItem(MainWindow.getInstance().getResourceBundle().getString("mniAbout"));
 		ImageIcon aboutIcon = new ImageIcon(new ImageIcon("icons/info.png").getImage().getScaledInstance(17, 17, java.awt.Image.SCALE_SMOOTH));
 		aboutItem.setIcon(aboutIcon);
 		aboutItem.addActionListener(this);
@@ -222,15 +226,15 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == newItem){
 			if(tab.getSelectedIndex() == 0){
-				AddStudentDialog stud = new AddStudentDialog(parent, "Add student", true);
+				AddStudentDialog stud = new AddStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addStudent"), true);
 				stud.setVisible(true);
 			}
 			else if(tab.getSelectedIndex() == 1){
-				AddProfessorDialog prof = new AddProfessorDialog(parent, "Add professor", true);
+				AddProfessorDialog prof = new AddProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addProfessor"), true);
 				prof.setVisible(true);
 			}
 			else{
-				AddSubjectDialog subj = new AddSubjectDialog(parent, "Add subject", true);
+				AddSubjectDialog subj = new AddSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("addSubject"), true);
 				subj.setVisible(true);
 			}
 		}
@@ -255,23 +259,26 @@ public class MenuBar extends JMenuBar implements ActionListener{
 			tab.updateTab(2);
 			//System.out.println(2);
 		}
+		if(e.getSource() == miDesks){
+			tab.updateTab(3);
+		}
 		
         if(e.getSource() == editItem){
         	if(tab.getSelectedIndex() == 0){
 				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeStudentDialog studCh = new ChangeStudentDialog(parent, "Change student", true);
+					ChangeStudentDialog studCh = new ChangeStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeStudent"), true);
 					studCh.setVisible(true);
 				}
 			}
 			else if(tab.getSelectedIndex() == 1){
 				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeProfessorDialog profCh = new ChangeProfessorDialog(parent, "Change professor", true);
+					ChangeProfessorDialog profCh = new ChangeProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeProfessor"), true);
 					profCh.setVisible(true);
 				}
 			}
 			else{
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, "Change subject", true);
+					ChangeSubjectDialog subjCh = new ChangeSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeSubject"), true);
 					subjCh.setVisible(true);
 				}
 			}
@@ -281,24 +288,45 @@ public class MenuBar extends JMenuBar implements ActionListener{
         if(e.getSource() == deleteItem){
         	if(tab.getSelectedIndex() == 0){
 				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteStudentDialog studDel = new DeleteStudentDialog(parent, "Delete student", true);
+					DeleteStudentDialog studDel = new DeleteStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelStudent"), true);
 					studDel.setVisible(true);
 				}
 			}
 			else if(tab.getSelectedIndex() == 1){
 				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteProfessorDialog profDel = new DeleteProfessorDialog(parent, "Delete professor", true);
+					DeleteProfessorDialog profDel = new DeleteProfessorDialog(parent,MainWindow.getInstance().getResourceBundle().getString("diaDelProfessor"), true);
 					profDel.setVisible(true);
 				}
 			}
 			else{
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
-					DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, "Delete subject", true);
+					DeleteSubjectDialog subjDel = new DeleteSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("diaDelSubject"), true);
 					subjDel.setVisible(true);
 				}
 			}
 			
 		}
+		
+	}
+	
+	public void initComponents(){
+		newItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniNew"));
+		saveItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniSave"));
+		miStudents.setText(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+		miProfessors.setText(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
+		miSubjects.setText(MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
+		miDesks.setText(MainWindow.getInstance().getResourceBundle().getString("mniDesks"));
+		closeItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniClose"));
+		editItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniEdit"));
+		editMenu.setText(MainWindow.getInstance().getResourceBundle().getString("mniEdit"));
+		deleteItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
+		helpItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniHelp"));
+		helpMenu.setText(MainWindow.getInstance().getResourceBundle().getString("mniHelp"));
+		aboutItem.setText(MainWindow.getInstance().getResourceBundle().getString("mniAbout"));
+		openItem.setText(MainWindow.getInstance().getResourceBundle().getString("mnuOpen"));
+		fileMenu.setText(MainWindow.getInstance().getResourceBundle().getString("mnuFile"));
+		mnuAdministration.setText(MainWindow.getInstance().getResourceBundle().getString("mnuAdministration"));
+		
 		
 	}
 

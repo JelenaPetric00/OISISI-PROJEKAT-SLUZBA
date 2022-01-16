@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import view.MainWindow;
 import view.dialogs.AddChairmanDialog;
 import view.tables.AbstractTableModelDesks;
 import view.tables.DesksTable;
@@ -37,7 +38,7 @@ public class DesksTab extends JPanel {
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
-		JButton btnAdd = new JButton("Add ");
+		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

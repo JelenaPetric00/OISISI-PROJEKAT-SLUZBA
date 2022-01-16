@@ -29,6 +29,8 @@ public class ProfessorsTable extends JTable{
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		this.setModel(new AbstractTableModelProfessors());
 		
+		this.setAutoCreateRowSorter(true);
+		
 	}
 	
 	//public Component preparedRenderer(TabbleCellRenderer renderer, int)

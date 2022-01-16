@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -16,6 +17,7 @@ import view.tabs.SubjectsTab;
 public class TabbedPane extends JTabbedPane {
 	
 	private StatusBar observer;
+	private JPanel studentsPanel;
 	
 	public void subscriber(StatusBar sub){
 		observer = sub;
@@ -32,8 +34,9 @@ public class TabbedPane extends JTabbedPane {
 	
 	private TabbedPane(){
 		
-		JPanel studentsPanel = new JPanel();
+		studentsPanel = new JPanel();
 		studentsPanel.setLayout(new BorderLayout());
+		//studentsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
 		studentsPanel.setName("Students");
 		studentsPanel.add(StudentsTab.getInstance());
 		JPanel professorPanel = new JPanel();
@@ -50,6 +53,7 @@ public class TabbedPane extends JTabbedPane {
 		desksPanel.add(DesksTab.getInstance(MainWindow.getInstance()));
 		
 		add(studentsPanel);
+		//add(MainWindow.getInstance().getResourceBundle().getString("mniStudents"), studentsPanel);
 		add(professorPanel);
 		add(subjectsPanel);
 		add(desksPanel);
@@ -57,13 +61,16 @@ public class TabbedPane extends JTabbedPane {
 	
 	public void notifyObs(int number){
 		if(number == 1){
-			observer.getCurrentTab().setText("Professors");
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
 		}
 		else if(number == 2){
-			observer.getCurrentTab().setText("Subjects");
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
+		}
+		else if(number == 3){
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniDesks"));
 		}
 		else{
-			observer.getCurrentTab().setText("Students");
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
 		}
 		
 	}
@@ -82,6 +89,26 @@ public class TabbedPane extends JTabbedPane {
 	
 	public void updateTab(int number){
 		setSelectedIndex(number);
+	}
+	
+	public void initComponets(){
+		
+		//studentsPanel.setName(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+		
+		if(getSelectedIndex() == 1){
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniProfessors"));
+		}
+		else if(getSelectedIndex() == 2){
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniSubjects"));
+		}
+		else if(getSelectedIndex() == 3){
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniDesks"));
+		}
+		else{
+			observer.getCurrentTab().setText(MainWindow.getInstance().getResourceBundle().getString("mniStudents"));
+		}
+		
+		
 	}
 
 }

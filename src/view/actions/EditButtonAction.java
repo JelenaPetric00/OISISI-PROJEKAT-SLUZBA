@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
+import view.MainWindow;
 import view.TabbedPane;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
@@ -39,19 +40,19 @@ public class EditButtonAction extends AbstractAction{
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:
 				if(StudentsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeStudentDialog studentDia = new ChangeStudentDialog(parent, "Change student", true);
+					ChangeStudentDialog studentDia = new ChangeStudentDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeStudent"), true);
 					studentDia.setVisible(true);
 				}
 				break;
 			case 1:
 				if(ProfessorsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeProfessorDialog professorDia = new ChangeProfessorDialog(parent, "Change professor", true);
+					ChangeProfessorDialog professorDia = new ChangeProfessorDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeProfessor"), true);
 					professorDia.setVisible(true);
 				}
 				break;
 			case 2:
 				if(SubjectsTable.getInstance().getSelectedRow() >= 0) {
-					ChangeSubjectDialog subjectDia = new ChangeSubjectDialog(parent, "Change subject", true);
+					ChangeSubjectDialog subjectDia = new ChangeSubjectDialog(parent, MainWindow.getInstance().getResourceBundle().getString("changeSubject"), true);
 					subjectDia.setVisible(true);
 				}
 				break;
