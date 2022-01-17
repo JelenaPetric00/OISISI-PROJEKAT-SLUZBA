@@ -15,7 +15,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import view.dialogs.AddChairmanDialog;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;

@@ -1,7 +1,17 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.JTableHeader;
@@ -38,8 +48,29 @@ public class DBProfessors {
 	
 	private void initProfessors(){
 		this.professors = new ArrayList<Professor>();
-		professors.add(new Professor("Milan", "Rapajic", LocalDate.of(1982, 11, 17), new Address("ulica", "1", "Novi Sad", "Srbija"), "06000000", "rapaja@uns.ac.rs", 
-				new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), "1234567891234", "redovni profesor", (short)15, new ArrayList<Subject>()));
+		try {
+			FileReader fr = new FileReader("data" + File.separator + "Professors.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			String str;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[ \t]+");
+				Date date =new SimpleDateFormat("dd.MM.yyyy.").parse(strings1[3]);
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Instant instant = date.toInstant();
+				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				professors.add(new Professor(strings1[1], strings1[2], localDate, new Address("ulica", "1", "Novi Sad", "Srbija"), strings1[5], strings1[6], 
+						new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), strings1[0], strings1[9], (short)Integer.parseInt(strings1[8]), new ArrayList<Subject>()));
+			}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<Professor> getProfesssors(){

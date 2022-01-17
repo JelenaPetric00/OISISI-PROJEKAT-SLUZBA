@@ -181,7 +181,7 @@ public class AddStudentDialog extends JDialog{
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblPhNum = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("phoneTooltip"), MainWindow.getInstance().getResourceBundle().getString("contactPhone*"), panPhNum);
-		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", MainWindow.getInstance().getResourceBundle().getString("phoneNum"));
+		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9/+ -]]+", MainWindow.getInstance().getResourceBundle().getString("phoneNum"));
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblMail = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"), MainWindow.getInstance().getResourceBundle().getString("email*"), panMail);		
@@ -276,8 +276,8 @@ public class AddStudentDialog extends JDialog{
 	}
 
 	public MethodOfFinancing stringToMOF(String s) {
-		if(s == MainWindow.getInstance().getResourceBundle().getString("selfFin")) { return MethodOfFinancing.S;}
-		if(s == MainWindow.getInstance().getResourceBundle().getString("budget")) { return MethodOfFinancing.B;}
+		if(s.equals(MainWindow.getInstance().getResourceBundle().getString("selfFin"))) { return MethodOfFinancing.S;}
+		if(s.equals(MainWindow.getInstance().getResourceBundle().getString("budget"))) { return MethodOfFinancing.B;}
 		return MethodOfFinancing.B;
     }
 }

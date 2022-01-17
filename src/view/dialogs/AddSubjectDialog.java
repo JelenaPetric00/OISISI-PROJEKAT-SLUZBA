@@ -147,8 +147,8 @@ public class AddSubjectDialog extends AddStudentDialog {
 	}
 	
 	public Semester stringToSemester(String s) {
-		if(s == MainWindow.getInstance().getResourceBundle().getString("summer")) { return Semester.SUMMER;}
-		if(s == MainWindow.getInstance().getResourceBundle().getString("winter")) { return Semester.WINTER;}
+		if(s.equals(MainWindow.getInstance().getResourceBundle().getString("summer"))) { return Semester.SUMMER;}
+		if(s.equals(MainWindow.getInstance().getResourceBundle().getString("winter"))) { return Semester.WINTER;}
 		return Semester.SUMMER;
     }
 

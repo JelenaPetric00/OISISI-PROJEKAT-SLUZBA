@@ -1,6 +1,17 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -38,9 +49,22 @@ public class DBDesks {
 
 	private void initDesks() {
 		this.desks = new ArrayList<Desk>();
-		
-		desks.add(new Desk("D1", "ACS", new Professor(), new ArrayList<Professor>()));
-		desks.add(new Desk("D2", "RTRK", new Professor(), new ArrayList<Professor>()));
+		try {
+			FileReader fr = new FileReader("data" + File.separator + "Desks.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			String str;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[|]+");
+				desks.add(new Desk(strings1[0], strings1[1], new Professor(), new ArrayList<Professor>()));	
+		}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<Desk> getDesks() {

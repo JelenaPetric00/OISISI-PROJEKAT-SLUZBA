@@ -11,10 +11,6 @@ import javax.swing.KeyStroke;
 
 import view.MainWindow;
 import view.TabbedPane;
-import view.dialogs.AddChairmanDialog;
-import view.dialogs.AddProfessorDialog;
-import view.dialogs.AddStudentDialog;
-import view.dialogs.AddSubjectDialog;
 import view.dialogs.ChangeProfessorDialog;
 import view.dialogs.ChangeStudentDialog;
 import view.dialogs.ChangeSubjectDialog;
