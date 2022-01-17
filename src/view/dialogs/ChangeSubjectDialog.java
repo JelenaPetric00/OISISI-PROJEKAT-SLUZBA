@@ -64,13 +64,13 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-ZŠšĐđČčĆćŽž0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), panID);
 		tfID.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9ŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		tfName.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
 		JPanel panSem = new JPanel(new FlowLayout(FlowLayout.LEFT));

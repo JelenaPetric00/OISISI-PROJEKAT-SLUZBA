@@ -2,9 +2,11 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -50,14 +52,38 @@ public class DBDesks {
 	private void initDesks() {
 		this.desks = new ArrayList<Desk>();
 		try {
-			FileReader fr = new FileReader("data" + File.separator + "Desks.txt");
-			BufferedReader br = new BufferedReader(fr);
-			
+			//FileReader fr = new FileReader("data" + File.separator + "Desks.txt");
+			//BufferedReader br = new BufferedReader(fr);
+			File fileDir = new File("data" + File.separator + "Desks.txt");
+			BufferedReader br = new BufferedReader(
+		            new InputStreamReader(
+		                       new FileInputStream(fileDir), "UTF8"));
 			String str;
 			while((str = br.readLine()) != null) {
 				String[] strings1 = str.split("[|]+");
 				desks.add(new Desk(strings1[0], strings1[1], new Professor(), new ArrayList<Professor>()));	
 		}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void initDeskChman() {
+		try {
+			FileReader fr = new FileReader("data" + File.separator + "Desks.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			String str;
+			int i = 0;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[|]+");
+				desks.get(i).setChairman(DBProfessors.getInstance().getProfesssors().get(Integer.parseInt(strings1[2])- 1));
+				i++;
+			}
 			
 			br.close();
 		} catch (FileNotFoundException e) {

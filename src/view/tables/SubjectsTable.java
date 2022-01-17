@@ -29,6 +29,9 @@ public class SubjectsTable extends JTable{
 
 	@Override
 	public int getSelectedRow() {
+		if(super.getSelectedRow() == -1) {
+			return -1;
+		}
 		return convertRowIndexToModel(super.getSelectedRow());
 	}
 

@@ -2,16 +2,12 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.JTableHeader;
@@ -51,13 +47,24 @@ public class DBSubjects {
 	private void initSubjects(){
 		this.subjects = new ArrayList<Subject>();
 		try {
-			FileReader fr = new FileReader("data" + File.separator + "Subjects.txt");
-			BufferedReader br = new BufferedReader(fr);
-			
+			//FileReader fr = new FileReader("data" + File.separator + "Subjects.txt");
+			//BufferedReader br = new BufferedReader(fr);
+			File fileDir = new File("data" + File.separator + "Subjects.txt");
+			BufferedReader br = new BufferedReader(
+		            new InputStreamReader(
+		                       new FileInputStream(fileDir), "UTF8"));
 			String str;
 			while((str = br.readLine()) != null) {
 				String[] strings1 = str.split("[|]");
-				subjects.add(new Subject(strings1[0], strings1[1], stringToSemester(strings1[5]), (byte)Integer.parseInt(strings1[2]), new Professor(), (byte)Integer.parseInt(strings1[3]), new ArrayList<Student>(), new ArrayList<Student>()));
+				 Professor prof = new Professor();
+					if(!strings1[4].equals("null")) {
+						try {
+							prof = (Professor) DBProfessors.getInstance().getProfesssors().get(Integer.parseInt(strings1[4])- 1).clone();
+						} catch (NumberFormatException | CloneNotSupportedException e) {
+							e.printStackTrace();
+						}
+					}
+				subjects.add(new Subject(strings1[0], strings1[1], stringToSemester(strings1[5]), (byte)Integer.parseInt(strings1[2]), prof, (byte)Integer.parseInt(strings1[3]), new ArrayList<Student>(), new ArrayList<Student>()));
 			}
 			
 			br.close();

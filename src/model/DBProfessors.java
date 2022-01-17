@@ -2,9 +2,11 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -49,9 +51,12 @@ public class DBProfessors {
 	private void initProfessors(){
 		this.professors = new ArrayList<Professor>();
 		try {
-			FileReader fr = new FileReader("data" + File.separator + "Professors.txt");
-			BufferedReader br = new BufferedReader(fr);
-			
+			//FileReader fr = new FileReader("data" + File.separator + "Professors.txt");
+			//BufferedReader br = new BufferedReader(fr);
+			File fileDir = new File("data" + File.separator + "Professors.txt");
+			BufferedReader br = new BufferedReader(
+		            new InputStreamReader(
+		                       new FileInputStream(fileDir), "UTF8"));
 			String str;
 			while((str = br.readLine()) != null) {
 				String[] strings1 = str.split("[ \t]+");
@@ -59,8 +64,25 @@ public class DBProfessors {
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Instant instant = date.toInstant();
 				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				professors.add(new Professor(strings1[1], strings1[2], localDate, new Address("ulica", "1", "Novi Sad", "Srbija"), strings1[5], strings1[6], 
-						new Address("Fruskogorska", "1", "Novi Sad", "Srbija"), strings1[0], strings1[9], (short)Integer.parseInt(strings1[8]), new ArrayList<Subject>()));
+				Address adr = new Address();
+				if(!strings1[4].equals("null")) {
+					try {
+						adr = (Address) DBAddresses.getInstance().getAddresses().get(Integer.parseInt(strings1[4]) - 1).clone();
+					} catch (NumberFormatException | CloneNotSupportedException e) {
+						e.printStackTrace();
+					}
+				}
+				Address adr1 = new Address();
+				if(!strings1[7].equals("null")) {
+					try {
+						adr1 = (Address) DBAddresses.getInstance().getAddresses().get(Integer.parseInt(strings1[7]) - 1).clone();
+					} catch (NumberFormatException | CloneNotSupportedException e) {
+						e.printStackTrace();
+					}
+				}
+				professors.add(new Professor(strings1[1], strings1[2], localDate, adr, strings1[5], strings1[6], 
+						adr1, strings1[0], strings1[9], (short)Integer.parseInt(strings1[8]), new ArrayList<Subject>()));
+				professors.get(professors.size() - 1).setDepartmentCode((DBDesks.getInstance().getDesks().get(Integer.parseInt(strings1[10]) - 1)).getDepartmentCode());
 			}
 			
 			br.close();

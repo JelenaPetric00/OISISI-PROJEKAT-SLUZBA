@@ -1,7 +1,19 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,24 +80,54 @@ public class DBPassedSubjects {
 	}
 	
 	private void initSubjects(){
-		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
-		this.grades = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getgradesPassedSubjects();
-		this.subjects = new ArrayList<Subject>();
-		for(Grade g : grades) {
-			subjects.add(g.getsubject());
-		}
-		subjects.add(new Subject("AL1", "Algebra", Semester.WINTER, (byte)1, new Professor(), (byte)8, new ArrayList<Student>(), new ArrayList<Student>()));
-		grades.add(new Grade(new Student(), subjects.get(0), (byte)10, LocalDate.of(2000, 8, 2)));
-		if(!mapStudGrades.containsKey(student)){
-			this.mapStudGrades.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Grade>(grades));
-		}
-		if(!mapStudPassSub.containsKey(student)){
-			this.mapStudPassSub.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(subjects));
-		}
+			try {
+				//FileReader fr = new FileReader("data" + File.separator + "Grades.txt");
+				File fileDir = new File("data" + File.separator + "Grades.txt");
+				BufferedReader br = new BufferedReader(
+			            new InputStreamReader(
+			                       new FileInputStream(fileDir), "UTF8"));
+				String str;
+				while((str = br.readLine()) != null) {
+					String[] strings1 = str.split("[ \t]+");
+					Date date =new SimpleDateFormat("dd.MM.yyyy.").parse(strings1[3]);
+					ZoneId defaultZoneId = ZoneId.systemDefault();
+					Instant instant = date.toInstant();
+					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					Address adr = new Address();
+					this.student = DBStudents.getInstance().getStudents().get(Integer.parseInt(strings1[0]) - 1);
+					this.grades = student.getgradesPassedSubjects();
+					this.subjects = new ArrayList<Subject>();
+					for(Grade g : grades) {
+						subjects.add(g.getsubject());
+					}
+					
+					if(!mapStudPassSub.containsKey(student)){
+						this.mapStudPassSub.put(student, new ArrayList<Subject>());
+					}else{
+						subjects.add(DBSubjects.getInstance().getSubjects().get(Integer.parseInt(strings1[1]) - 1));
+						this.mapStudPassSub.put(student, new ArrayList<Subject>(subjects));
+					}
+					if(!mapStudGrades.containsKey(student)){
+						this.mapStudGrades.put(student, new ArrayList<Grade>());
+					}else {
+						grades.add(new Grade(student, subjects.get(subjects.size() - 1), (byte)Integer.parseInt(strings1[2]), localDate));
+						this.mapStudGrades.put(student, new ArrayList<Grade>(grades));
+					}
+				}
+				
+				br.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	public List<Subject> getSubjects(){
 		refreshePassedSubject();
+		refreshSubjectsGrade();
 		return subjects;
 	}
 	
@@ -109,6 +151,7 @@ public class DBPassedSubjects {
 
 	public List<Grade> getGrades() {
 		refreshSubjectsGrade();
+		refreshePassedSubject();
 		return grades;
 	}
 
