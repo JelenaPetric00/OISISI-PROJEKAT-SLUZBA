@@ -1,6 +1,17 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.JTableHeader;
@@ -39,7 +50,22 @@ public class DBSubjects {
 	
 	private void initSubjects(){
 		this.subjects = new ArrayList<Subject>();
-		subjects.add(new Subject("AL1", "Algebra", Semester.WINTER, (byte)1, new Professor(), (byte)8, new ArrayList<Student>(), new ArrayList<Student>()));
+		try {
+			FileReader fr = new FileReader("data" + File.separator + "Subjects.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			String str;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[|]");
+				subjects.add(new Subject(strings1[0], strings1[1], stringToSemester(strings1[5]), (byte)Integer.parseInt(strings1[2]), new Professor(), (byte)Integer.parseInt(strings1[3]), new ArrayList<Student>(), new ArrayList<Student>()));
+			}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}				
 	}
 	
 	public List<Subject> getSubjects(){
@@ -129,5 +155,12 @@ public class DBSubjects {
 		
 		th.repaint(); 
 	}
-
+	
+	public Semester stringToSemester(String s) {
+		if(s.equals("LETNJI")) {
+			return Semester.SUMMER;
+		}else{ 
+			return Semester.WINTER;
+		}
+    }
 }

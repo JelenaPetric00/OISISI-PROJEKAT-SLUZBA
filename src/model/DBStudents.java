@@ -1,7 +1,17 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.JTableHeader;
@@ -28,7 +38,12 @@ public class DBStudents {
 	
 	private DBStudents() {
 		
-		initStudents();
+		try {
+			initStudents();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 		
 		this.columns = new ArrayList<String>();
 		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
@@ -40,14 +55,31 @@ public class DBStudents {
 		
 	}
 //TODO Citaj fajl i ubacuj  redom
-	private void initStudents() {
-		this.students = new ArrayList<Student>();students.add(new Student("Jelena", "Petric", LocalDate.of(2000, 5, 1), new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
-				"RA 183/2019", (short)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
-				new ArrayList<Grade>(), new ArrayList<Subject>()));
-		students.add(new Student("Isidora", "Poznanovic", LocalDate.of(2000, 8, 2), new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), "0603028000", "isidorapoznanovic1@gmail.com",
-				"RA 163/2019", (short)2019, (byte)3, MethodOfFinancing.B, (float)9.06,
-				new ArrayList<Grade>(), new ArrayList<Subject>()));
-		
+	private void initStudents() throws ParseException {
+		this.students = new ArrayList<Student>();
+		try {
+			FileReader fr = new FileReader("data" + File.separator + "Students.txt");
+			BufferedReader br = new BufferedReader(fr);
+			
+			String str;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[|]");
+				Date date =new SimpleDateFormat("dd.MM.yyyy.").parse(strings1[4]);
+				ZoneId defaultZoneId = ZoneId.systemDefault();
+				Instant instant = date.toInstant();
+				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+				students.add(new Student(strings1[1], strings1[2], localDate, new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), strings1[6], strings1[7],
+						strings1[0], (short)Integer.parseInt(strings1[9]), (byte)Integer.parseInt(strings1[3]), stringToMOF(strings1[8]), (float)9.06,
+						new ArrayList<Grade>(), new ArrayList<Subject>()));
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
 	}
 
 	public List<Student> getStudents() {
@@ -145,5 +177,11 @@ public class DBStudents {
 //		// TODO Auto-generated method stub
 //		
 //	}
+	
+	public MethodOfFinancing stringToMOF(String s) {
+		if(s.equals("S")) { return MethodOfFinancing.S;}
+		if(s.equals("B")) { return MethodOfFinancing.B;}
+		return MethodOfFinancing.B;
+    }
 
 }

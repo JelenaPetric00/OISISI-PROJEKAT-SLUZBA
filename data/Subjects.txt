@@ -1,0 +1,30 @@
+p1|osnove programiranja|1|7|2|ZIMSKI
+p2|statistika|3|8|2|LETNJI
+p3|algoritmi i strukture podataka|2|9|2|LETNJI
+p4|LPRS|3|7|2|ZIMSKI
+p5|matematika|1|11|null|LETNJI
+p6|xml i web servisi|4|6|null|LETNJI
+p7|Metode optimizacije|3|6|null|ZIMSKI
+p8|osnove elektortehnike|1|11|5|LETNJI
+p9|Sociologija|1|10|5|ZIMSKI
+p10|Filozofija|1|4|5|ZIMSKI
+p11|ORT|2|7|null|LETNJI
+p12|NANS|2|5|6|LETNJI
+p13|Organizacija podataka|2|7|6|ZIMSKI
+p14|Baze podataka|2|6|6|ZIMSKI
+p15|paralelno programiranje|2|8|7|ZIMSKI
+p16|konkurentno programiranje|2|9|7|LETNJI
+p17|Operativni sistemi|2|8|null|LETNJI
+p18|Algebra|1|15|null|ZIMSKI
+p19|Diskretna matematika|3|14|null|LETNJI
+ps20|Upravljacki sistemi|3|8|null|LETNJI
+ps21|Osnovi elektronike|2|7|null|ZIMSKI
+ps22|Slucajni procesi|4|9|null|LETNJI
+ps23|Racunarstvo visokih performansi|4|10|null|LETNJI
+p24|Analiza 1|1|20|null|ZIMSKI
+it25|Informaciona bezbednost|4|9|17|LETNJI
+it26|Elektronsko placanje|3|8|18|ZIMSKI
+it27|Distribuirani sistemi|4|6|19|LETNJI
+p28|Projektovanje softvera|3|5|18|ZIMSKI
+p29|Informacioni sistemi|4|6|17|ZIMSKI
+p30|Masinsko ucenje|4|7|null|LETNJI

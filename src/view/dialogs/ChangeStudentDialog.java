@@ -106,7 +106,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 		JPanel panPhNum = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblPhNum = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("phoneTooltip"), MainWindow.getInstance().getResourceBundle().getString("contactPhone*"), panPhNum);
-		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9+ ]]+", MainWindow.getInstance().getResourceBundle().getString("phoneNum"));
+		DiaTFld tfPhNum = new DiaTFld(panPhNum, "[^[0-9/+ -]]+", MainWindow.getInstance().getResourceBundle().getString("phoneNum"));
 		tfPhNum.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getphoneNumber());
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.CENTER));
