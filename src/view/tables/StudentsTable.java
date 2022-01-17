@@ -23,6 +23,9 @@ public class StudentsTable extends JTable {
 	
 	@Override
 	public int getSelectedRow() {
+		if(super.getSelectedRow() == -1) {
+			return -1;
+		}
 		return convertRowIndexToModel(super.getSelectedRow());
 	}
 
