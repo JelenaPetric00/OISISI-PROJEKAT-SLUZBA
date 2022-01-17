@@ -3,7 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Professor {
+public class Professor implements Cloneable {
 	
 	private String surname;
 	private String name;
@@ -16,11 +16,10 @@ public class Professor {
     private String title;
     private short yearsOfTrail;
     private ArrayList<Subject> teachSubjects;
+    private String departmentCode;
     
     public Professor() {}
     
-    
-
 	public Professor(String surname, String name, LocalDate dateOfBirth, Address residentialAddress, String contactPhone,
 			String email, Address officeAddress, String idNumber, String title, short yearsOfTrail,
 			ArrayList<Subject> teachSubjects) {
@@ -37,8 +36,6 @@ public class Professor {
 		this.yearsOfTrail = yearsOfTrail;
 		this.teachSubjects = teachSubjects;
 	}
-
-
 
 	public String getSurname() {
 		return surname;
@@ -127,7 +124,16 @@ public class Professor {
 	public void setTeachSubjects(ArrayList<Subject> teachSubjects) {
 		this.teachSubjects = teachSubjects;
 	}
+
+	public String getDepartmentCode() {
+		return departmentCode;
+	}
+
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
     
-    
-    
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}
 }

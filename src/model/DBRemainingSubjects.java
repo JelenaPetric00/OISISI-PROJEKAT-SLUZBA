@@ -1,5 +1,12 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,12 +59,44 @@ public class DBRemainingSubjects {
 		}
 	}
 	private void initRemainSubjects(){
-		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
-		this.remainingSubjects = new ArrayList<Subject>();
-		remainingSubjects.add(new Subject("AN1","Analiza", Semester.WINTER, (byte)1, new Professor(), (byte)9, new ArrayList<Student>(), new ArrayList<Student>()));
-		if(!mapStudSubjs.containsKey(student)) {
-			this.mapStudSubjs.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(remainingSubjects));
+		
+		try {
+			//FileReader fr = new FileReader("data" + File.separator + "RemainingSubjects.txt");
+			//BufferedReader br = new BufferedReader(fr);
+			File fileDir = new File("data" + File.separator + "RemainingSubjects.txt");
+			BufferedReader br = new BufferedReader(
+		            new InputStreamReader(
+		                       new FileInputStream(fileDir), "UTF8"));
+			String str;
+			while((str = br.readLine()) != null) {
+				String[] strings1 = str.split("[ \t]+");
+				
+				this.student = DBStudents.getInstance().getStudents().get(Integer.parseInt(strings1[0]) - 1);
+				if(mapStudSubjs.containsKey(student)) {
+					this.remainingSubjects = new ArrayList<Subject>(mapStudSubjs.get(student));
+					remainingSubjects.add(DBSubjects.getInstance().getSubjects().get(Integer.parseInt(strings1[1]) - 1));
+				}else {
+					this.remainingSubjects = new ArrayList<Subject>();
+					remainingSubjects.add(DBSubjects.getInstance().getSubjects().get(Integer.parseInt(strings1[1]) - 1));
+					this.mapStudSubjs.put(student, new ArrayList<Subject>(remainingSubjects));
+				}
+				
+				this.mapStudSubjs.put(student, new ArrayList<Subject>(remainingSubjects));
+			}
+			
+			br.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+//		this.student = StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow());
+//		this.remainingSubjects = new ArrayList<Subject>();
+//		remainingSubjects.add(new Subject("AN1","Analiza", Semester.WINTER, (byte)1, new Professor(), (byte)9, new ArrayList<Student>(), new ArrayList<Student>()));
+//		if(!mapStudSubjs.containsKey(student)) {
+//			this.mapStudSubjs.put(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(remainingSubjects));
+//		}
 	}
 	
 	public List<Subject> getRemainingSubjects(){

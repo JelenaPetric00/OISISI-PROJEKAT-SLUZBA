@@ -2,9 +2,11 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -38,12 +40,8 @@ public class DBStudents {
 	
 	private DBStudents() {
 		
-		try {
-			initStudents();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		initStudents();
+		
 		
 		this.columns = new ArrayList<String>();
 		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("tblID"));
@@ -54,13 +52,16 @@ public class DBStudents {
 		this.columns.add(MainWindow.getInstance().getResourceBundle().getString("avgGr"));
 		
 	}
-//TODO Citaj fajl i ubacuj  redom
-	private void initStudents() throws ParseException {
+
+	private void initStudents(){
 		this.students = new ArrayList<Student>();
 		try {
-			FileReader fr = new FileReader("data" + File.separator + "Students.txt");
-			BufferedReader br = new BufferedReader(fr);
-			
+			//FileReader fr = new FileReader("data" + File.separator + "Students.txt");
+			//BufferedReader br = new BufferedReader(fr);
+			File fileDir = new File("data" + File.separator + "Students.txt");
+			BufferedReader br = new BufferedReader(
+		            new InputStreamReader(
+		                       new FileInputStream(fileDir), "UTF8"));
 			String str;
 			while((str = br.readLine()) != null) {
 				String[] strings1 = str.split("[|]");
@@ -68,8 +69,17 @@ public class DBStudents {
 				ZoneId defaultZoneId = ZoneId.systemDefault();
 				Instant instant = date.toInstant();
 				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
-				students.add(new Student(strings1[1], strings1[2], localDate, new Address("Fruskogorska", "21", "Novi Sad", "Srbija"), strings1[6], strings1[7],
-						strings1[0], (short)Integer.parseInt(strings1[9]), (byte)Integer.parseInt(strings1[3]), stringToMOF(strings1[8]), (float)9.06,
+				Address adr = new Address();
+				if(!strings1[5].equals("null")) {
+					try {
+						adr = (Address) DBAddresses.getInstance().getAddresses().get(Integer.parseInt(strings1[5]) - 1).clone();
+					} catch (NumberFormatException | CloneNotSupportedException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				students.add(new Student(strings1[1], strings1[2], localDate, adr, strings1[6], strings1[7],
+						strings1[0], (short)Integer.parseInt(strings1[9]), (byte)Integer.parseInt(strings1[3]), stringToMOF(strings1[8]), (float)students.size(),
 						new ArrayList<Grade>(), new ArrayList<Subject>()));
 			}
 			br.close();

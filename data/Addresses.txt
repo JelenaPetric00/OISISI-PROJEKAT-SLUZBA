@@ -1,0 +1,12 @@
+Šafarikova|2|Novi Sad|Srbija
+Nikole Tesle|56|Novi Sad|Srbija
+Bulevar Patrijaha Pavla|3|Beograd|Srbija
+Stražilovska|6a|Novi Sad|Srbija
+Nikole Pašića|2d|Kikinda|Srbija
+Bulevar Kralja Petra|22|Niš|Srbija
+Tolstojeva|31|Novi Sad|Srbija
+Marićeva|11|Kragujevac|Srbija
+Stražilovska|3|Beograd|Srbija
+Nikole Pašića|6a|Novi Sad|Srbija
+Bulevar Kralja Petra|2d|Niš|Srbija
+Knez Mihajlova|22|Beograd|Srbija

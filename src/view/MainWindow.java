@@ -54,6 +54,9 @@ public class MainWindow extends JFrame{
 		Image img = Toolkit.getDefaultToolkit().getImage("icons/icon.webp");
 		setIconImage(img);
 		
+		DBProfessors.getInstance();
+		DBDesks.getInstance().initDeskChman();
+		
 		menu = new MenuBar(this);
 		setJMenuBar(menu);
 	
@@ -83,7 +86,7 @@ public class MainWindow extends JFrame{
 		menu.initComponents();
 		status.initComponents();
 		tabs.initComponets();
-		
+
 		DBStudents.getInstance().initComponents();
 		DBProfessors.getInstance().initComponents();
 		DBSubjects.getInstance().initComponents();

@@ -1,6 +1,6 @@
 package model;
 
-public class Address {
+public class Address implements Cloneable {
 	
 	private String street;
 	private String streetNumber; //
@@ -16,7 +16,11 @@ public class Address {
 		this.town = town;
 		this.country = country;
 	}
-
+	
+	public Object clone()throws CloneNotSupportedException{  
+		return super.clone();  
+	}  
+	
 	public String getStreet() {
 		return street;
 	}

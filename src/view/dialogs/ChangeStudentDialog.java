@@ -71,12 +71,12 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 	    JPanel panName = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		tfName.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblSurname = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"), MainWindow.getInstance().getResourceBundle().getString("surname*"), panSurname);		
-		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-Z]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
+		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
 		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -116,7 +116,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-Ä‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�ŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), panID);
 		tfID.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber());
 
