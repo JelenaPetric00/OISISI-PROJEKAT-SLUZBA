@@ -34,9 +34,17 @@ public class PassedSubjectsTab extends JPanel{
 	private static PassedSubjectsTab instance;
 	private int heightRow = 40;
 	JButton btn;
-	JLabel lbAvg;
-	JLabel lbEspb;
+	private JLabel lbAvg;
+	private JLabel lbEspb;
 	
+	public JLabel getLbAvg() {
+		return lbAvg;
+	}
+
+	public JLabel getLbEspb() {
+		return lbEspb;
+	}
+
 	public static PassedSubjectsTab getInstance(Frame parent){
 		if(instance == null){
 			instance = new PassedSubjectsTab(parent);

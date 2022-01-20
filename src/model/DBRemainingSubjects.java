@@ -181,7 +181,7 @@ public class DBRemainingSubjects {
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
 		tc = tcm.getColumn(0);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
-		RemainingSubjectsTab.getInstance(null).initComponents();
+		RemainingSubjectsTab.getInstance(MainWindow.getInstance()).initComponents();
 		th.repaint(); 
 	}
 }

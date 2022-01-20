@@ -200,6 +200,7 @@ public class DBPassedSubjects {
 		refreshePassedSubject();
 		subjects.add(s);
 		grades.add(new Grade(student, s, grade, date));
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbEspb().setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		mapStudGrades.replace(student, new ArrayList<Grade>(grades));
 		mapStudPassSub.replace(student, new ArrayList<Subject>(subjects));
 		PassedSubjectsTab.getInstance(null).updateView(null, -1);
@@ -213,6 +214,7 @@ public class DBPassedSubjects {
 				break;
 			}
 		}
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbEspb().setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		this.mapStudGrades.replace(student, grades);
 		
 		for (Subject subject : subjects) {
@@ -245,6 +247,7 @@ public class DBPassedSubjects {
 		}
 		return sum;
 	}
+
 	
 	public void initComponents(){
 		JTableHeader th = PassedSubjectsTable.getInstance().getTableHeader();
@@ -257,7 +260,7 @@ public class DBPassedSubjects {
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
 		tc = tcm.getColumn(0);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
-		PassedSubjectsTab.getInstance(null).initComponents();
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).initComponents();
 		th.repaint(); 
 	}
 }
