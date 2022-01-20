@@ -54,14 +54,16 @@ public class AddChairmanDialog extends AddStudentDialog{
 			List<Professor> newList = DBProfessors.getInstance().getProfesssors();
 			List<Professor> profs = new ArrayList<Professor>(newList);
 			List<Professor> profsForList = new ArrayList<Professor>(newList);
-			
+
+			Desk d = DBDesks.getInstance().getRow(DesksTable.getInstance().getSelectedRow());
 			if(!profs.isEmpty()) {
 				for(Professor p: profs) {
-					for(Desk d: DBDesks.getInstance().getDesks()) {
-						if(p.getIdNumber().equals(d.getChairman().getIdNumber())){		
-							profsForList.remove(p);
-							break;
-						}
+					System.out.println(p.getDepartmentCode() + " " + p.getName());
+					if(!p.getDepartmentCode().equals(d.getDepartmentCode())) {
+						profsForList.remove(p);
+					}
+					if(d.getChairman().getIdNumber().equals(p.getIdNumber())) {
+						profsForList.remove(p);
 					}
 				} 
 			}

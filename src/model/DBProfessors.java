@@ -65,6 +65,7 @@ public class DBProfessors {
 				Instant instant = date.toInstant();
 				LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
 				Address adr = new Address();
+				ArrayList<Desk> desks = (ArrayList<Desk>) DBDesks.getInstance().getDesks();
 				if(!strings1[4].equals("null")) {
 					try {
 						adr = (Address) DBAddresses.getInstance().getAddresses().get(Integer.parseInt(strings1[4]) - 1).clone();
@@ -80,9 +81,9 @@ public class DBProfessors {
 						e.printStackTrace();
 					}
 				}
-				professors.add(new Professor(strings1[1], strings1[2], localDate, adr, strings1[5], strings1[6], 
+				professors.add(new Professor(strings1[2], strings1[1], localDate, adr, strings1[5], strings1[6], 
 						adr1, strings1[0], strings1[9], (short)Integer.parseInt(strings1[8]), new ArrayList<Subject>()));
-				professors.get(professors.size() - 1).setDepartmentCode((DBDesks.getInstance().getDesks().get(Integer.parseInt(strings1[10]) - 1)).getDepartmentCode());
+				professors.get(professors.size() - 1).setDepartmentCode((desks.get(Integer.parseInt(strings1[10]) - 1)).getDepartmentCode());
 			}
 			
 			br.close();
