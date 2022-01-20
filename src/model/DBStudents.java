@@ -126,6 +126,9 @@ public class DBStudents {
 			case 4:
 				return student.getmethodOfFinancing().toString();
 			case 5:
+				if(Float.isNaN(student.getavgGrade()) || student.getavgGrade() == 0 ) {
+					return "  /";
+				}
 				return Float.toString(student.getavgGrade());
 			default:
 				return null;

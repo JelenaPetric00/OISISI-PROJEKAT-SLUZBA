@@ -16,13 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
-import model.Grade;
 import model.Subject;
 import view.MainWindow;
 import view.tables.AbstractTableModelPassedSubjects;
@@ -105,6 +101,7 @@ public class PassedSubjectsTab extends JPanel{
 				    	Subject s = DBPassedSubjects.getInstance().getRow(passedSubjectsTable.getSelectedRow());
 				    	DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
 				    	DBPassedSubjects.getInstance().delSubject(s.getid());
+				        //StudentsTab.getInstance().updateView(null, -1);
 				    }
 				}
 			}

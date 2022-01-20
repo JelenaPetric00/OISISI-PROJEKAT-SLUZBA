@@ -27,6 +27,7 @@ import view.MainWindow;
 import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
 import view.tabs.PassedSubjectsTab;
+import view.tabs.StudentsTab;
 
 public class DBPassedSubjects {
 	
@@ -163,7 +164,6 @@ public class DBPassedSubjects {
 	}
 	
 	public Subject getRow(int rowIndex){
-		//System.out.println("Hey");
 		return this.subjects.get(rowIndex);
 	}
 	
@@ -200,7 +200,17 @@ public class DBPassedSubjects {
 		refreshePassedSubject();
 		subjects.add(s);
 		grades.add(new Grade(student, s, grade, date));
+        student.getgradesPassedSubjects().add(new Grade(student, s, grade, date));
+		int sum = 0;
+        for(int i =0; i < student.getgradesPassedSubjects().size(); i++) {
+        	sum += student.getgradesPassedSubjects().get(i).getgrade();
+        }
+        float avg = (float)Math.round((float)sum/student.getgradesPassedSubjects().size()*100)/100;
+        PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbAvg().setText(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(avg));
 		PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbEspb().setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
+		
+		StudentsTable.getInstance().repaint();
+		
 		mapStudGrades.replace(student, new ArrayList<Grade>(grades));
 		mapStudPassSub.replace(student, new ArrayList<Subject>(subjects));
 		PassedSubjectsTab.getInstance(null).updateView(null, -1);
@@ -208,9 +218,17 @@ public class DBPassedSubjects {
 	}
 
 	public void delSubject(String id) {
+		grades = student.getgradesPassedSubjects();
 		for (Grade grade : grades){
 			if(grade.getsubject().getid() == id){
 				grades.remove(grade);
+				student.getgradesPassedSubjects().remove(grade);
+				int sum = 0;
+		        for(int i =0; i < student.getgradesPassedSubjects().size(); i++) {
+		        	sum += student.getgradesPassedSubjects().get(i).getgrade();
+		        }
+		        float avg = (float)Math.round((float)sum/student.getgradesPassedSubjects().size()*100)/100;
+		        PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbAvg().setText(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(avg));
 				break;
 			}
 		}
@@ -224,6 +242,7 @@ public class DBPassedSubjects {
 			}
 		}
 		this.mapStudPassSub.replace(student, subjects);
+		StudentsTable.getInstance().repaint();
 		PassedSubjectsTab.getInstance(null).updateView(null, -1);
 	}
 
@@ -247,7 +266,6 @@ public class DBPassedSubjects {
 		}
 		return sum;
 	}
-
 	
 	public void initComponents(){
 		JTableHeader th = PassedSubjectsTable.getInstance().getTableHeader();
