@@ -12,20 +12,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
+import javax.swing.table.TableRowSorter;
 
 import view.actions.AddButtonAction;
 import view.actions.DeleteButtonAction;
 import view.actions.EditButtonAction;
 import view.actions.SearchButtonAction;
-import view.dialogs.AddStudentDialog;
-import view.dialogs.AddSubjectDialog;
-import view.dialogs.ChangeStudentDialog;
-import view.dialogs.ChangeSubjectDialog;
-import view.dialogs.DeleteStudentDialog;
+import view.tables.AbstractTableModelStudents;
+import view.tables.StudentsTable;
 
 public class Toolbar extends JToolBar{
 	
@@ -74,7 +72,7 @@ public class Toolbar extends JToolBar{
     	rightPanel.add(textFld);
 		
 		//ToolbarButton btnSrc = new ToolbarButton("Search", "icons/search.png");
-    	SearchButtonAction sba = new SearchButtonAction(parent, "icons/search.png", 25, 25);
+    	SearchButtonAction sba = new SearchButtonAction(parent, "icons/search.png", 25, 25, textFld);
 		JButton btnSrc = new JButton(sba);
 		btnSrc.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 		rightPanel.add(btnSrc);
