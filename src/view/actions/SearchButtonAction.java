@@ -19,8 +19,12 @@ import view.TabbedPane;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
+import view.tables.AbstractTableModelProfessors;
 import view.tables.AbstractTableModelStudents;
+import view.tables.AbstractTableModelSubjects;
+import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
+import view.tables.SubjectsTable;
 
 public class SearchButtonAction extends AbstractAction{
 	
@@ -47,6 +51,8 @@ public class SearchButtonAction extends AbstractAction{
 		
 		String entry = getTxtFld().getText();
 		TableRowSorter<AbstractTableModelStudents> sorter = StudentsTable.getInstance().getSorter();
+		TableRowSorter<AbstractTableModelProfessors> sorterP = ProfessorsTable.getInstance().getSorter();
+		TableRowSorter<AbstractTableModelSubjects> sorterS = SubjectsTable.getInstance().getSorter();
 
 		switch (TabbedPane.getInstance().getSelectedIndex()) {
 			case 0:	
@@ -78,10 +84,43 @@ public class SearchButtonAction extends AbstractAction{
 				}
 				break;
 			case 1:
-				//ubaci za prof
+				if (entry.length() == 0){
+					sorterP.setRowFilter(null);
+				}else{
+					String[] words = entry.split(",");
+					
+					switch(words.length){
+					case 1:
+						sorterP.setRowFilter(RowFilter.regexFilter("(?i).*" + entry.trim() + ".*", 0));
+						break;
+					case 2:
+						List<RowFilter<Object, Object>> filtersP = new ArrayList<RowFilter<Object, Object>>(2);
+						filtersP.add(RowFilter.regexFilter("(?i).*" + words[0].trim() + ".*", 0));
+						filtersP.add(RowFilter.regexFilter("(?i).*" + words[1].trim() + ".*", 1));
+						RowFilter<Object, Object> rfp = RowFilter.andFilter(filtersP);
+						sorterP.setRowFilter(rfp);
+						break;
+					default:
+					}
+				}
 				break;
 			case 2:
-				//ubaci za predmet
+				if(entry.length() == 0){
+					sorterS.setRowFilter(null);
+				}else{
+					String[] words = entry.split(",");
+					
+					switch(words.length){
+					case 2:
+						List<RowFilter<Object, Object>> filtersS = new ArrayList<RowFilter<Object, Object>>(2);
+						filtersS.add(RowFilter.regexFilter("(?i).*" + words[0].trim() + ".*", 0));
+						filtersS.add(RowFilter.regexFilter("(?i).*" + words[1].trim() + ".*", 1));
+						RowFilter<Object, Object> rfS = RowFilter.andFilter(filtersS);
+						sorterS.setRowFilter(rfS);
+						break;
+					default:
+					}
+				}
 				break;
 			default:
 		}
