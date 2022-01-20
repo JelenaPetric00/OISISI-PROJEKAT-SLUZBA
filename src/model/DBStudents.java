@@ -124,7 +124,7 @@ public class DBStudents {
 			case 3:
 				return Byte.toString(student.getyearOfStudy());
 			case 4:
-				return student.getmethodOfFinancing().toString();
+				return MOFtoString(student.getmethodOfFinancing());//toString();
 			case 5:
 				if(Float.isNaN(student.getavgGrade()) || student.getavgGrade() == 0 ) {
 					return "  /";
@@ -196,5 +196,11 @@ public class DBStudents {
 		if(s.equals("B")) { return MethodOfFinancing.B;}
 		return MethodOfFinancing.B;
     }
-
+	
+	public String MOFtoString(MethodOfFinancing mof) {
+		String s = "";
+		if(mof == MethodOfFinancing.S) {s = MainWindow.getInstance().getResourceBundle().getString("selfFin");}
+		if(mof == MethodOfFinancing.B) {s = MainWindow.getInstance().getResourceBundle().getString("budget");}
+		return s;
+    }
 }

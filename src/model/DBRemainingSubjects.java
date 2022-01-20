@@ -184,4 +184,13 @@ public class DBRemainingSubjects {
 		RemainingSubjectsTab.getInstance(MainWindow.getInstance()).initComponents();
 		th.repaint(); 
 	}
+	
+	public Map<Student, List<Subject>> getMapStudSubjs() {
+		return mapStudSubjs;
+	}
+	
+	public void setMapStudSubjs(Map<Student, List<Subject>> mapStudSubjs) {
+		this.mapStudSubjs = mapStudSubjs;
+	}
+
 }

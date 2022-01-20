@@ -50,11 +50,11 @@ public class AddSubjectDialog extends AddStudentDialog {
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-ZŠšĐđČčĆćŽž0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�ŠŠšĐđČčĆćŽž0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		list.add(tfID);
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZŠšĐđČčĆćŽž0-9]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�ŠŠšĐđČčĆćŽž0-9]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		list.add(tfName);
 		JPanel panSem = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblSem = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("semesterTooltip"), MainWindow.getInstance().getResourceBundle().getString("semester*"), panSem);

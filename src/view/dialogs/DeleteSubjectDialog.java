@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -14,6 +17,16 @@ import javax.swing.JPanel;
 
 import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
+import model.DBPassedSubjects;
+import model.DBProfessors;
+import model.DBRemainingSubjects;
+import model.DBStudents;
+import model.DBSubjects;
+import model.DBTeachesSubject;
+import model.Grade;
+import model.Professor;
+import model.Student;
+import model.Subject;
 import view.MainWindow;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
@@ -42,7 +55,45 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Map<Student, List<Subject>> mapStudPassSub = DBPassedSubjects.getInstance().getMapStudPassSub();
+				Map<Student, List<Subject>> mapStudSubjs = DBRemainingSubjects.getInstance().getMapStudSubjs();
+				for(Student s: DBStudents.getInstance().getStudents()) {
+					if(mapStudPassSub.get(s) != null) {
+						if(!mapStudPassSub.get(s).isEmpty()) {
+							for(Subject subj: mapStudPassSub.get(s)) {
+								if(subj.getid().equals(DBSubjects.getInstance().getRow(SubjectsTable.getInstance().getSelectedRow()).getid())) {
+									DBPassedSubjects.getInstance().delSubject(subj.getid());
+								}
+							}
+						}
+					}
+					if(mapStudSubjs.get(s) != null) {
+						if(!mapStudSubjs.get(s).isEmpty()) {
+							for(Subject subj: mapStudSubjs.get(s)) {
+								if(subj.getid().equals(DBSubjects.getInstance().getRow(SubjectsTable.getInstance().getSelectedRow()).getid())) {
+									DBRemainingSubjects.getInstance().deleteRemainingSubject(subj.getid());
+								}
+							}
+						}
+					}
+				}
+
+				Map<Professor, List<Subject>> mapTeachSubjs = DBTeachesSubject.getInstance().getMapTeachSubjs();
+				for(Professor p: DBProfessors.getInstance().getProfesssors()) {
+					if(mapTeachSubjs.get(p) != null) {
+						if(!mapTeachSubjs.get(p).isEmpty()) {
+							for(Subject subj: mapTeachSubjs.get(p)) {
+								if(subj.getid().equals(DBSubjects.getInstance().getRow(SubjectsTable.getInstance().getSelectedRow()).getid())) {
+									DBTeachesSubject.getInstance().delSubject(subj.getid());
+								}
+							}
+						}
+					}
+				}
+				
+				
 				SubjectsCtrl.getInstance().delSubject(SubjectsTable.getInstance().getSelectedRow());
+				
 				dispose();
 			}
     	
@@ -60,17 +111,7 @@ public class DeleteSubjectDialog extends AddSubjectDialog{
 		btnS.add(Box.createHorizontalStrut(40));
 		btnS.add(noButton, Component.CENTER_ALIGNMENT);
 		
-		//Box box = Box.createVerticalBox();
-		//box.add(delMessSub);
-		//box.add(Box.createHorizontalStrut(dim.height));
-		//box.add(btnS);
-		
-		//add(box, BorderLayout.NORTH);
-		
 		add(btnS, BorderLayout.SOUTH);
-		
-		
-		
 		
 	}
 

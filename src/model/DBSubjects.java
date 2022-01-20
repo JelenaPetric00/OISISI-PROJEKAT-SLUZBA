@@ -14,6 +14,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import model.Student.MethodOfFinancing;
 import model.Subject.Semester;
 import view.MainWindow;
 import view.tables.SubjectsTable;
@@ -107,7 +108,7 @@ public class DBSubjects {
 		case 3:
 			return Byte.toString(subject.getyearOfStudy());
 		case 4:
-			return subject.getsemester().toString();
+			return SemestertoString(subject.getsemester());//.toString();
 		default:
 			return null;
 		}
@@ -169,5 +170,12 @@ public class DBSubjects {
 		}else{ 
 			return Semester.WINTER;
 		}
+    }
+	
+	public String SemestertoString(Semester mof) {
+		String s = "";
+		if(mof == Semester.SUMMER) {s = MainWindow.getInstance().getResourceBundle().getString("summer");}
+		if(mof == Semester.WINTER) {s = MainWindow.getInstance().getResourceBundle().getString("winter");}
+		return s;
     }
 }

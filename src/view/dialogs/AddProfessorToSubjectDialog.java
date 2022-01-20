@@ -13,8 +13,10 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -28,7 +30,6 @@ import view.tables.SubjectsTable;
 public class AddProfessorToSubjectDialog extends AddStudentDialog{
 	
 	private JTextField watcher;
-	
 	public void keepup(JTextField csd){
 		watcher = csd;
 	}
@@ -94,7 +95,7 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int i = myList.getSelectedIndex();
-				Professor p = chooseList.get(i);
+				SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(chooseList.get(i));
 				
 				//System.out.println(p.getName());
 				//txtProf.setText((String) myList.getSelectedValue());
@@ -110,8 +111,9 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 			
 		});
 		
-		
-		choosePanel.add(myList);
+		JScrollPane scrollPane = new JScrollPane(myList);
+		scrollPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel btnPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		btnPan.add(addBtn, Component.CENTER_ALIGNMENT);
@@ -120,11 +122,5 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 		
 		add(btnPan, BorderLayout.SOUTH);
 		
-		
-		
-		
-		
-		
 	}
-
 }

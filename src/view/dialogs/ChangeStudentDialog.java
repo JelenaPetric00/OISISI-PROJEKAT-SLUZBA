@@ -73,12 +73,12 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		
 	    JPanel panName = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZŠšĐđČčĆćŽžÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		tfName.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblSurname = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"), MainWindow.getInstance().getResourceBundle().getString("surname*"), panSurname);		
-		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
+		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZŠšĐđČčĆćŽžÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
 		tfSurname.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getsurname());
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -113,7 +113,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		DiaLabel lblMail = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"), MainWindow.getInstance().getResourceBundle().getString("email*"), panMail);		
-		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9]@.]+", MainWindow.getInstance().getResourceBundle().getString("email"));
+		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-ZÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š0-9]@.]+", MainWindow.getInstance().getResourceBundle().getString("email"));
 		tfMail.setText(StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getEmail());
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -160,8 +160,9 @@ public class ChangeStudentDialog extends AddStudentDialog{
 					Instant instant = date.toInstant();
 					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
 					StudentsCtrl.getInstance().editStudent(StudentsTable.getInstance().getSelectedRow(), StudentsCtrl.getInstance().getStudentAtIdx(StudentsTable.getInstance().getSelectedRow()).getidNumber(), tfID.getText(), tfName.getText(), tfSurname.getText(), localDate,
-						Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
-							stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+					Byte.parseByte(tfCurrYear.getValue().toString()), Short.parseShort(tfStartYear.getText()), 
+					stringToMOF(tfFinancing.getSelectedItem().toString()), address, tfPhNum.getText(), tfMail.getText());
+					
 					dispose();
 				}else {
 					JOptionPane.showMessageDialog(null, MainWindow.getInstance().getResourceBundle().getString("studentExCh"), MainWindow.getInstance().getResourceBundle().getString("idExists"), JOptionPane.ERROR_MESSAGE);

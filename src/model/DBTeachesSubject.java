@@ -52,11 +52,20 @@ private static DBTeachesSubject instance = null;
 	}
 	
 	private void initSubjects(){
-		this.prof = ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow());
-		this.subjects = new ArrayList<Subject>();
-		subjects.add(new Subject("AN1","Analiza", Semester.WINTER, (byte)1, new Professor(), (byte)9, new ArrayList<Student>(), new ArrayList<Student>()));
-		if(!mapTeachSubjs.containsKey(prof)) {
-			this.mapTeachSubjs.put(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()), new ArrayList<Subject>(subjects));
+		for(Professor p: DBProfessors.getInstance().getProfesssors()) {
+			subjects = new ArrayList<Subject>();
+			for(Subject s: DBSubjects.getInstance().getSubjects()) {
+				if(s.getprofessor().getIdNumber() != null) {
+					if(p.getIdNumber() != null) {
+						String s1 = s.getprofessor().getIdNumber();
+						String s2 = p.getIdNumber();
+						if(s1.equals(s2)) {	
+							subjects.add(s);
+							this.mapTeachSubjs.put(p, new ArrayList<Subject>(subjects));
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -130,12 +139,21 @@ private static DBTeachesSubject instance = null;
 		TableColumn tc = tcm.getColumn(1);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
 		tc = tcm.getColumn(2);
-		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("grade"));
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("yearOfStudy"));
 		tc = tcm.getColumn(3);
-		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
+		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("semester"));
 		tc = tcm.getColumn(0);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
 		TeachesSubjectTab.getInstance(null).initComponents();
 		th.repaint(); 
 	}
+
+	public Map<Professor, List<Subject>> getMapTeachSubjs() {
+		return mapTeachSubjs;
+	}
+
+	public void setMapTeachSubjs(Map<Professor, List<Subject>> mapTeachSubjs) {
+		this.mapTeachSubjs = mapTeachSubjs;
+	}
+	
 }

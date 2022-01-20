@@ -13,7 +13,9 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -89,7 +91,9 @@ public class AddSubjectToProfessorDialog extends AddStudentDialog{
 			}
 		});
 			
-		listPanel.add(list);
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		add(scrollPane, BorderLayout.CENTER);
 		
 		btnAdd.addActionListener(new ActionListener() {
 
@@ -102,7 +106,7 @@ public class AddSubjectToProfessorDialog extends AddStudentDialog{
 				
 //				for(int i = 0; i < idxs.length; i++) {
 //					Subject s = subjectsForList.get(i);
-				System.out.println(s.getid() + " " + s.getname());
+				//System.out.println(s.getid() + " " + s.getname());
 					DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
 //				}
 						
