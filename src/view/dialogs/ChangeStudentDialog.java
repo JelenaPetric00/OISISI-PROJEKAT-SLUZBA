@@ -29,6 +29,7 @@ import javax.swing.event.DocumentListener;
 import controller.StudentsCtrl;
 import model.Address;
 import model.DBPassedSubjects;
+import model.DBRemainingSubjects;
 import view.MainWindow;
 import view.listeners.MyDocumentListener;
 import view.tables.StudentsTable;
@@ -59,6 +60,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 		JPanel panelPass = new JPanel();
 		panelPass.setLayout(new BorderLayout());
 		DBPassedSubjects.getInstance().initComponents();
+		DBRemainingSubjects.getInstance().initComponents();
 		panelPass.add(PassedSubjectsTab.getInstance(parent));
 		JPanel panelRemain = new JPanel();
 		panelRemain.setLayout(new BorderLayout());

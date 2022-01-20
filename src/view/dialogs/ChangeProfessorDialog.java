@@ -27,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 
 import controller.ProfessorsCtl;
 import model.Address;
+import model.DBTeachesSubject;
 import view.MainWindow;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
 import view.tables.ProfessorsTable;
@@ -47,6 +48,7 @@ public class ChangeProfessorDialog extends AddProfessorDialog{
 		profInfo.setLayout(new BorderLayout());
 		JPanel profSubject = new JPanel();
 		profSubject.setLayout(new BorderLayout());
+		DBTeachesSubject.getInstance().initComponents();
 		profSubject.add(TeachesSubjectTab.getInstance(parent));
 		
 		profTP.add(MainWindow.getInstance().getResourceBundle().getString("info"), profInfo);

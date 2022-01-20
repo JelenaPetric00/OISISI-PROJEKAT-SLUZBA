@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -25,8 +24,8 @@ import javax.swing.table.TableColumnModel;
 import controller.StudentsCtrl;
 import model.Subject.Semester;
 import view.MainWindow;
+import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
-import view.tables.SubjectsTable;
 import view.tabs.PassedSubjectsTab;
 
 public class DBPassedSubjects {
@@ -201,6 +200,7 @@ public class DBPassedSubjects {
 		refreshePassedSubject();
 		subjects.add(s);
 		grades.add(new Grade(student, s, grade, date));
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbEspb().setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		mapStudGrades.replace(student, new ArrayList<Grade>(grades));
 		mapStudPassSub.replace(student, new ArrayList<Subject>(subjects));
 		PassedSubjectsTab.getInstance(null).updateView(null, -1);
@@ -214,6 +214,7 @@ public class DBPassedSubjects {
 				break;
 			}
 		}
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).getLbEspb().setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		this.mapStudGrades.replace(student, grades);
 		
 		for (Subject subject : subjects) {
@@ -246,9 +247,10 @@ public class DBPassedSubjects {
 		}
 		return sum;
 	}
+
 	
 	public void initComponents(){
-		JTableHeader th = SubjectsTable.getInstance().getTableHeader();
+		JTableHeader th = PassedSubjectsTable.getInstance().getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		TableColumn tc = tcm.getColumn(1);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("name"));
@@ -258,7 +260,7 @@ public class DBPassedSubjects {
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
 		tc = tcm.getColumn(0);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
-		
+		PassedSubjectsTab.getInstance(MainWindow.getInstance()).initComponents();
 		th.repaint(); 
 	}
 }

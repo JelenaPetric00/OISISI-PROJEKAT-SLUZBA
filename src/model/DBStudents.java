@@ -79,7 +79,7 @@ public class DBStudents {
 				}
 				
 				students.add(new Student(strings1[1], strings1[2], localDate, adr, strings1[6], strings1[7],
-						strings1[0], (short)Integer.parseInt(strings1[9]), (byte)Integer.parseInt(strings1[3]), stringToMOF(strings1[8]), (float)students.size(),
+						strings1[0], (short)Integer.parseInt(strings1[9]), (byte)Integer.parseInt(strings1[3]), stringToMOF(strings1[8]), (float)0,
 						new ArrayList<Grade>(), new ArrayList<Subject>()));
 			}
 			br.close();

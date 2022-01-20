@@ -135,7 +135,7 @@ private static DBTeachesSubject instance = null;
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("date"));
 		tc = tcm.getColumn(0);
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("tblID"));
-		
+		TeachesSubjectTab.getInstance(null).initComponents();
 		th.repaint(); 
 	}
 }

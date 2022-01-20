@@ -34,6 +34,9 @@ public class RemainingSubjectsTab extends JPanel{
 	private RemainingSubjectsTable remainingSubjectsTable;
 	private static RemainingSubjectsTab instance;
 	private int heightRow = 40;
+	JButton btnPassed;
+	JButton btnDelete;
+	JButton btnAdd;
 	
 	public static RemainingSubjectsTab getInstance(Frame parent){
 		if(instance == null){
@@ -48,7 +51,7 @@ public class RemainingSubjectsTab extends JPanel{
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
+		btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -82,9 +85,9 @@ public class RemainingSubjectsTab extends JPanel{
 				}
 			}
     	});
-		JButton btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
+		btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
 		
-		JButton btnPassed = new JButton(MainWindow.getInstance().getResourceBundle().getString("passSubj"));
+		btnPassed = new JButton(MainWindow.getInstance().getResourceBundle().getString("passSubj"));
 		btnPanel.add(btnAdd, Component.CENTER_ALIGNMENT);
 		btnPanel.add(Box.createVerticalStrut(10));
 		btnPanel.add(btnDelete, Component.CENTER_ALIGNMENT);
@@ -140,6 +143,12 @@ public class RemainingSubjectsTab extends JPanel{
 			
 		});
 		
+	}
+	
+	public void initComponents(){
+		btnAdd.setText(MainWindow.getInstance().getResourceBundle().getString("add"));
+		btnDelete.setText(MainWindow.getInstance().getResourceBundle().getString("mniDelete"));
+		btnPassed.setText(MainWindow.getInstance().getResourceBundle().getString("passSubj"));
 	}
 	
 	public void updateView(String action, int value){
