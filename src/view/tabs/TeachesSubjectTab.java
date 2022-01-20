@@ -32,6 +32,8 @@ public class TeachesSubjectTab extends JPanel{
 	private TeachesSubjectTable teachesSubjectTable;
 	private static TeachesSubjectTab instance;
 	private int heightRow = 40;
+	JButton btnAdd;
+	JButton btnDelete;
 	
 	public static TeachesSubjectTab getInstance(Frame parent){
 		if(instance == null){
@@ -41,12 +43,12 @@ public class TeachesSubjectTab extends JPanel{
 	}
 	
 	private TeachesSubjectTab(Frame parent){
-		DBTeachesSubject.getInstance().initComponents();
+		
 		this.setLayout(new BorderLayout());
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("addSubject"));
+		btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("addSubject"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -72,7 +74,7 @@ public class TeachesSubjectTab extends JPanel{
 				}
 			}
     	});
-		JButton btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("rmSubj"));
+		btnDelete = new JButton(MainWindow.getInstance().getResourceBundle().getString("rmSubj"));
 		
 		;
 		btnPanel.add(btnAdd, Component.CENTER_ALIGNMENT);
@@ -113,6 +115,11 @@ public class TeachesSubjectTab extends JPanel{
 	         }
 	      });
 		
+	}
+	
+	public void initComponents(){
+		btnAdd.setText(MainWindow.getInstance().getResourceBundle().getString("addSubject"));
+		btnDelete.setText(MainWindow.getInstance().getResourceBundle().getString("rmSubj"));
 	}
 	
 	public void updateView(String action, int value){

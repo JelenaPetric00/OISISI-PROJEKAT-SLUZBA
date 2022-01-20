@@ -29,7 +29,7 @@ public class MainWindow extends JFrame{
 		return instance;
 	}
 	
-	Toolbar toolbar;
+	private Toolbar toolbar;
 	private ResourceBundle resourceBundle;
 	private MenuBar menu;
 	private StatusBar status;
@@ -60,8 +60,8 @@ public class MainWindow extends JFrame{
 		menu = new MenuBar(this);
 		setJMenuBar(menu);
 	
-		Toolbar tbar = new Toolbar(this);
-		add(tbar, BorderLayout.NORTH);
+		toolbar = new Toolbar(this);
+		add(toolbar, BorderLayout.NORTH);
 		
 		status = new StatusBar();
 		add(status, BorderLayout.SOUTH);
@@ -86,6 +86,7 @@ public class MainWindow extends JFrame{
 		menu.initComponents();
 		status.initComponents();
 		tabs.initComponets();
+		toolbar.initComponents();
 
 		DBStudents.getInstance().initComponents();
 		DBProfessors.getInstance().initComponents();

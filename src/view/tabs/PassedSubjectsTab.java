@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 import model.DBPassedSubjects;
 import model.DBRemainingSubjects;
@@ -30,6 +33,9 @@ public class PassedSubjectsTab extends JPanel{
 	private PassedSubjectsTable passedSubjectsTable;
 	private static PassedSubjectsTab instance;
 	private int heightRow = 40;
+	JButton btn;
+	JLabel lbAvg;
+	JLabel lbEspb;
 	
 	public static PassedSubjectsTab getInstance(Frame parent){
 		if(instance == null){
@@ -43,7 +49,7 @@ public class PassedSubjectsTab extends JPanel{
 		
 		JPanel panBtn = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
-		JButton btn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancGrd"));
+		btn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancGrd"));
 		panBtn.add(Box.createHorizontalStrut(5));
 		panBtn.add(btn);
 		add(panBtn, BorderLayout.NORTH);
@@ -71,10 +77,10 @@ public class PassedSubjectsTab extends JPanel{
 		
 		JPanel panTxt1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JPanel panTxt2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JLabel lbAvg = new JLabel(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(DBPassedSubjects.getInstance().getStudent().getavgGrade()));
+		lbAvg = new JLabel(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(DBPassedSubjects.getInstance().getStudent().getavgGrade()));
 		panTxt1.add(Box.createHorizontalStrut(5));
 		panTxt1.add(lbAvg);
-		JLabel lbEspb = new JLabel(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
+		lbEspb = new JLabel(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 		panTxt2.add(Box.createHorizontalStrut(5));
 		panTxt2.add(lbEspb);
 		panTxt.add(panTxt1);
@@ -86,18 +92,22 @@ public class PassedSubjectsTab extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(passedSubjectsTable.getSelectedRow() >= 0){
-				   int result = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("sureUndoGr"), MainWindow.getInstance().getResourceBundle().getString("undoGr"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-				   if(result == JOptionPane.YES_OPTION){
-				     Subject s = DBPassedSubjects.getInstance().getRow(passedSubjectsTable.getSelectedRow());
-				     DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
-				     DBPassedSubjects.getInstance().delSubject(s.getid());
-				   }
-				 }
-				
-				
+					int result = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("sureUndoGr"), MainWindow.getInstance().getResourceBundle().getString("undoGr"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				    if(result == JOptionPane.YES_OPTION){
+				    	Subject s = DBPassedSubjects.getInstance().getRow(passedSubjectsTable.getSelectedRow());
+				    	DBRemainingSubjects.getInstance().addRemainingSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
+				    	DBPassedSubjects.getInstance().delSubject(s.getid());
+				    }
+				}
 			}
 			
 		});
+	}
+	
+	public void initComponents(){
+		btn.setText(MainWindow.getInstance().getResourceBundle().getString("cancGrd"));
+		lbAvg.setText(MainWindow.getInstance().getResourceBundle().getString("avgGr") + ": " + Float.toString(DBPassedSubjects.getInstance().getStudent().getavgGrade()));
+		lbEspb.setText(MainWindow.getInstance().getResourceBundle().getString("sum") + " ESPB: " + Integer.toString(DBPassedSubjects.getInstance().espbSum()));
 	}
 	
 	public void updateView(String action, int value){

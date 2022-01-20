@@ -58,7 +58,6 @@ public class AddChairmanDialog extends AddStudentDialog{
 			Desk d = DBDesks.getInstance().getRow(DesksTable.getInstance().getSelectedRow());
 			if(!profs.isEmpty()) {
 				for(Professor p: profs) {
-					System.out.println(p.getDepartmentCode() + " " + p.getName());
 					if(!p.getDepartmentCode().equals(d.getDepartmentCode())) {
 						profsForList.remove(p);
 					}
