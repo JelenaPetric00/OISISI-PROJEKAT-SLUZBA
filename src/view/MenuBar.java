@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
+import view.dialogs.AboutDialog;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
@@ -24,6 +25,7 @@ import view.dialogs.ChangeSubjectDialog;
 import view.dialogs.DeleteProfessorDialog;
 import view.dialogs.DeleteStudentDialog;
 import view.dialogs.DeleteSubjectDialog;
+import view.dialogs.HelpDialog;
 import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
@@ -313,6 +315,16 @@ public class MenuBar extends JMenuBar implements ActionListener{
 			}
 			
 		}
+        
+        if(e.getSource() == helpItem){
+        	HelpDialog helpDia = new HelpDialog(parent, MainWindow.getInstance().getResourceBundle().getString("mniHelp"), false);
+        	helpDia.setVisible(true);
+        }
+        
+        if(e.getSource() == aboutItem){
+        	AboutDialog aboutDia = new AboutDialog(parent, MainWindow.getInstance().getResourceBundle().getString("mniAbout"), false);
+        	aboutDia.setVisible(true);
+        }
 		
 	}
 	
@@ -333,6 +345,7 @@ public class MenuBar extends JMenuBar implements ActionListener{
 		openItem.setText(MainWindow.getInstance().getResourceBundle().getString("mnuOpen"));
 		fileMenu.setText(MainWindow.getInstance().getResourceBundle().getString("mnuFile"));
 		mnuAdministration.setText(MainWindow.getInstance().getResourceBundle().getString("mnuAdministration"));
+		
 		
 		
 	}
