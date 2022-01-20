@@ -6,10 +6,12 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 public class ProfessorsTable extends JTable{
 	
 	private static ProfessorsTable instance = null;
+	private TableRowSorter<AbstractTableModelProfessors> sorterP;
 	
 	public static ProfessorsTable getInstance(){
 		if(instance == null){
@@ -34,6 +36,14 @@ public class ProfessorsTable extends JTable{
 		
 		this.setAutoCreateRowSorter(true);
 		
+		sorterP = new TableRowSorter<AbstractTableModelProfessors>(new AbstractTableModelProfessors());
+		
+		this.setRowSorter(sorterP);
+		
+	}
+	
+	public TableRowSorter<AbstractTableModelProfessors> getSorter(){
+		return sorterP;
 	}
 	
 	//public Component preparedRenderer(TabbleCellRenderer renderer, int)

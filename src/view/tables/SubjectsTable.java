@@ -6,10 +6,12 @@ import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 
 public class SubjectsTable extends JTable{
 	
 	private static SubjectsTable instance = null;
+	private TableRowSorter<AbstractTableModelSubjects> sorterS;
 	
 	public static SubjectsTable getInstance(){
 		if(instance == null){
@@ -25,6 +27,13 @@ public class SubjectsTable extends JTable{
 		this.setModel(new AbstractTableModelSubjects());
 		
 		this.setAutoCreateRowSorter(true);
+		
+		sorterS = new TableRowSorter<AbstractTableModelSubjects>(new AbstractTableModelSubjects());
+		this.setRowSorter(sorterS);
+	}
+	
+	public TableRowSorter<AbstractTableModelSubjects> getSorter(){
+		return sorterS;
 	}
 
 	@Override
