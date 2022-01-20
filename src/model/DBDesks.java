@@ -130,14 +130,15 @@ public class DBDesks {
 //		this.desks.add(new Desk(departmentCode, departmentName, chairman, new ArrayList<Professor>()));
 //	}
 //	
-//	public void delDesk(String id) {
-//		for (Desk desk : desks) {		//equal
-//			if (desk.getDepartmentCode() == id) {
-//				desks.remove(desk);
-//				break;
-//			}
-//		}
-//	}
+	public void delDesk(String id) {
+		for (Desk desk : desks) {		//equal
+			if (desk.getDepartmentCode() == id) {
+				desks.remove(desk);
+				System.out.println(desk.getDepartmentName());
+				break;
+			}
+		}
+	}
 
 	//public void editDesk(String departmentCodeOld, String departmentCode, String departmentName, Professor chairman) {		//dodaj polja
 	public void editDesk(String departmentCode, Professor chairman) {

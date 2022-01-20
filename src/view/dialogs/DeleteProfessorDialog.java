@@ -13,8 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.ProfessorsCtl;
+import controller.SubjectsCtrl;
+import model.DBDesks;
+import model.DBProfessors;
+import model.Desk;
+import model.Professor;
 import view.MainWindow;
+import view.tables.DesksTable;
 import view.tables.ProfessorsTable;
+import view.tables.SubjectsTable;
+import view.tabs.DesksTab;
 
 public class DeleteProfessorDialog extends AddProfessorDialog{
 	
@@ -37,7 +45,21 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
+				for(Desk d: DBDesks.getInstance().getDesks()) {
+					if(d.getChairman().getIdNumber() != null) {
+						if(d.getChairman().getIdNumber().equals(DBProfessors.getInstance().getRow(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber())) {
+							DBDesks.getInstance().editDesk(d.getDepartmentCode(), new Professor());
+							DesksTable.getInstance().revalidate();
+							DesksTable.getInstance().validate();
+							DesksTable.getInstance().repaint();
+							DesksTab.getInstance(parent).updateView(null, -1);
+							break;
+						}
+					}
+				}
+				
+				SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(new Professor());
 				ProfessorsCtl.getInstance().delProfessor(ProfessorsTable.getInstance().getSelectedRow());
 				dispose();
 			}
@@ -48,7 +70,6 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				dispose();
 			}
 			
@@ -59,7 +80,6 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 		btns.add(noBtn, Component.CENTER_ALIGNMENT);
 		
 		Box box = Box.createVerticalBox();
-		//box.add(Box.createVerticalStrut(dim2.height));
 		box.add(deleteProf);
 		box.add(Box.createVerticalStrut(10));
 		box.add(btns);

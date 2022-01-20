@@ -95,8 +95,8 @@ public class SearchButtonAction extends AbstractAction{
 						break;
 					case 2:
 						List<RowFilter<Object, Object>> filtersP = new ArrayList<RowFilter<Object, Object>>(2);
-						filtersP.add(RowFilter.regexFilter("(?i).*" + words[0].trim() + ".*", 0));
-						filtersP.add(RowFilter.regexFilter("(?i).*" + words[1].trim() + ".*", 1));
+						filtersP.add(RowFilter.regexFilter("(?i).*" + words[0].trim() + ".*", 1));
+						filtersP.add(RowFilter.regexFilter("(?i).*" + words[1].trim() + ".*", 0));
 						RowFilter<Object, Object> rfp = RowFilter.andFilter(filtersP);
 						sorterP.setRowFilter(rfp);
 						break;

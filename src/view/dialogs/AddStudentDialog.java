@@ -159,11 +159,11 @@ public class AddStudentDialog extends JDialog{
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-ZćčšđžČĆŽŠĐÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		list.add(tfName);
 		JPanel panSurname = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblSurname = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("surnameTooltip"), MainWindow.getInstance().getResourceBundle().getString("surname*"), panSurname);		
-		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
+		DiaTFld tfSurname = new DiaTFld(panSurname, "[^[a-z A-ZćčšđžČĆŽŠĐÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š]]+", MainWindow.getInstance().getResourceBundle().getString("surname"));
 		list.add(tfSurname);
 		JPanel panBday = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblBDay = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("dateTooltip"), MainWindow.getInstance().getResourceBundle().getString("dateOfBirth*"), panBday);		
@@ -185,11 +185,11 @@ public class AddStudentDialog extends JDialog{
 		list.add(tfPhNum);
 		JPanel panMail = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblMail = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("emailTooltip"), MainWindow.getInstance().getResourceBundle().getString("email*"), panMail);		
-		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐ@.]]+", MainWindow.getInstance().getResourceBundle().getString("email"));
+		DiaTFld tfMail = new DiaTFld(panMail,"[^[a-z A-Z0-9ćčšđžČĆŽŠĐÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š@.]]+", MainWindow.getInstance().getResourceBundle().getString("email"));
 		list.add(tfMail);
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐ]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-Z0-9/\\-ćčšđžČĆŽŠĐÄ‡Ä�Å¡Ä‘Å¾ÄŒÄ†Å½Å Ä�Š]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		list.add(tfID);
 		JPanel panSYear = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblStartYear = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("envYearTooltip"), MainWindow.getInstance().getResourceBundle().getString("envYear*"), panSYear);		

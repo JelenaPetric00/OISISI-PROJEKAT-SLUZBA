@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -25,8 +24,6 @@ import controller.SubjectsCtrl;
 import model.DBProfessors;
 import model.Professor;
 import view.MainWindow;
-import view.dialogs.AddStudentDialog.DiaCbox;
-import view.dialogs.AddStudentDialog.DiaLabel;
 import view.tables.SubjectsTable;
 
 
@@ -64,13 +61,13 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		
 		JPanel panID = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblID = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("idTooltip"), MainWindow.getInstance().getResourceBundle().getString("id*"), panID);		
-		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-ZÅ Å¡Ä�Ä‘ÄŒÄ�Ä†Ä‡Å½Å¾0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
+		DiaTFld tfID = new DiaTFld(panID, "[^[a-z A-ZÅ Å¡Ä�Ä‘ÄŒÄ�Ä†Ä‡Å½Å¾ŠšĐđČčĆćŽž0-9/\\-]]+", MainWindow.getInstance().getResourceBundle().getString("id"));
 		//DiaLabel lblID1 = new DiaLabel("Id number is fixed", SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), panID);
 		tfID.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
 		
 		JPanel panName = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblName = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("nameTooltip"), MainWindow.getInstance().getResourceBundle().getString("name*"), panName);		
-		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9Å Å¡Ä�Ä‘ÄŒÄ�Ä†Ä‡Å½Å¾]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
+		DiaTFld tfName = new DiaTFld(panName, "[^[a-z A-Z0-9Å Å¡Ä�Ä‘ÄŒÄ�Ä†Ä‡Å½Å¾ŠšĐđČčĆćŽž]]+", MainWindow.getInstance().getResourceBundle().getString("name"));
 		tfName.setText(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getname());
 		list.add(tfName);
 		JPanel panSem = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -85,23 +82,6 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		DiaSpinner tfCurrYear = new DiaSpinner(years, panCYear);
 		tfCurrYear.setValue(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getyearOfStudy());
 
-		//izmeniti da bude klasa profesor
-
-/*		JPanel panProf = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		DiaLabel lblProf = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("profTooltip"), MainWindow.getInstance().getResourceBundle().getString("prof*"), panProf);
-
-		List<Professor> profs = DBProfessors.getInstance().getProfesssors();
-		List<String> where = new ArrayList<String>();
-		for(Professor prof: profs) {
-			where.add(prof.getName() + " " + prof.getSurname());
-		}
-		String[] simpleArray = new String[ where.size() ];
-		where.toArray( simpleArray );
-		DiaCbox tfProf = new DiaCbox(simpleArray, panProf);
-		Professor profa = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor();
-		String profas = profa.getName() + " " + profa.getSurname();
-		tfProf.setSelectedItem(profas);*/
-		
 		JPanel panESPB = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		DiaLabel lblESPB = new DiaLabel(MainWindow.getInstance().getResourceBundle().getString("espbTooltip"), "ESPB *", panESPB);
 		SpinnerModel espb = new SpinnerNumberModel(1, 1, 30, 1);
@@ -115,12 +95,11 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		txtProf.setName("txtProf");
 		txtProf.setEditable(false);
 		txtProf.setBackground(Color.WHITE);
-		//txtProf.setText("a");
+		Professor p = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor();
+		if(p.getName() != null){
+			txtProf.setText(p.getName() + " " + p.getSurname());
+		}
 		profPan.add(txtProf);
-		//list.add(txtProf);
-		//if(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor() == null){ txtProf.setText("nista");}
-		
-		
 		
 		DiaButton plusBtn = new DiaButton("+", profPan);
 		DiaButton minuBtn = new DiaButton("-", profPan);
@@ -129,9 +108,19 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				AddProfessorToSubjectDialog profToSubDiag = new AddProfessorToSubjectDialog(parent,MainWindow.getInstance().getResourceBundle().getString("chooseProf"), true);
 				profToSubDiag.keepup(txtProf);
+				
+				String[] strings1 = txtProf.getText().split(" ");
+				System.out.println(txtProf.getText());
+				for(Professor p: DBProfessors.getInstance().getProfesssors()) {
+					if(strings1[0].equals(p.getName()) && strings1[1].equals(p.getSurname())) {
+						System.out.println("EJSA");
+						SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(p);
+						break;
+					}
+				}
+				
 				profToSubDiag.setVisible(true);
 				
 			}
@@ -209,12 +198,12 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		box.add(panName);
 		box.add(panSem);
 		box.add(panCYear);
-		//box.add(panProf);
 		box.add(panESPB);
 		box.add(profPan);
 		box.add(Box.createRigidArea(dim));
 		box.add(panBtn);
 		panelInfo.add(box, BorderLayout.NORTH);
 	}
-
+	
 }
+

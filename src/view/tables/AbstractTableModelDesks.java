@@ -3,6 +3,7 @@ package view.tables;
 import javax.swing.table.AbstractTableModel;
 
 import model.DBDesks;
+import model.Professor;
 
 public class AbstractTableModelDesks extends AbstractTableModel {
 	

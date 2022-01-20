@@ -281,4 +281,21 @@ public class DBPassedSubjects {
 		PassedSubjectsTab.getInstance(MainWindow.getInstance()).initComponents();
 		th.repaint(); 
 	}
+
+	public Map<Student, List<Grade>> getMapStudGrades() {
+		return mapStudGrades;
+	}
+
+	public void setMapStudGrades(Map<Student, List<Grade>> mapStudGrades) {
+		this.mapStudGrades = mapStudGrades;
+	}
+
+	public Map<Student, List<Subject>> getMapStudPassSub() {
+		return mapStudPassSub;
+	}
+
+	public void setMapStudPassSub(Map<Student, List<Subject>> mapStudPassSub) {
+		this.mapStudPassSub = mapStudPassSub;
+	}
+	
 }
