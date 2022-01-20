@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import model.DBDesks;
+import model.DBPassedSubjects;
 import model.DBProfessors;
 import model.DBStudents;
 import model.DBSubjects;
@@ -56,7 +57,7 @@ public class MainWindow extends JFrame{
 		
 		DBProfessors.getInstance();
 		DBDesks.getInstance().initDeskChman();
-		
+		DBPassedSubjects.getInstance();
 		menu = new MenuBar(this);
 		setJMenuBar(menu);
 	

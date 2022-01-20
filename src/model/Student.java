@@ -135,6 +135,11 @@ public class Student {
 	}
 
 	public float getavgGrade() {
+		float a = 0;
+		for(Grade g: gradesPassedSubjects) {
+			a = (a + g.getgrade());
+		}
+		avgGrade = (float)Math.round((float)a/gradesPassedSubjects.size()*100)/100;
 		return avgGrade;
 	}
 
