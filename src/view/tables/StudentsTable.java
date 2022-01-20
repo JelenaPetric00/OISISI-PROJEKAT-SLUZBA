@@ -12,8 +12,8 @@ import javax.swing.table.TableRowSorter;
 public class StudentsTable extends JTable {
 	
 	private static StudentsTable instance = null;
-	TableRowSorter<AbstractTableModelStudents> sorter;
-	
+	private TableRowSorter<AbstractTableModelStudents> sorter;
+
 	public static StudentsTable getInstance() {
 		if(instance == null)
 			instance = new StudentsTable();
