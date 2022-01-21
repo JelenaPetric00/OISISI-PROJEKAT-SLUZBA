@@ -13,15 +13,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.ProfessorsCtl;
-import controller.SubjectsCtrl;
 import model.DBDesks;
 import model.DBProfessors;
+import model.DBSubjects;
+import model.DBTeachesSubject;
 import model.Desk;
 import model.Professor;
+import model.Subject;
 import view.MainWindow;
 import view.tables.DesksTable;
 import view.tables.ProfessorsTable;
-import view.tables.SubjectsTable;
 import view.tabs.DesksTab;
 
 @SuppressWarnings("serial")
@@ -59,9 +60,18 @@ public class DeleteProfessorDialog extends AddProfessorDialog{
 						}
 					}
 				}
-				
-				SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(new Professor());
+				for(Subject subj: DBSubjects.getInstance().getSubjects()) {
+					if(subj.getprofessor().getIdNumber() != null) {
+						if(subj.getprofessor().getIdNumber().equals(DBProfessors.getInstance().getRow(ProfessorsTable.getInstance().getSelectedRow()).getIdNumber())) {
+							subj.setprofessor(new Professor());
+							//DBTeachesSubject.getInstance().delSubject(subj.getid());
+							break;
+						}
+					}
+				}
+				//SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(new Professor());
 				ProfessorsCtl.getInstance().delProfessor(ProfessorsTable.getInstance().getSelectedRow());
+				
 				dispose();
 			}
 			
