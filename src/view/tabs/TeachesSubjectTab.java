@@ -67,7 +67,7 @@ public class TeachesSubjectTab extends JPanel{
 					}
 				}
 				if(!subjectsForList.isEmpty()) {
-					AddSubjectToProfessorDialog studentsubjectDia = new AddSubjectToProfessorDialog(MainWindow.getInstance(), "Add subject to student", true);
+					AddSubjectToProfessorDialog studentsubjectDia = new AddSubjectToProfessorDialog(MainWindow.getInstance(), MainWindow.getInstance().getResourceBundle().getString("addSubToProf"), true);
 					studentsubjectDia.setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(parent, MainWindow.getInstance().getResourceBundle().getString("noSub"), MainWindow.getInstance().getResourceBundle().getString("noSub"), JOptionPane.ERROR_MESSAGE);

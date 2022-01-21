@@ -163,7 +163,7 @@ public class DBDesks {
 		tc.setHeaderValue(MainWindow.getInstance().getResourceBundle().getString("chmanId"));
 		
 		JButton btn = DesksTab.getInstance(null).getBtnAdd();
-		btn.setText(MainWindow.getInstance().getResourceBundle().getString("add"));
+		btn.setText(MainWindow.getInstance().getResourceBundle().getString("addChairman"));
 		DesksTab.getInstance(null).setBtnAdd(btn);
 		th.repaint(); 
 	}

@@ -47,7 +47,7 @@ public class DesksTab extends JPanel {
 		
 		JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		
-		btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
+		btnAdd = new JButton(MainWindow.getInstance().getResourceBundle().getString("addChairman"));
 		btnAdd.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

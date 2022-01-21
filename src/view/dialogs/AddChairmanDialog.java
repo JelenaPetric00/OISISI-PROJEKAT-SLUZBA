@@ -61,6 +61,15 @@ public class AddChairmanDialog extends AddStudentDialog{
 			if(!profs.isEmpty()) {
 				for(Professor p: profs) {
 					if(!p.getDepartmentCode().equals(d.getDepartmentCode())) {
+						System.out.println(p.getDepartmentCode());
+						profsForList.remove(p);
+					}
+					if(p.getYearsOfTrail() <= 5) {
+						System.out.println(p.getYearsOfTrail());
+						profsForList.remove(p);
+					}
+					if(!p.getTitle().equals("REDOVNI_PROFESOR") && !p.getTitle().equals("VANREDNI_PROFESOR")) {
+						System.out.println(p.getTitle());
 						profsForList.remove(p);
 					}
 					if(d.getChairman().getIdNumber() != null) {

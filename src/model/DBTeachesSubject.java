@@ -109,7 +109,7 @@ private static DBTeachesSubject instance = null;
 		case 2:
 			return Byte.toString(subject.getyearOfStudy());
 		case 3:
-			return subject.getsemester().toString();
+			return SemestertoString(subject.getsemester());
 		default:
 			return null;
 		}
@@ -156,4 +156,10 @@ private static DBTeachesSubject instance = null;
 		this.mapTeachSubjs = mapTeachSubjs;
 	}
 	
+	public String SemestertoString(Semester mof) {
+		String s = "";
+		if(mof == Semester.SUMMER) {s = MainWindow.getInstance().getResourceBundle().getString("summer");}
+		if(mof == Semester.WINTER) {s = MainWindow.getInstance().getResourceBundle().getString("winter");}
+		return s;
+    }
 }
