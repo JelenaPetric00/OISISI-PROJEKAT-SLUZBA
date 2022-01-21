@@ -165,9 +165,9 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 								//SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(null);//addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()), s.getEspb());
 								for(Subject subj: DBSubjects.getInstance().getSubjects()) {
 									if(subj.getid().equals(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid())) {
-										System.out.println(subj.getprofessor().getSurname());
+										//System.out.println(subj.getprofessor().getSurname());
 										subj.setprofessor(new Professor());
-										System.out.println("jesam");
+										//System.out.println("jesam");
 										break;
 									}
 								}
