@@ -9,6 +9,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
+@SuppressWarnings("serial")
 public class StudentsTable extends JTable {
 	
 	private static StudentsTable instance = null;

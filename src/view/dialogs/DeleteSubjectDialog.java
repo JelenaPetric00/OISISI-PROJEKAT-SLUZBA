@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
 import model.DBPassedSubjects;
 import model.DBProfessors;
@@ -23,14 +21,13 @@ import model.DBRemainingSubjects;
 import model.DBStudents;
 import model.DBSubjects;
 import model.DBTeachesSubject;
-import model.Grade;
 import model.Professor;
 import model.Student;
 import model.Subject;
 import view.MainWindow;
-import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class DeleteSubjectDialog extends AddSubjectDialog{
 	
 	public DeleteSubjectDialog(Frame parent, String title, boolean modal){

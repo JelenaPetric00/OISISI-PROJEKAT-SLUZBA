@@ -18,6 +18,7 @@ import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class EditButtonAction extends AbstractAction{
 	
 	private JFrame parent = null;

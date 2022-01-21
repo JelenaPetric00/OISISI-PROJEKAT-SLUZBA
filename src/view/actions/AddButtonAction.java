@@ -9,13 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import controller.StudentsCtrl;
 import view.MainWindow;
 import view.TabbedPane;
 import view.dialogs.AddProfessorDialog;
 import view.dialogs.AddStudentDialog;
 import view.dialogs.AddSubjectDialog;
 
+@SuppressWarnings("serial")
 public class AddButtonAction extends AbstractAction{
 	
 	private JFrame parent = null;

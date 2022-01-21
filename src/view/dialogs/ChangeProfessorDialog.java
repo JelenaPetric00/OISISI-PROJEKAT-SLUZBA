@@ -29,10 +29,10 @@ import controller.ProfessorsCtl;
 import model.Address;
 import model.DBTeachesSubject;
 import view.MainWindow;
-import view.dialogs.AddProfessorDialog.DialogTxtField;
 import view.tables.ProfessorsTable;
 import view.tabs.TeachesSubjectTab;
 
+@SuppressWarnings("serial")
 public class ChangeProfessorDialog extends AddProfessorDialog{
 	
 	public ChangeProfessorDialog(Frame parent, String title, boolean modal){

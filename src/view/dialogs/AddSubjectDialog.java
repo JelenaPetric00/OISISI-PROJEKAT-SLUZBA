@@ -17,19 +17,14 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import controller.StudentsCtrl;
 import controller.SubjectsCtrl;
 import model.DBProfessors;
-import model.DBSubjects;
 import model.Professor;
-import model.Student.MethodOfFinancing;
 import model.Subject.Semester;
 import view.MainWindow;
-import view.dialogs.AddStudentDialog.DiaButton;
-import view.dialogs.AddStudentDialog.DiaLabel;
-import view.dialogs.AddStudentDialog.DiaTFld;
 
 
+@SuppressWarnings("serial")
 public class AddSubjectDialog extends AddStudentDialog {
 
 	
@@ -38,6 +33,7 @@ public class AddSubjectDialog extends AddStudentDialog {
 	 *AddSubjectDialog dialog = new AddStudentDialog(parent, "Adding subject", true);	//Modalni jer je modal true
 	 *dialog.setVisible(true);
 	*/
+	@SuppressWarnings("unused")
 	public AddSubjectDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		

@@ -27,8 +27,10 @@ import view.MainWindow;
 import view.tables.DesksTable;
 import view.tabs.DesksTab;
 
+@SuppressWarnings("serial")
 public class AddChairmanDialog extends AddStudentDialog{
 		
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		public AddChairmanDialog(Frame parent, String title, boolean modal) {
 			super(parent, title, modal);
 			

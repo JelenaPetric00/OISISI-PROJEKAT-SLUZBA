@@ -1,11 +1,8 @@
 package controller;
 
-import model.DBStudents;
 import model.DBSubjects;
 import model.Professor;
-import model.Student;
 import model.Subject;
-import model.Student.MethodOfFinancing;
 import model.Subject.Semester;
 import view.tabs.SubjectsTab;
 

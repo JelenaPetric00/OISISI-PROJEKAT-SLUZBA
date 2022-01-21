@@ -6,10 +6,7 @@ import java.awt.event.FocusListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
-import model.Student;
 
 public class MyFocusListener implements FocusListener{
 	

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import model.Subject.Semester;
 import view.MainWindow;
 import view.tables.RemainingSubjectsTable;
 import view.tables.StudentsTable;
-import view.tables.SubjectsTable;
 import view.tabs.RemainingSubjectsTab;
 
 public class DBRemainingSubjects {

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.RowFilter;
@@ -16,9 +15,6 @@ import javax.swing.table.TableRowSorter;
 
 import view.MainWindow;
 import view.TabbedPane;
-import view.dialogs.AddProfessorDialog;
-import view.dialogs.AddStudentDialog;
-import view.dialogs.AddSubjectDialog;
 import view.tables.AbstractTableModelProfessors;
 import view.tables.AbstractTableModelStudents;
 import view.tables.AbstractTableModelSubjects;
@@ -26,8 +22,10 @@ import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class SearchButtonAction extends AbstractAction{
 	
+	@SuppressWarnings("unused")
 	private JFrame parent = null;
 	private JTextField txtFld;
 	

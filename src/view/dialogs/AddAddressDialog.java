@@ -19,6 +19,7 @@ import model.Address;
 import view.MainWindow;
 import view.dialogs.AddProfessorDialog.DialogTxtField;
 
+@SuppressWarnings("serial")
 public class AddAddressDialog extends AddStudentDialog{
 
 	@SuppressWarnings("unused")
@@ -113,6 +114,7 @@ public class AddAddressDialog extends AddStudentDialog{
 		add(box, BorderLayout.NORTH);
 	}
 	
+	@SuppressWarnings("unused")
 	public AddAddressDialog(Frame parent, String title, boolean modal, Address address, List<DialogTxtField> l, JButton btn, Address adr) {
 		super(parent, title, modal);
 		

@@ -17,6 +17,7 @@ import model.DBProfessors;
 import model.DBStudents;
 import model.DBSubjects;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame{
 
 	private static MainWindow instance = null;

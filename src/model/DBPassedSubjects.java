@@ -27,7 +27,6 @@ import view.MainWindow;
 import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
 import view.tabs.PassedSubjectsTab;
-import view.tabs.StudentsTab;
 
 public class DBPassedSubjects {
 	
@@ -93,6 +92,7 @@ public class DBPassedSubjects {
 					ZoneId defaultZoneId = ZoneId.systemDefault();
 					Instant instant = date.toInstant();
 					LocalDate localDate = instant.atZone(defaultZoneId).toLocalDate();
+					@SuppressWarnings("unused")
 					Address adr = new Address();
 					this.student = DBStudents.getInstance().getStudents().get(Integer.parseInt(strings1[0]) - 1);
 					this.grades = student.getgradesPassedSubjects();

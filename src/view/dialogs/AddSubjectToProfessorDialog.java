@@ -26,8 +26,10 @@ import model.Subject;
 import view.MainWindow;
 import view.tables.ProfessorsTable;
 
+@SuppressWarnings("serial")
 public class AddSubjectToProfessorDialog extends AddStudentDialog{
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AddSubjectToProfessorDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		
@@ -104,6 +106,7 @@ public class AddSubjectToProfessorDialog extends AddStudentDialog{
 				int i = list.getSelectedIndex();
 				Subject s = subjectsForList.get(i);
 
+				@SuppressWarnings("unused")
 				int[] idxs = list.getSelectedIndices();
 				
 //				for(int i = 0; i < idxs.length; i++) {

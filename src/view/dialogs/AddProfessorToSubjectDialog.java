@@ -23,12 +23,12 @@ import javax.swing.event.ListSelectionListener;
 import controller.SubjectsCtrl;
 import model.DBProfessors;
 import model.DBSubjects;
-import model.DBTeachesSubject;
 import model.Professor;
 import model.Subject;
 import view.MainWindow;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class AddProfessorToSubjectDialog extends AddStudentDialog{
 	
 	private JTextField watcher;
@@ -78,6 +78,7 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 		
 		String[] modestArray = new String[listLook.size()];
 		listLook.toArray(modestArray);
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		JList myList = new JList(modestArray);
 		myList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		myList.setVisibleRowCount(-1);
@@ -114,6 +115,7 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 				//txtProf.setText("b");
 				watcher.setText((String) myList.getSelectedValue());
 				//SubjectsCtrl.getInstance().addProfOnSubj(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), p);
+				@SuppressWarnings("unused")
 				Subject s = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow());
 				//System.out.println(s.getprofessor().getName());
 				//DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());

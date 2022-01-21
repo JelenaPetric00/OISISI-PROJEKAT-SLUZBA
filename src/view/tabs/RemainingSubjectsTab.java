@@ -29,6 +29,7 @@ import view.tables.AbstractTableModelRemainingSubjects;
 import view.tables.RemainingSubjectsTable;
 import view.tables.StudentsTable;
 
+@SuppressWarnings("serial")
 public class RemainingSubjectsTab extends JPanel{
 	
 	private RemainingSubjectsTable remainingSubjectsTable;
@@ -131,6 +132,7 @@ public class RemainingSubjectsTab extends JPanel{
 		
 		btnPassed.addActionListener(new ActionListener(){
 
+			@SuppressWarnings("static-access")
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(remainingSubjectsTable.getInstance().getSelectedRow() >= 0){

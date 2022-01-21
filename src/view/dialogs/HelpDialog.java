@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class HelpDialog extends JDialog{
 	
 	public HelpDialog(Frame parent, String title, boolean modal){

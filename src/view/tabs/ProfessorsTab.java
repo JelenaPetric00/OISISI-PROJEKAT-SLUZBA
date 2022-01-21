@@ -12,6 +12,7 @@ import view.tables.AbstractTableModelProfessors;
 import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
 
+@SuppressWarnings("serial")
 public class ProfessorsTab extends JPanel{
 	
 	private ProfessorsTable professorsTable;

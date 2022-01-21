@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("serial")
 public class RemainingSubjectsTable extends JTable{
 	
 	private static RemainingSubjectsTable instance = null;
