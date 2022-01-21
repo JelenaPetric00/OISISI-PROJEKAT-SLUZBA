@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -17,12 +16,11 @@ import javax.swing.event.DocumentListener;
 
 import model.Address;
 import view.MainWindow;
-import view.dialogs.AddStudentDialog.DiaButton;
-import view.dialogs.AddStudentDialog.DiaLabel;
-import view.dialogs.AddStudentDialog.DiaTFld;
 
+@SuppressWarnings("serial")
 public class ChangeAddressDialog extends AddStudentDialog{
 
+	@SuppressWarnings("unused")
 	public ChangeAddressDialog(Frame parent, String title, boolean modal, Address address) {
 		super(parent, title, modal);
 		

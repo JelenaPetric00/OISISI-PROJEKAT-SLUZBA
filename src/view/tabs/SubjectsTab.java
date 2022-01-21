@@ -12,6 +12,7 @@ import view.tables.AbstractTableModelSubjects;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class SubjectsTab extends JPanel{
 	private SubjectsTable subjectsTable;
 	

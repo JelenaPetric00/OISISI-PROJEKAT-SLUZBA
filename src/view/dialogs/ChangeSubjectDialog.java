@@ -20,7 +20,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import controller.ProfessorsCtl;
 import controller.SubjectsCtrl;
 import model.DBProfessors;
 import model.DBSubjects;
@@ -28,10 +27,10 @@ import model.DBTeachesSubject;
 import model.Professor;
 import model.Subject;
 import view.MainWindow;
-import view.tables.ProfessorsTable;
 import view.tables.SubjectsTable;
 
 
+@SuppressWarnings("serial")
 public class ChangeSubjectDialog extends AddSubjectDialog{
 
 	/*
@@ -42,6 +41,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 	private JTextField txtProf;
 	private DiaButton minuBtn;
 	
+	@SuppressWarnings("unused")
 	public ChangeSubjectDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		Dimension dimp = new Dimension(100,25);
@@ -161,7 +161,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 						if(strings1[0].equals(p.getName()) && strings1[1].equals(p.getSurname())) {
 							int answerp = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("messConfirm"), MainWindow.getInstance().getResourceBundle().getString("rmProf"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							if(answerp == JOptionPane.YES_OPTION){
-								//DBTeachesSubject.getInstance().delSubject(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
+								DBTeachesSubject.getInstance().delSubject(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
 								//SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(null);//addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()), s.getEspb());
 								for(Subject subj: DBSubjects.getInstance().getSubjects()) {
 									if(subj.getid().equals(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid())) {

@@ -4,6 +4,7 @@ import javax.swing.table.AbstractTableModel;
 
 import model.DBProfessors;
 
+@SuppressWarnings("serial")
 public class AbstractTableModelProfessors extends AbstractTableModel{
 	
 	public AbstractTableModelProfessors(){}

@@ -27,6 +27,7 @@ import view.tables.AbstractTableModelTeachesSubject;
 import view.tables.StudentsTable;
 import view.tables.TeachesSubjectTable;
 
+@SuppressWarnings("serial")
 public class TeachesSubjectTab extends JPanel{
 	
 	private TeachesSubjectTable teachesSubjectTable;

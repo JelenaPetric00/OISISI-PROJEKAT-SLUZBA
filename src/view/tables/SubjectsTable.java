@@ -8,6 +8,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
 
+@SuppressWarnings("serial")
 public class SubjectsTable extends JTable{
 	
 	private static SubjectsTable instance = null;

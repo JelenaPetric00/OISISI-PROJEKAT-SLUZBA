@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,21 +13,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
-import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
-import javax.swing.table.TableRowSorter;
 
 import view.actions.AddButtonAction;
 import view.actions.DeleteButtonAction;
 import view.actions.EditButtonAction;
 import view.actions.SearchButtonAction;
-import view.tables.AbstractTableModelStudents;
-import view.tables.StudentsTable;
 
+@SuppressWarnings("serial")
 public class Toolbar extends JToolBar{
 	
 	static boolean start = false;
 	static boolean on = false;	//toolbar menu state
+	@SuppressWarnings("unused")
 	private JFrame parent = null;
 	JButton btnSrc;
 	ToolbarButton btnMen;

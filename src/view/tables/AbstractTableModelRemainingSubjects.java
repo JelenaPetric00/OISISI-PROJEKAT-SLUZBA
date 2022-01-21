@@ -4,6 +4,7 @@ import javax.swing.table.AbstractTableModel;
 
 import model.DBRemainingSubjects;
 
+@SuppressWarnings("serial")
 public class AbstractTableModelRemainingSubjects extends AbstractTableModel{
 
 	@Override

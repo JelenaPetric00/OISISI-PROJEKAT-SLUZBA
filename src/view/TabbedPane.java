@@ -12,6 +12,7 @@ import view.tabs.ProfessorsTab;
 import view.tabs.StudentsTab;
 import view.tabs.SubjectsTab;
 
+@SuppressWarnings("serial")
 public class TabbedPane extends JTabbedPane {
 	
 	private StatusBar observer;

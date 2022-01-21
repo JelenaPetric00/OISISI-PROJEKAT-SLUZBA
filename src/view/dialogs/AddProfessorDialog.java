@@ -36,6 +36,7 @@ import model.Address;
 import view.MainWindow;
 import view.listeners.ProfFocusListener;
 
+@SuppressWarnings("serial")
 public class AddProfessorDialog extends JDialog{
 	
 	Dimension dim2 = new Dimension(180,25);
@@ -52,12 +53,14 @@ public class AddProfessorDialog extends JDialog{
 		}
 	}
 	
+	@SuppressWarnings({ "unchecked", "static-access" })
 	public AddProfessorDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
 		setSize(430, 500);
 		setLocationRelativeTo(parent);
 		
+		@SuppressWarnings("rawtypes")
 		List<DialogTxtField> fields = new ArrayList();
 		
 		JPanel profNameP = new JPanel(new FlowLayout(FlowLayout.LEFT));

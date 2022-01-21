@@ -1,7 +1,6 @@
 package controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 //import javax.security.auth.Subject;
 
@@ -67,6 +66,7 @@ public class ProfessorsCtl {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	public void editProfessor(int rowSelectedIndex, String name, String surname, String title, String emailP, LocalDate birthD, Address addressR, String phoneP, Address addressO,String idN, short yearsP){
 		if(rowSelectedIndex < 0){
 			return;

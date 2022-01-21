@@ -24,6 +24,7 @@ import view.tables.ProfessorsTable;
 import view.tables.SubjectsTable;
 import view.tabs.DesksTab;
 
+@SuppressWarnings("serial")
 public class DeleteProfessorDialog extends AddProfessorDialog{
 	
 	public DeleteProfessorDialog(Frame parent, String title, boolean modal){

@@ -30,6 +30,7 @@ import view.tables.ProfessorsTable;
 import view.tables.StudentsTable;
 import view.tables.SubjectsTable;
 
+@SuppressWarnings("serial")
 public class MenuBar extends JMenuBar implements ActionListener{
 	
 	private JFrame parent = null;

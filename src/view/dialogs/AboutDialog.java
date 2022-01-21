@@ -6,6 +6,7 @@ import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
 
+@SuppressWarnings("serial")
 public class AboutDialog extends JDialog{
 	
 	public AboutDialog(Frame parent, String title, boolean modal){

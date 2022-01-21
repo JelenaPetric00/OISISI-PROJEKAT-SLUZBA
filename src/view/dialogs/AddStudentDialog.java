@@ -42,6 +42,7 @@ import view.listeners.MyDocumentListener;
 import view.listeners.MyFocusListener;
 
 
+@SuppressWarnings("serial")
 public class AddStudentDialog extends JDialog{
 
 	Dimension dim = new Dimension(180, 25);
@@ -106,11 +107,13 @@ public class AddStudentDialog extends JDialog{
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public class DiaCbox extends JComboBox {
 		
 		String text[];
 		JPanel panel;
 		
+		@SuppressWarnings("unchecked")
 		public DiaCbox(String text[], JPanel panel) {
 			super(text);
 			setPreferredSize(dim);

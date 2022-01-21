@@ -1,14 +1,12 @@
 package view.dialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.StudentsCtrl;
@@ -16,6 +14,7 @@ import view.MainWindow;
 import view.tables.StudentsTable;
 
 
+@SuppressWarnings("serial")
 public class DeleteStudentDialog extends AddStudentDialog{
 
 	/*
@@ -23,6 +22,7 @@ public class DeleteStudentDialog extends AddStudentDialog{
 	 *DeleteStudentDialog dialog = new DeleteStudentDialog(parent, "Delete student", true);	//Modalni jer je modal true
 	 *dialog.setVisible(true);
 	*/
+	@SuppressWarnings("unused")
 	public DeleteStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		

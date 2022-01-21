@@ -23,8 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import controller.StudentsCtrl;
 import model.Address;
@@ -36,6 +34,7 @@ import view.tables.StudentsTable;
 import view.tabs.PassedSubjectsTab;
 import view.tabs.RemainingSubjectsTab;
 
+@SuppressWarnings("serial")
 public class ChangeStudentDialog extends AddStudentDialog{
 	
 	/*
@@ -43,6 +42,7 @@ public class ChangeStudentDialog extends AddStudentDialog{
 	 *ChangeStudentDialog dialog = new ChangeStudentDialog(parent, "Change student", true);	//Modalni jer je modal true
  	*dialog.setVisible(true);
 	*/
+	@SuppressWarnings("unused")
 	public ChangeStudentDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
 

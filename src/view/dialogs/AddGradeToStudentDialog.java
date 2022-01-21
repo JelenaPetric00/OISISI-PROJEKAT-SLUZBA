@@ -30,10 +30,12 @@ import model.Subject;
 import view.MainWindow;
 import view.tables.RemainingSubjectsTable;
 
+@SuppressWarnings("serial")
 public class AddGradeToStudentDialog extends AddStudentDialog{
 	
 	Dimension dimg = new Dimension(100,25);
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AddGradeToStudentDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		setSize(300,250);

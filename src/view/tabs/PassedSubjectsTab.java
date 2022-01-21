@@ -25,6 +25,7 @@ import view.tables.AbstractTableModelPassedSubjects;
 import view.tables.PassedSubjectsTable;
 import view.tables.StudentsTable;
 
+@SuppressWarnings("serial")
 public class PassedSubjectsTab extends JPanel{
 	private PassedSubjectsTable passedSubjectsTable;
 	private static PassedSubjectsTab instance;

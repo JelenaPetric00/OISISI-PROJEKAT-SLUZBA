@@ -19,6 +19,7 @@ import view.dialogs.AddChairmanDialog;
 import view.tables.AbstractTableModelDesks;
 import view.tables.DesksTable;
 
+@SuppressWarnings("serial")
 public class DesksTab extends JPanel {
 	private DesksTable desksTable;
 	

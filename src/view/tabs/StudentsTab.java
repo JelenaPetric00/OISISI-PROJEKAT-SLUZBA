@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import view.tables.AbstractTableModelStudents;
 import view.tables.StudentsTable;
 
+@SuppressWarnings("serial")
 public class StudentsTab extends JPanel {
 	private StudentsTable studentsTable;
 	
