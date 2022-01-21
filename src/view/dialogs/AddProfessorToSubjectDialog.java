@@ -22,9 +22,11 @@ import javax.swing.event.ListSelectionListener;
 
 import controller.SubjectsCtrl;
 import model.DBProfessors;
+import model.DBSubjects;
 import model.DBTeachesSubject;
 import model.Professor;
 import model.Subject;
+import view.MainWindow;
 import view.tables.SubjectsTable;
 
 public class AddProfessorToSubjectDialog extends AddStudentDialog{
@@ -48,10 +50,10 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 		
 		setLayout(new BorderLayout());
 		
-		JButton addBtn = new JButton("Add");
+		JButton addBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("add"));
 		addBtn.setEnabled(false);
 		
-		JButton cancelBtn = new JButton("Cancel");
+		JButton cancelBtn = new JButton(MainWindow.getInstance().getResourceBundle().getString("cancelOption"));
 		cancelBtn.addActionListener(new ActionListener(){
 
 			@Override
@@ -102,7 +104,11 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 			public void actionPerformed(ActionEvent e) {
 				int i = myList.getSelectedIndex();
 				SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(chooseList.get(i));
-				
+				for(Subject s: DBSubjects.getInstance().getSubjects()) {
+					if(s.getid().equals(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid())){
+						s.setprofessor(chooseList.get(i));
+					}
+				}
 				//System.out.println(p.getName());
 				//txtProf.setText((String) myList.getSelectedValue());
 				//txtProf.setText("b");

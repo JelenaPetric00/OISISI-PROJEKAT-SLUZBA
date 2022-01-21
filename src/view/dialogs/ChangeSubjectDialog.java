@@ -20,10 +20,15 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import controller.ProfessorsCtl;
 import controller.SubjectsCtrl;
 import model.DBProfessors;
+import model.DBSubjects;
+import model.DBTeachesSubject;
 import model.Professor;
+import model.Subject;
 import view.MainWindow;
+import view.tables.ProfessorsTable;
 import view.tables.SubjectsTable;
 
 
@@ -156,7 +161,16 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 						if(strings1[0].equals(p.getName()) && strings1[1].equals(p.getSurname())) {
 							int answerp = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("messConfirm"), MainWindow.getInstance().getResourceBundle().getString("rmProf"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							if(answerp == JOptionPane.YES_OPTION){
-								SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(null);
+								//DBTeachesSubject.getInstance().delSubject(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid());
+								//SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(null);//addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()), s.getEspb());
+								for(Subject subj: DBSubjects.getInstance().getSubjects()) {
+									if(subj.getid().equals(SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid())) {
+										System.out.println(subj.getprofessor().getSurname());
+										subj.setprofessor(new Professor());
+										System.out.println("jesam");
+										break;
+									}
+								}
 								txtProf.setText(" ");
 								plusBtn.setEnabled(true);
 								minuBtn.setEnabled(false);

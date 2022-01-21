@@ -19,10 +19,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import controller.ProfessorsCtl;
 import model.DBSubjects;
 import model.DBTeachesSubject;
 import model.Subject;
 import view.MainWindow;
+import view.tables.ProfessorsTable;
 
 public class AddSubjectToProfessorDialog extends AddStudentDialog{
 	
@@ -107,7 +109,13 @@ public class AddSubjectToProfessorDialog extends AddStudentDialog{
 //				for(int i = 0; i < idxs.length; i++) {
 //					Subject s = subjectsForList.get(i);
 				//System.out.println(s.getid() + " " + s.getname());
-					DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
+					DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()), s.getEspb());
+					for(Subject subj: DBSubjects.getInstance().getSubjects()) {
+						if(subj.getid().equals(s.getid())) {
+							subj.setprofessor(ProfessorsCtl.getInstance().getProfessorAtIdx(ProfessorsTable.getInstance().getSelectedRow()));
+							break;
+						}
+					}
 //				}
 						
 				dispose();

@@ -61,8 +61,24 @@ public class StudentsTable extends JTable {
 		    }
 		};
 		
+
+	    Comparator<String> comparator1 = new Comparator<String>() {
+			@Override
+			public int compare(String s1, String s2) {
+				if(s1.equals("  /")) {
+					s1 = "0";
+				}
+				if(s2.equals("  /")) {
+					s2 = "0";
+				}
+				return Float.compare(Float.parseFloat(s1), Float.parseFloat(s2));
+			}
+				
+		};
+		
 		sorter = new TableRowSorter<AbstractTableModelStudents>(new AbstractTableModelStudents());
 		sorter.setComparator(0, comparator);
+		sorter.setComparator(5, comparator1);
 		this.setRowSorter(sorter);
 	}
 
