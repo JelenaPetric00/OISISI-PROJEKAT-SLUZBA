@@ -35,6 +35,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 	 *dialog.setVisible(true);
 	*/
 	private JTextField txtProf;
+	private DiaButton minuBtn;
 	
 	public ChangeSubjectDialog(Frame parent, String title, boolean modal) {
 		super(parent, title, modal);
@@ -95,14 +96,29 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 		txtProf.setName("txtProf");
 		txtProf.setEditable(false);
 		txtProf.setBackground(Color.WHITE);
-		Professor p = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor();
-		if(p.getName() != null){
-			txtProf.setText(p.getName() + " " + p.getSurname());
-		}
 		profPan.add(txtProf);
 		
 		DiaButton plusBtn = new DiaButton("+", profPan);
-		DiaButton minuBtn = new DiaButton("-", profPan);
+		minuBtn = new DiaButton("-", profPan);
+		
+		
+		Professor p = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getprofessor();
+		if(p == null){
+			txtProf.setText(" ");
+			minuBtn.setEnabled(false);
+		}else {
+		 if(p.getName() != null){
+			txtProf.setText(p.getName() + " " + p.getSurname());
+			plusBtn.setEnabled(false);
+		 }else{
+			minuBtn.setEnabled(false);
+		}
+		//profPan.add(txtProf);
+		}
+		
+		
+		//DiaButton plusBtn = new DiaButton("+", profPan);
+		//DiaButton minuBtn = new DiaButton("-", profPan);
 		
 		plusBtn.addActionListener(new ActionListener(){
 
@@ -110,8 +126,9 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 			public void actionPerformed(ActionEvent e) {
 				AddProfessorToSubjectDialog profToSubDiag = new AddProfessorToSubjectDialog(parent,MainWindow.getInstance().getResourceBundle().getString("chooseProf"), true);
 				profToSubDiag.keepup(txtProf);
+				profToSubDiag.stateObs(minuBtn, plusBtn);
 				
-				String[] strings1 = txtProf.getText().split(" ");
+				/*String[] strings1 = txtProf.getText().split(" ");
 				System.out.println(txtProf.getText());
 				for(Professor p: DBProfessors.getInstance().getProfesssors()) {
 					if(strings1[0].equals(p.getName()) && strings1[1].equals(p.getSurname())) {
@@ -119,7 +136,7 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 						SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(p);
 						break;
 					}
-				}
+				}*/
 				
 				profToSubDiag.setVisible(true);
 				
@@ -131,9 +148,25 @@ public class ChangeSubjectDialog extends AddSubjectDialog{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!txtProf.getText().isEmpty()){
-					//System.out.println("IMA");
-					
+				if(!txtProf.getText().equals("")){
+					//System.out.println("ima nesto");
+					String[] strings1 = txtProf.getText().split(" ");
+					//System.out.println(txtProf.getText());
+					for(Professor p: DBProfessors.getInstance().getProfesssors()) {
+						if(strings1[0].equals(p.getName()) && strings1[1].equals(p.getSurname())) {
+							int answerp = JOptionPane.showConfirmDialog(parent, MainWindow.getInstance().getResourceBundle().getString("messConfirm"), MainWindow.getInstance().getResourceBundle().getString("rmProf"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+							if(answerp == JOptionPane.YES_OPTION){
+								SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).setprofessor(null);
+								txtProf.setText(" ");
+								plusBtn.setEnabled(true);
+								minuBtn.setEnabled(false);
+							}else{
+								plusBtn.setEnabled(false);
+								minuBtn.setEnabled(true);
+							}
+							break;
+						}
+					}
 				}
 				
 			}

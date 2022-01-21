@@ -34,6 +34,12 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 		watcher = csd;
 	}
 	
+	private DiaButton stateM, stateP;
+	public void stateObs(DiaButton stBtn, DiaButton stBtnP){
+		stateM = stBtn;
+		stateP = stBtnP;
+	}
+	
 	public AddProfessorToSubjectDialog(Frame parent, String title, boolean modal){
 		super(parent, title, modal);
 		
@@ -102,8 +108,11 @@ public class AddProfessorToSubjectDialog extends AddStudentDialog{
 				//txtProf.setText("b");
 				watcher.setText((String) myList.getSelectedValue());
 				//SubjectsCtrl.getInstance().addProfOnSubj(SubjectsTable.getInstance().getSelectedRow(), SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow()).getid(), p);
-				//Subject s = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow());
+				Subject s = SubjectsCtrl.getInstance().getSubjectAtIdx(SubjectsTable.getInstance().getSelectedRow());
+				//System.out.println(s.getprofessor().getName());
 				//DBTeachesSubject.getInstance().addSubject(s.getid(), s.getname(), s.getsemester(), s.getyearOfStudy(), s.getprofessor(), s.getEspb());
+				stateM.setEnabled(true);
+				stateP.setEnabled(false);
 				
 				dispose();
 				
